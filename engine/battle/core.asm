@@ -167,14 +167,6 @@ SlidePlayerAndEnemySilhouettesOnScreen:
 	; when entering battle. Also had to remove "delay" calls above.
 	call EnableLCD
 .slideSilhouettesLoop ; slide silhouettes of the player's pic and the enemy's pic onto the screen
-	ld h, b
-	ld l, $40
-	call SetScrollXForSlidingPlayerBodyLeft ; begin background scrolling on line $40
-	inc b
-	inc b
-	ld h, $0
-	ld l, $60
-	call SetScrollXForSlidingPlayerBodyLeft ; end background scrolling on line $60
 	call SlidePlayerHeadLeft
 	ld a, c
 	ld [hSCX], a
