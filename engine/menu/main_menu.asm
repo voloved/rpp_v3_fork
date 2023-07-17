@@ -127,7 +127,7 @@ MainMenu:
 InitOptions:
 	ld a,1 ; no delay
 	ld [wLetterPrintingDelayFlags],a
-	ld a,1 ; fast speed
+	ld a,0 ; fast speed
 	ld [wOptions],a
 	ret
 
@@ -675,9 +675,9 @@ SetCursorPositionsFromOptions:
 ; 00: X coordinate of menu cursor
 ; 01: delay after printing a letter (in frames)
 TextSpeedOptionData:
-	db 14,5 ; Slow
-	db  7,3 ; Medium
-	db  1,1 ; Fast
+	db 14,3 ; Slow
+	db  7,1 ; Medium
+	db  1,0 ; Fast
 	db 7 ; default X coordinate (Medium)
 	db $ff ; terminator
 

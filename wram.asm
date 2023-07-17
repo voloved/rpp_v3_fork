@@ -2427,9 +2427,9 @@ wOptions:: ; d355
 ; 0: Shift
 ; 1: Set
 ; bits 0-3 = text speed (number of frames to delay after printing a letter)
-; 1: Fast
-; 3: Medium
-; 5: Slow
+; 0: Fast
+; 1: Medium
+; 3: Slow
 	ds 1
 
 wObtainedKantoBadges:: ; d356
