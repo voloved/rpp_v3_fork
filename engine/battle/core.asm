@@ -1537,8 +1537,7 @@ EnemySendOutFirstMon:
 	ld a,[wWhichPokemon]
 	cp [hl]
 	jr nz,.next6
-	ld hl,AlreadyOutText
-	call PrintText
+	jr .next7
 .next8
 	call GoBackToPartyMenu
 	jr .next9
