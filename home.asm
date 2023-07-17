@@ -4911,3 +4911,27 @@ DelayFrameHook:
 	pop de
 	pop bc
 	ret
+
+PrintEnemyMonShiny: ; show shiny symbol beside gender symbol
+	; check if mon is shiny
+	ld de, wEnemyMonDVs
+	call PrintShinyCommon
+	coord hl, 10, 1
+	ld [hl], a
+	ret
+
+PrintPlayerMonShiny: ; show shiny symbol beside gender symbol
+	; check if mon is shiny
+	ld de, wBattleMonDVs
+	call PrintShinyCommon
+	coord hl, 18, 8
+	ld [hl], a
+	ret
+
+PrintShinyCommon: ; used by both routines
+	callba IsMonShiny
+	ld a, "[SHINY]"
+	ret nz
+	; else, it's normal
+	ld a, " "
+	ret

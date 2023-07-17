@@ -2253,7 +2253,12 @@ DisplayBattleMenu:
 	inc hl
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
+	ld [hl], D_RIGHT | A_BUTTON ; wMenuWatchedKeys
+	ld a, [wIsInBattle]
+	dec a
+	jr nz, .leftColumn_WaitForInput_BPressedIgnore
 	ld [hl], D_RIGHT | A_BUTTON | B_BUTTON ; wMenuWatchedKeys
+.leftColumn_WaitForInput_BPressedIgnore
 	call HandleMenuInput
 	bit 4, a ; check if right was pressed
 	jr nz, .rightColumn
@@ -2288,7 +2293,14 @@ DisplayBattleMenu:
 	inc hl
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
-	ld a, D_LEFT | A_BUTTON | B_BUTTON
+	ld a, [wIsInBattle]
+	dec a
+	jr nz, .rightColumn_WaitForInput_BPressedIgnore
+	ld a, D_LEFT | A_BUTTON | B_BUTTON ; wMenuWatchedKeys
+	jr .rightColumn_WaitForInput_Cont
+.rightColumn_WaitForInput_BPressedIgnore
+	ld a, D_LEFT | A_BUTTON
+.rightColumn_WaitForInput_Cont
 	ld [hli], a ; wMenuWatchedKeys
 	call HandleMenuInput
 	bit 5, a ; check if left was pressed
@@ -9264,30 +9276,6 @@ PrintGenderCommon: ; used by both routines
 	ld a, "♂"
 	ret
 .noGender
-	ld a, " "
-	ret
-
-PrintEnemyMonShiny: ; show shiny symbol beside gender symbol
-	; check if mon is shiny
-	ld de, wEnemyMonDVs
-	call PrintShinyCommon
-	coord hl, 10, 1
-	ld [hl], a
-	ret
-
-PrintPlayerMonShiny: ; show shiny symbol beside gender symbol
-	; check if mon is shiny
-	ld de, wBattleMonDVs
-	call PrintShinyCommon
-	coord hl, 18, 8
-	ld [hl], a
-	ret
-
-PrintShinyCommon: ; used by both routines
-	callba IsMonShiny
-	ld a, "[SHINY]"
-	ret nz
-	; else, it's normal
 	ld a, " "
 	ret
 
