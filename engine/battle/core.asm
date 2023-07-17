@@ -2293,14 +2293,12 @@ DisplayBattleMenu:
 	inc hl
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
-	ld a, [wIsInBattle]
-	dec a
-	jr nz, .rightColumn_WaitForInput_BPressedIgnore
-	ld a, D_LEFT | A_BUTTON | B_BUTTON ; wMenuWatchedKeys
-	jr .rightColumn_WaitForInput_Cont
+    ld a, [wIsInBattle]
+    dec a
+    ld a, D_LEFT | A_BUTTON
+    jr nz, .rightColumn_WaitForInput_BPressedIgnore
+    ld a, D_LEFT | A_BUTTON | B_BUTTON
 .rightColumn_WaitForInput_BPressedIgnore
-	ld a, D_LEFT | A_BUTTON
-.rightColumn_WaitForInput_Cont
 	ld [hli], a ; wMenuWatchedKeys
 	call HandleMenuInput
 	bit 5, a ; check if left was pressed
