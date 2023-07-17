@@ -21,10 +21,10 @@ ELSE ; Normal Rom
 	db $0A
 	db 8,GEODUDE
 	db 7,ZUBAT
-	db 9,ZUBAT
+	db 9,RHYHORN
 	db 8,GEODUDE
 	db 6,SANDSHREW
-	db 10,SANDSHREW
+	db 10,MAGBY
 	db 10,GEODUDE
 	db 8,PARAS
 	db 11,PARAS

@@ -20,7 +20,7 @@ ELSE ; Normal Rom
 ; Grass Mons
 	db $0F
 	db 16,ZUBAT
-	db 17,ZUBAT
+	db 17,SLUGMA
 	db 17,GEODUDE
 	db 15,MACHOP
 	db 16,GEODUDE

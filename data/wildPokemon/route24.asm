@@ -29,7 +29,7 @@ IF DEF(_HARD) ; Difficult Rom
 ELSE ; Normal Rom
 ; Grass Mons
 	db $19
-	db 12,ODDISH
+	db 12,ABRA
 	db 12,BELLSPROUT
 	db 13,PIDGEY
 	db 14,ODDISH

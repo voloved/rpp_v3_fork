@@ -19,11 +19,11 @@ IF DEF(_HARD) ; Difficult Rom
 ELSE ; Normal Rom
 ; Grass Mons
 	db $0A
-	db 8,ZUBAT
 	db 7,SANDSHREW
 	db 7,GEODUDE
+	db 8,CROBAT
 	db 8,GEODUDE
-	db 9,GEODUDE
+	db 9,RHYHORN
 	db 10,PARAS
 	db 10,PARAS
 	db 11,ONIX
