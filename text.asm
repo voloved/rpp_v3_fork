@@ -2459,8 +2459,8 @@ _WhichMoveToForgetText::
 	next "be forgotten?"
 	done
 
-_AbandonLearningText::
-	text "Abandon learning"
+_ContinueLearningText::
+	text "Continue learning"
 	line "@"
 	TX_RAM wcf4b
 	text "?"

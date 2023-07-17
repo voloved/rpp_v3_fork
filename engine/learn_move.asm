@@ -74,7 +74,7 @@ DontAbandonLearning:
 	jp PrintLearnedMove
 
 AbandonLearning:
-	ld hl, AbandonLearningText
+	ld hl, ContinueLearningText
 	call PrintText
 	coord hl, 14, 7
 	lb bc, 8, 15
@@ -83,7 +83,7 @@ AbandonLearning:
 	call DisplayTextBoxID ; yes/no menu
 	ld a, [wCurrentMenuItem]
 	and a
-	jp nz, DontAbandonLearning
+	jp z, DontAbandonLearning
 	ld hl, DidNotLearnText
 	call PrintText
 	ld b, 0
@@ -193,8 +193,8 @@ WhichMoveToForgetText:
 	TX_FAR _WhichMoveToForgetText
 	db "@"
 
-AbandonLearningText:
-	TX_FAR _AbandonLearningText
+ContinueLearningText:
+	TX_FAR _ContinueLearningText
 	db "@"
 
 DidNotLearnText:
