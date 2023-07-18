@@ -2348,12 +2348,16 @@ TalkToTrainer::
 	ld a, c
 	and a
 	jr z, .trainerNotYetFought     ; test trainer's flag
+	ld a, [hJoyHeld]
+	bit 1, a ; B button pressed?
+	jr z, .trainerFought
 	ld hl, TrainerRebattleText
 	call PrintText
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jp z, .trainerNotYetFought
+.trainerFought
 	ld a, $6
 	call ReadTrainerHeaderInfo     ; print after battle text
 	jp PrintText
