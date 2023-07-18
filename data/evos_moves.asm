@@ -3264,6 +3264,13 @@ Mon133_EvosEnd:
 Mon134_EvosMoves:
 ;VAPOREON
 ;Evolutions
+	db EV_ITEM,FIRE_STONE,1,FLAREON
+	db EV_ITEM,THUNDER_STONE,1,JOLTEON
+	db EV_ITEM,MOON_STONE,1,UMBREON
+	db EV_ITEM,SUN_STONE,1,ESPEON
+	db EV_ITEM,LEAF_STONE,1,LEAFEON
+	db EV_MAP,SEAFOAM_ISLANDS_5,GLACEON ; The floor with Articuno
+	db EV_MAP,MT_MOON_SQUARE,SYLVEON ; Because that's where the meteor landed
 	db 0
 ;Learnset
 	db 1,WATER_GUN ; evolution move
@@ -3286,6 +3293,13 @@ Mon134_EvosMoves:
 Mon135_EvosMoves:
 ;JOLTEON
 ;Evolutions
+	db EV_ITEM,FIRE_STONE,1,FLAREON
+	db EV_ITEM,WATER_STONE,1,VAPOREON
+	db EV_ITEM,MOON_STONE,1,UMBREON
+	db EV_ITEM,SUN_STONE,1,ESPEON
+	db EV_ITEM,LEAF_STONE,1,LEAFEON
+	db EV_MAP,SEAFOAM_ISLANDS_5,GLACEON ; The floor with Articuno
+	db EV_MAP,MT_MOON_SQUARE,SYLVEON ; Because that's where the meteor landed
 	db 0
 ;Learnset
 	db 1,THUNDERSHOCK ; evolution move
@@ -3308,6 +3322,13 @@ Mon135_EvosMoves:
 Mon136_EvosMoves:
 ;FLAREON
 ;Evolutions
+	db EV_ITEM,THUNDER_STONE,1,JOLTEON
+	db EV_ITEM,WATER_STONE,1,VAPOREON
+	db EV_ITEM,MOON_STONE,1,UMBREON
+	db EV_ITEM,SUN_STONE,1,ESPEON
+	db EV_ITEM,LEAF_STONE,1,LEAFEON
+	db EV_MAP,SEAFOAM_ISLANDS_5,GLACEON ; The floor with Articuno
+	db EV_MAP,MT_MOON_SQUARE,SYLVEON ; Because that's where the meteor landed
 	db 0
 ;Learnset
 	db 1,EMBER ; evolution move
@@ -3808,6 +3829,13 @@ Mon157_EvosMoves:
 Mon158_EvosMoves:
 ;ESPEON
 ;Evolutions
+	db EV_ITEM,FIRE_STONE,1,FLAREON
+	db EV_ITEM,THUNDER_STONE,1,JOLTEON
+	db EV_ITEM,WATER_STONE,1,VAPOREON
+	db EV_ITEM,MOON_STONE,1,UMBREON
+	db EV_ITEM,LEAF_STONE,1,LEAFEON
+	db EV_MAP,SEAFOAM_ISLANDS_5,GLACEON ; The floor with Articuno
+	db EV_MAP,MT_MOON_SQUARE,SYLVEON ; Because that's where the meteor landed
 	db 0
 ;Learnset
 	db 1,CONFUSION ; evolution move
@@ -3830,6 +3858,13 @@ Mon158_EvosMoves:
 Mon159_EvosMoves:
 ;UMBREON
 ;Evolutions
+	db EV_ITEM,FIRE_STONE,1,FLAREON
+	db EV_ITEM,THUNDER_STONE,1,JOLTEON
+	db EV_ITEM,WATER_STONE,1,VAPOREON
+	db EV_ITEM,SUN_STONE,1,ESPEON
+	db EV_ITEM,LEAF_STONE,1,LEAFEON
+	db EV_MAP,SEAFOAM_ISLANDS_5,GLACEON ; The floor with Articuno
+	db EV_MAP,MT_MOON_SQUARE,SYLVEON ; Because that's where the meteor landed
 	db 0
 ;Learnset
 	db 1,BITE ; evolution move
@@ -3852,6 +3887,13 @@ Mon159_EvosMoves:
 Mon160_EvosMoves:
 ;GLACEON
 ;Evolutions
+	db EV_ITEM,FIRE_STONE,1,FLAREON
+	db EV_ITEM,THUNDER_STONE,1,JOLTEON
+	db EV_ITEM,WATER_STONE,1,VAPOREON
+	db EV_ITEM,MOON_STONE,1,UMBREON
+	db EV_ITEM,SUN_STONE,1,ESPEON
+	db EV_ITEM,LEAF_STONE,1,LEAFEON
+	db EV_MAP,MT_MOON_SQUARE,SYLVEON ; Because that's where the meteor landed
 	db 0
 ;Learnset
 	db 1,ICY_WIND ; evolution move
@@ -3874,6 +3916,13 @@ Mon160_EvosMoves:
 Mon161_EvosMoves:
 ;LEAFEON
 ;Evolutions
+	db EV_ITEM,FIRE_STONE,1,FLAREON
+	db EV_ITEM,THUNDER_STONE,1,JOLTEON
+	db EV_ITEM,WATER_STONE,1,VAPOREON
+	db EV_ITEM,MOON_STONE,1,UMBREON
+	db EV_ITEM,SUN_STONE,1,ESPEON
+	db EV_MAP,SEAFOAM_ISLANDS_5,GLACEON ; The floor with Articuno
+	db EV_MAP,MT_MOON_SQUARE,SYLVEON ; Because that's where the meteor landed
 	db 0
 ;Learnset
 	db 1,RAZOR_LEAF ; evolution move
@@ -3896,6 +3945,13 @@ Mon161_EvosMoves:
 Mon162_EvosMoves:
 ;SYLVEON
 ;Evolutions
+	db EV_ITEM,FIRE_STONE,1,FLAREON
+	db EV_ITEM,THUNDER_STONE,1,JOLTEON
+	db EV_ITEM,WATER_STONE,1,VAPOREON
+	db EV_ITEM,MOON_STONE,1,UMBREON
+	db EV_ITEM,SUN_STONE,1,ESPEON
+	db EV_ITEM,LEAF_STONE,1,LEAFEON
+	db EV_MAP,SEAFOAM_ISLANDS_5,GLACEON ; The floor with Articuno
 	db 0
 ;Learnset	
 	db 1,DISARM_VOICE ; evolution move
