@@ -580,6 +580,6 @@ MapHS70:
 	db SOUTHERN_ISLAND_INSIDE,$02,Show
 MapHSEE:
 	db NAVEL_ROCK_LUGIA_ROOM,$01,Show
-;	db NAVEL_ROCK_LUGIA_ROOM,$02,Show
+	db ROUTE_1, $02, Hide ; PROF OAK fight. To test, change to SHOW. - PvK
 ; End of list thing
 	db $FF,$01,Show

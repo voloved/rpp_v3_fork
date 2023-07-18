@@ -2963,7 +2963,7 @@ wRoute5GateCurScript:: ; d662
 wPowerPlantCurScript:: ; d663
 	ds 1
 wRoute7GateCurScript:: ; d664
-	ds 1
+wRoute1CurScript::
 wSSAnne2CurScript:: ; d665
 	ds 1
 wSeafoamIslands4CurScript:: ; d666
