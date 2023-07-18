@@ -2348,6 +2348,12 @@ TalkToTrainer::
 	ld a, c
 	and a
 	jr z, .trainerNotYetFought     ; test trainer's flag
+	ld hl, TrainerRebattleText
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jp z, .trainerNotYetFought
 	ld a, $6
 	call ReadTrainerHeaderInfo     ; print after battle text
 	jp PrintText
@@ -2372,6 +2378,10 @@ TalkToTrainer::
 	ld hl, wCurMapScript
 	inc [hl]      ; increment map script index before StartTrainerBattle increments it again (next script function is usually EndTrainerBattle)
 	jp StartTrainerBattle
+
+TrainerRebattleText::
+	TX_FAR _TrainerRebattleText
+	db "@"
 
 ; checks if any trainers are seeing the player and wanting to fight
 CheckFightingMapTrainers::

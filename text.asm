@@ -2364,6 +2364,12 @@ INCLUDE "text/maps/SilphCo1F.asm"
 INCLUDE "text/maps/SaffronPokecenter.asm"
 INCLUDE "text/maps/SaffronHouse2.asm"
 
+
+_TrainerRebattleText::
+	text "Would you like to"
+	next "rebattle me?"
+	done
+
 _PokemartGreetingText::
 	text "Hi there!"
 	next "May I help you?"
