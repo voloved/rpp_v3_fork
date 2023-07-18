@@ -1992,7 +1992,7 @@ DrawPlayerHUDAndHPBar:
 	call CenterMonName
 	call PlaceString
 	call PrintPlayerMonGender
-	call PrintPlayerMonShiny
+	farcall PrintPlayerMonShiny
 	coord de, 17, 11
 	callab PrintEXPBar
 	ld hl, wBattleMonSpecies
@@ -2055,7 +2055,7 @@ DrawEnemyHUDAndHPBar:
 	call CenterMonName
 	call PlaceString
 	call PrintEnemyMonGender
-	call PrintEnemyMonShiny
+	farcall PrintEnemyMonShiny
 	coord hl, 6, 1
 	push hl
 	inc hl
