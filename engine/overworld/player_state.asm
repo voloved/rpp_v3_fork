@@ -266,7 +266,7 @@ PrintSafariZoneSteps:
 	jp PrintNumber
 
 SafariSteps:
-	db "/500@"
+	db "/750@"
 
 SafariBallText:
 	db "Ball×× @"

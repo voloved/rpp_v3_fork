@@ -197,7 +197,7 @@ SafariZoneEntranceTextPointers:
 	ld hl, .MakePaymentText
 	call PrintText
 	ld a, 30
-	ld hl, 502
+	ld hl, 752
 .PoorMansDiscount
 	ld [wNumSafariBalls], a
 	ld a, h
@@ -343,7 +343,7 @@ SafariZoneEntranceCalculateLowCostAdmission:
 .max_balls
 	ld a, 29
 .load_balls
-	ld hl, 502
+	ld hl, 752
 	and a
 	ret
 
@@ -379,7 +379,7 @@ SafariZoneEntranceGetLowCostAdmissionText:
 	ld hl, SafariZoneEntranceText_f20f6
 	call PrintText_NoCreatingTextBox
 	ld a, $1
-	ld hl, 502
+	ld hl, 752
 	and a
 	ret
 

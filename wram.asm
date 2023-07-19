@@ -3109,7 +3109,7 @@ wKantoTownVisitedFlag:: ; d70b
 ;	ds 2
 
 wSafariSteps:: ; d70d
-; starts at 502
+; starts at 752
 	ds 2
 
 wFossilItem:: ; d70f
