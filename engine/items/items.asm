@@ -1800,25 +1800,6 @@ ItemUsePokeVial:
 	ld a,[wIsInBattle]
 	and a
 	jp nz,ItemUseNotTime
-	jr .isPokeVialAllowed
-.allowed
-	ld a, [wPokeVialUses]
-	cp 6 ; PokeVial usages Can be a number 9 or less
-	jr nc, .outOfUsages
-	inc a
-	ld [wPokeVialUses], a
-	predef HealParty
-	ld a, SFX_HEAL_HP
-	call PlaySound
-	call GetPokeVialUsagesLeft
-	ld hl,UsedPokeVialToHealText
-	call PrintText
-	ret
-.outOfUsages
-	ld hl,PokeVialNoMoreUsagesText
-	call PrintText
-	ret
-.isPokeVialAllowed:
 	; Not allowed to use in the Gyms of Elite Four
 	ld a,[wCurMap]
 	cp LORELEIS_ROOM
@@ -1851,7 +1832,22 @@ ItemUsePokeVial:
 	jp z, ItemUseNotTime
 	cp FIGHTING_DOJO
 	jp z, ItemUseNotTime
-	jr .allowed
+	ld a, [wPokeVialUses]
+	cp 6 ; PokeVial usages Can be a number 9 or less
+	jr nc, .outOfUsages
+	inc a
+	ld [wPokeVialUses], a
+	predef HealParty
+	ld a, SFX_HEAL_HP
+	call PlaySound
+	call GetPokeVialUsagesLeft
+	ld hl,UsedPokeVialToHealText
+	call PrintText
+	ret
+.outOfUsages
+	ld hl,PokeVialNoMoreUsagesText
+	call PrintText
+	ret
 
 GetPokeVialUsagesLeft:
 	;Copies the string of value (6 - [wPokeVialUses]) to wcd6d
