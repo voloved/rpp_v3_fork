@@ -1995,7 +1995,7 @@ DrawPlayerHUDAndHPBar:
 	coord hl, 10, 7
 	call CenterMonName
 	call PlaceString
-	call PrintPlayerMonGender
+	callab PrintPlayerMonGender
 	callab PrintPlayerMonShiny
 	coord de, 17, 11
 	callab PrintEXPBar
@@ -2058,7 +2058,7 @@ DrawEnemyHUDAndHPBar:
 	coord hl, 1, 0
 	call CenterMonName
 	call PlaceString
-	call PrintEnemyMonGender
+	callab PrintEnemyMonGender
 	callab PrintEnemyMonShiny
 	coord hl, 6, 1
 	push hl
@@ -2256,12 +2256,15 @@ DisplayBattleMenu:
 	inc hl
 	ld a, $1
 	ld [hli], a ; wMaxMenuItem
-	ld [hl], D_RIGHT | A_BUTTON ; wMenuWatchedKeys
+	ld [hl], D_RIGHT | A_BUTTON | B_BUTTON; wMenuWatchedKeys
 	ld a, [wIsInBattle]
 	dec a
-	jr nz, .leftColumn_WaitForInput_BPressedIgnore
-	ld [hl], D_RIGHT | A_BUTTON | B_BUTTON ; wMenuWatchedKeys
-.leftColumn_WaitForInput_BPressedIgnore
+	jr z, .leftColumn_WaitForInput_BPressedDontIgnore
+	ld a, [wd72d]
+	bit 7, a
+	jr nz, .leftColumn_WaitForInput_BPressedDontIgnore
+	ld [hl], D_RIGHT | A_BUTTON ; wMenuWatchedKeys
+.leftColumn_WaitForInput_BPressedDontIgnore
 	call HandleMenuInput
 	bit 4, a ; check if right was pressed
 	jr nz, .rightColumn
@@ -2298,10 +2301,15 @@ DisplayBattleMenu:
 	ld [hli], a ; wMaxMenuItem
     ld a, [wIsInBattle]
     dec a
+	jr z, .rightColumn_WaitForInput_BPressedDontIgnore
+	ld a, [wd72d]
+	bit 7, a
+    jr nz, .rightColumn_WaitForInput_BPressedDontIgnore
     ld a, D_LEFT | A_BUTTON
-    jr nz, .rightColumn_WaitForInput_BPressedIgnore
-    ld a, D_LEFT | A_BUTTON | B_BUTTON
-.rightColumn_WaitForInput_BPressedIgnore
+	jr .rightColumn_WaitForInput_Cont
+.rightColumn_WaitForInput_BPressedDontIgnore
+	ld a, D_LEFT | A_BUTTON | B_BUTTON
+.rightColumn_WaitForInput_Cont
 	ld [hli], a ; wMenuWatchedKeys
 	call HandleMenuInput
 	bit 5, a ; check if left was pressed
@@ -9244,6 +9252,37 @@ PhysicalSpecialSplit:
 	ld a, [wTempMoveID]
 	ret
 
+LoadBackSpriteUnzoomed: ; HAX
+	ld a,$66
+	ld de,vBackPic
+	ld c,a
+	jp LoadUncompressedSpriteData
+
+SECTION "Battle Core - Shiny_Gender", ROMX
+PrintEnemyMonShiny: ; show shiny symbol beside gender symbol
+	; check if mon is shiny
+	ld de, wEnemyMonDVs
+	call PrintShinyCommon
+	coord hl, 10, 1
+	ld [hl], a
+	ret
+
+PrintPlayerMonShiny: ; show shiny symbol beside gender symbol
+	; check if mon is shiny
+	ld de, wBattleMonDVs
+	call PrintShinyCommon
+	coord hl, 18, 8
+	ld [hl], a
+	ret
+
+PrintShinyCommon: ; used by both routines
+	callba IsMonShiny
+	ld a, "[SHINY]"
+	ret nz
+	; else, it's normal
+	ld a, " "
+	ret
+
 PrintEnemyMonGender: ; called during battle
 	; get gender
 	ld a, [wEnemyMonSpecies]
@@ -9277,36 +9316,5 @@ PrintGenderCommon: ; used by both routines
 	ld a, "♂"
 	ret
 .noGender
-	ld a, " "
-	ret
-
-LoadBackSpriteUnzoomed: ; HAX
-	ld a,$66
-	ld de,vBackPic
-	ld c,a
-	jp LoadUncompressedSpriteData
-
-SECTION "Battle Core - Shiny", ROMX
-PrintEnemyMonShiny: ; show shiny symbol beside gender symbol
-	; check if mon is shiny
-	ld de, wEnemyMonDVs
-	call PrintShinyCommon
-	coord hl, 10, 1
-	ld [hl], a
-	ret
-
-PrintPlayerMonShiny: ; show shiny symbol beside gender symbol
-	; check if mon is shiny
-	ld de, wBattleMonDVs
-	call PrintShinyCommon
-	coord hl, 18, 8
-	ld [hl], a
-	ret
-
-PrintShinyCommon: ; used by both routines
-	callba IsMonShiny
-	ld a, "[SHINY]"
-	ret nz
-	; else, it's normal
 	ld a, " "
 	ret
