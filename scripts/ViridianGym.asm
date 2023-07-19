@@ -283,7 +283,6 @@ ViridianGymText1:
 	call PrintText
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, ViridianGymText_74ad3
 	ld de, ViridianGymText_74ad3
 	call SaveEndBattleTextPointers

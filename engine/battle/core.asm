@@ -1657,6 +1657,7 @@ TryRunningFromBattle:
 	ld a, [wIsInBattle]
 	dec a
 	jr nz, .trainerBattle ; jump if it's a trainer battle
+.runningFromRebattlingTrainer
 	ld a, [wNumRunAttempts]
 	inc a
 	ld [wNumRunAttempts], a
@@ -1725,6 +1726,9 @@ TryRunningFromBattle:
 	ld hl, CantEscapeText
 	jr .printCantEscapeOrNoRunningText
 .trainerBattle
+	ld hl, wd72d
+	bit 7, [hl]
+	jr nz, .runningFromRebattlingTrainer
 	ld hl, NoRunningText
 .printCantEscapeOrNoRunningText
 	call PrintText

@@ -114,7 +114,6 @@ PewterGymText1:
 	call PrintText
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, PewterGymText_5c4bc
 	ld de, PewterGymText_5c4bc
 	call SaveEndBattleTextPointers

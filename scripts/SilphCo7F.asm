@@ -179,7 +179,6 @@ SilphCo7Script3:
 	call Delay3
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, SilphCo7Text14
 	ld de, SilphCo7Text_51ecd
 	call SaveEndBattleTextPointers

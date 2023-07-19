@@ -407,7 +407,6 @@ OaksLabScript11:
 	call SaveEndBattleTextPointers
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	xor a
 	ld [wJoyIgnore], a
 	ld a, PLAYER_DIR_UP

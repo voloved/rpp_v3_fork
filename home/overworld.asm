@@ -359,6 +359,7 @@ OverworldLoopLessDelay::
 .battleOccurred
 	ld hl,wd72d
 	res 6,[hl]
+	res 7,[hl]
 	ld hl,wFlags_D733
 	res 3,[hl]
 	ld hl,wCurrentMapScriptFlags

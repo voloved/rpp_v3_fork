@@ -115,7 +115,6 @@ CeruleanGymText1:
 	call PrintText
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, CeruleanGymText_5c7d8
 	ld de, CeruleanGymText_5c7d8
 	call SaveEndBattleTextPointers

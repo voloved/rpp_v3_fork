@@ -121,7 +121,6 @@ RocketHideout4Text1:
 	call PrintText
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, RocketHideout4Text_4557f
 	ld de, RocketHideout4Text_4557f
 	call SaveEndBattleTextPointers

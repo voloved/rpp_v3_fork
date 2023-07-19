@@ -2356,11 +2356,14 @@ TalkToTrainer::
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
-	jp z, .trainerNotYetFought
+	jp z, .trainerRebattle
 .trainerFought
 	ld a, $6
 	call ReadTrainerHeaderInfo     ; print after battle text
 	jp PrintText
+.trainerRebattle
+	ld hl, wd72d
+	set 7, [hl]
 .trainerNotYetFought
 	ld a, $4
 	call ReadTrainerHeaderInfo     ; print before battle text
@@ -2432,7 +2435,6 @@ StartTrainerBattle::
 	call InitBattleEnemyParameters
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, wd72e
 	set 1, [hl]
 	ld hl, wCurMapScript
@@ -2620,11 +2622,8 @@ EngageMapTrainer::
 	jp PlayTrainerMusic
 
 PrintEndBattleText::
-	push hl
-	ld hl, wd72d
-	bit 7, [hl]
-	res 7, [hl]
-	pop hl
+	ld a, [wIsTrainerBattle]
+	and a
 	ret z
 	ld a, [H_LOADEDROMBANK]
 	push af

@@ -189,7 +189,6 @@ CinnabarGymScript_758b7:
 	call InitBattleEnemyParameters
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld a, [wSpriteIndex]
 	cp $1
 	jr z, .asm_758d4

@@ -162,7 +162,6 @@ Route24Text1:
 	call PrintText
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, Route24Text_5152b
 	ld de, Route24Text_5152b
 	call SaveEndBattleTextPointers

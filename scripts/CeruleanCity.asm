@@ -130,7 +130,6 @@ CeruleanCityScript1:
 	call DisplayTextID
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, CeruleanCityText_1966d
 	ld de, CeruleanCityText_19672
 	call SaveEndBattleTextPointers
@@ -289,7 +288,6 @@ CeruleanCityText2:
 	call PrintText
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, CeruleanCityText_196ee
 	ld de, CeruleanCityText_196ee
 	call SaveEndBattleTextPointers

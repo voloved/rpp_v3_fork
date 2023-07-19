@@ -259,7 +259,6 @@ SilphCo11Script3:
 SilphCo11Script4:
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, SilphCo10Text_62330
 	ld de, SilphCo10Text_62330
 	call SaveEndBattleTextPointers

@@ -197,7 +197,6 @@ SSAnne2Text2:
 	call PrintText
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, SSAnneRivalDefeatedText
 	ld de, SSAnneRivalWonText
 	call SaveEndBattleTextPointers

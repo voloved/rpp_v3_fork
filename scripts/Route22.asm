@@ -129,7 +129,6 @@ Route22Script1:
 	call DisplayTextID
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, Route22RivalDefeatedText1
 	ld de, Route22Text_511bc
 	call SaveEndBattleTextPointers
@@ -287,7 +286,6 @@ Route22Script4:
 	call DisplayTextID
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, Route22RivalDefeatedText2
 	ld de, Route22Text_511d0
 	call SaveEndBattleTextPointers

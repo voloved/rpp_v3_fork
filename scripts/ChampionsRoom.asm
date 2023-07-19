@@ -58,7 +58,6 @@ GaryScript2:
 	call Delay3
 	ld hl, wd72d
 	set 6, [hl]
-	set 7, [hl]
 	ld hl, GaryDefeatedText
 	ld de, GaryVictoryText
 	call SaveEndBattleTextPointers
