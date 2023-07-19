@@ -18,6 +18,7 @@ DisplayPokemonCenterDialogue_:
 	predef HealParty
 	callba AnimateHealingMachine ; do the healing machine animation
 	xor a
+	ld [wPokeVialUses], a
 	ld [wAudioFadeOutControl], a
 	ld a, [wAudioSavedROMBank]
 	ld [wAudioROMBank], a

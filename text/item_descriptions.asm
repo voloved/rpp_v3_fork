@@ -398,6 +398,8 @@ _LemonadeDescription::
 _SSTicketDescription::
 	text "A ticket to board"
 	line "the S.S. Anne."
+	cont "It can also heal"
+	cont "your party."
 	prompt
 
 _GoldTeethDescription::

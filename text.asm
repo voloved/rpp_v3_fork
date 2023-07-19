@@ -2803,6 +2803,22 @@ _ThrewRockText::
 	line "Rock."
 	done
 
+_UsedPokeVialToHealText::
+	text "[PLAYER]'s party"
+	line "has been healed."
+	cont "Heals left before"
+	cont "revisiting a"
+	cont "#Center: @"
+	TX_RAM wcd6d
+	text "."
+	prompt
+
+_PokeVialNoMoreUsagesText::
+	text "Out of usages."
+	line "Replenish at"
+	cont "a #Center."
+	prompt
+
 _PlayedFluteNoEffectText::
 	text "Played the #"
 	line "Flute."

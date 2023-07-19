@@ -78,7 +78,7 @@ ItemUsePtrTable:
 	dw ItemUseMedicine   ; FRESH_WATER
 	dw ItemUseMedicine   ; SODA_POP
 	dw ItemUseMedicine   ; LEMONADE
-	dw UnusableItem      ; S_S_TICKET
+	dw ItemUsePokeVial   ; S_S_TICKET
 	dw UnusableItem      ; GOLD_TEETH
 	dw ItemUseXStat      ; X_ATTACK
 	dw ItemUseXStat      ; X_DEFEND
@@ -1794,6 +1794,89 @@ ItemUseXStat:
 	pop af
 	ld [hl],a ; restore [wPlayerMoveNum]
 	ret
+
+ItemUsePokeVial:
+	ld a,[wIsInBattle]
+	and a
+	jp nz,ItemUseNotTime
+	jr .isPokeVialAllowed
+.allowed
+	ld a, [wPokeVialUses]
+	cp 6 ; PokeVial usages Can be a number 9 or less
+	jr nc, .outOfUsages
+	inc a
+	ld [wPokeVialUses], a
+	predef HealParty
+	ld a, SFX_HEAL_HP
+	call PlaySound
+	call GetPokeVialUsagesLeft
+	ld hl,UsedPokeVialToHealText
+	call PrintText
+	ret
+.outOfUsages
+	ld hl,PokeVialNoMoreUsagesText
+	call PrintText
+	ret
+.isPokeVialAllowed:
+	; Not allowed to use in the Gyms of Elite Four
+	ld a,[wCurMap]
+	cp LORELEIS_ROOM
+	jp z, ItemUseNotTime
+	cp BRUNOS_ROOM
+	jp z, ItemUseNotTime
+	cp AGATHAS_ROOM
+	jp z, ItemUseNotTime
+	cp LANCES_ROOM
+	jp z, ItemUseNotTime
+	cp CHAMPIONS_ROOM
+	jp z, ItemUseNotTime
+	cp HALL_OF_FAME
+	jp z, ItemUseNotTime
+	cp VIRIDIAN_GYM
+	jp z, ItemUseNotTime
+	cp PEWTER_GYM
+	jp z, ItemUseNotTime
+	cp CERULEAN_GYM
+	jp z, ItemUseNotTime
+	cp VERMILION_GYM
+	jp z, ItemUseNotTime
+	cp CELADON_GYM
+	jp z, ItemUseNotTime
+	cp FUCHSIA_GYM
+	jp z, ItemUseNotTime
+	cp CINNABAR_GYM
+	jp z, ItemUseNotTime
+	cp SAFFRON_GYM
+	jp z, ItemUseNotTime
+	cp FIGHTING_DOJO
+	jp z, ItemUseNotTime
+	jr .allowed
+
+GetPokeVialUsagesLeft:
+	;Copies the string of value (6 - [wPokeVialUses]) to wcd6d
+	push de
+	push bc
+	ld de,wcd6d
+	ld a, [wPokeVialUses]
+	ld b, a
+	ld a, 6 ; Modify this number if the PokeVial usages are changed
+	sub a, b
+	add $F6
+	ld [de],a
+	inc de
+	ld a,"@"
+	ld [de],a
+	pop bc
+	pop de
+	ret
+
+UsedPokeVialToHealText:
+	TX_FAR _UsedPokeVialToHealText
+	db "@"
+
+PokeVialNoMoreUsagesText:
+	TX_FAR _PokeVialNoMoreUsagesText
+	db "@"
 
 ItemUsePokeflute:
 	ld a,[wIsInBattle]

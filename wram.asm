@@ -3135,7 +3135,7 @@ wPlayerJumpingYScreenCoordsIndex:: ; d714
 wRivalStarter:: ; d715
 	ds 1
 
-; unused?
+wPokeVialUses:: ; d716
 	ds 1
 
 wPlayerStarter:: ; d717
