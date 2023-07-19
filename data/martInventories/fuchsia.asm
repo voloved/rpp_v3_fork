@@ -3,6 +3,7 @@ FuchsiaCashierText::
 	db 6
 	db ULTRA_BALL
 	db GREAT_BALL
+	db THIEF_BALL
 	db SUPER_POTION
 	db REVIVE
 	db FULL_HEAL

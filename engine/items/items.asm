@@ -368,9 +368,10 @@ BallAnyway:
 	call Multiply
 
 ; Determine BallFactor2.
-; Poké Ball:         BallFactor2 = 255
-; Great Ball:        BallFactor2 = 200
-; Ultra/Safari Ball: BallFactor2 = 150
+; Poké Ball:                     BallFactor2 = 255
+; Great Ball:                    BallFactor2 = 200
+; Ultra/Safari Ball/ Thief Ball: BallFactor2 = 150
+; Thief Ball:        BallFactor2 = 100
 	ld a,[wcf91]
 	ld b,255
 	cp a,POKE_BALL
