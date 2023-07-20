@@ -3239,3 +3239,253 @@ CheckMapForMon:
 	jr nz, .loop
 	dec hl
 	ret
+
+SECTION "TM Type Lookup Table", ROMX
+;Trying to fix up TM/HMs to be less awful. Who knew simply moving the entire func would make it work better?
+
+ElectricPrefix::
+	db "ELE"
+WaterPrefix::
+	db "WTR"
+FirePrefix::
+	db "FIR"
+PsychicPrefix::
+	db "PSY"
+DarkPrefix::
+	db "DRK"
+NormalPrefix::
+	db "NRM"
+DragonPrefix::
+	db "DRG"
+GhostPrefix::
+	db "GHO"
+GrassPrefix::
+	db "GRS"
+FairyPrefix::
+	db "FRY"
+GroundPrefix::
+	db "GND"
+IcePrefix::
+	db "ICE"
+BugPrefix::
+	db "BUG"
+RockPrefix::
+	db "RCK"
+PoisonPrefix::
+	db "PSN"
+FlyingPrefix::
+	db "FLY"
+
+TechnicalPrefix::
+	db "TM"
+HiddenPrefix::
+	db "HM"
+
+WriteTMPrefix::
+	push hl
+	push de
+	push bc
+	ld a, [wd11e]
+	push af
+	cp TM_01 ; is this a TM? [not HM]
+	jp nc, .WriteTM
+; if HM, then write "HM" and add 5 to the item ID, so we can reuse the
+; TM printing code
+	add 5
+	ld [wd11e], a
+	ld hl, HiddenPrefix ; points to "HM"
+	ld bc, 2
+	jp .MNum;.WriteMachinePrefix
+.WriteGrass
+	ld hl, GrassPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteFairy
+	ld hl, FairyPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteRock
+	ld hl, RockPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WritePoison
+	ld hl, PoisonPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteBug
+	ld hl, BugPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteFlying
+	ld hl, FlyingPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteIce
+	ld hl, IcePrefix
+	jp .MNum
+.WriteGhost
+	ld hl, GhostPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteDragon
+	ld hl, DragonPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteNormal
+	ld hl, NormalPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteGround
+	ld hl, GroundPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WriteDark
+	ld hl, DarkPrefix
+	ld bc, 3
+	jp .MNum;.WriteMachinePrefix
+.WritePsychic
+	ld hl, PsychicPrefix
+	ld bc, 3
+	jr .MNum;.WriteMachinePrefix
+.WriteWater
+ 	ld hl, WaterPrefix
+	ld bc, 3
+	jr .MNum;.WriteMachinePrefix
+.WriteFire
+ 	ld hl, FirePrefix
+	ld bc, 3
+	jr .MNum;.WriteMachinePrefix
+.WriteElectric
+	ld hl, ElectricPrefix
+	ld bc, 3
+	jr .MNum;.WriteMachinePrefix
+.WriteTM
+	sub HM_01
+	ld c, a
+	ld b, 0
+	ld hl, TMShorthandList
+	add hl,bc
+	ld a, [hl]
+	ld b, a
+	cp FAIRY
+	jp z, .WriteFairy
+	cp GHOST
+	jp z, .WriteGhost
+	cp NORMAL
+	jp z, .WriteNormal
+	cp DRAGON
+	jp z, .WriteDragon
+	cp GRASS
+	jp z, .WriteGrass
+	cp FIRE
+	jp z, .WriteFire
+	cp WATER
+	jp z, .WriteWater
+	cp PSYCHIC
+	jp z, .WritePsychic
+	cp DARK
+	jp z, .WriteDark
+	cp ELECTRIC
+	jp z, .WriteElectric
+	cp ICE
+	jp z, .WriteIce
+	cp GROUND
+	jp z, .WriteGround
+	cp ROCK
+	jp z, .WriteRock
+	cp POISON
+	jp z, .WritePoison
+	cp BUG
+	jp z, .WriteBug
+	cp FLYING
+	jp z, .WriteFlying
+	ld hl, TechnicalPrefix ; points to "TM"
+	ld bc, 2
+.MNum
+	ld de, wcd6d
+	call CopyData
+; now get the machine number and convert it to text
+	ld a, [wd11e]
+	sub TM_01 - 1
+	ld b, "0"
+.FirstDigit
+	sub 10
+	jr c, .SecondDigit
+	inc b
+	jr .FirstDigit
+.SecondDigit
+	add 10
+	push af
+	ld a, b
+	ld [de], a
+	inc de
+	pop af
+	ld b, "0"
+	add b
+	ld [de], a
+	inc de
+	ld a, "@"
+	ld [de], a
+	pop af
+	ld [wd11e], a
+	pop bc
+	pop de
+	pop hl
+	ret
+
+TMShorthandList::
+	db NORMAL ;cut
+	db FLYING;fly
+	db WATER;surf
+	db NORMAL;strength
+	db WATER ;dive  
+	db FIGHTING ;dynamicpunch 
+	db DRAGON ;dragon_claw  
+	db NORMAL ;swords_dance 
+	db STEEL ;steel_wing   
+	db NORMAL ;mega_kick    
+	db POISON ;toxic        
+	db NORMAL ;horn_drill   
+	db NORMAL ;body_slam    
+	db NORMAL ;take_down    
+	db NORMAL ;double_edge  
+	db WATER ;water_pulse  
+	db WATER ;muddy_water  
+	db ICE ;ice_beam     
+	db ICE ;blizzard     
+	db NORMAL ;hyper_beam   
+	db STEEL ;iron_tail    
+	db FIGHTING ;submission   
+	db FIGHTING ;counter      
+	db FIGHTING ;seismic_toss 
+	db STEEL ;metal_claw   
+	db GRASS ;giga_drain   
+	db GRASS ;solarbeam    
+	db DRAGON ;dragonbreath 
+	db ELECTRIC ;thunderbolt  
+	db ELECTRIC ;thunder      
+	db GROUND ;earthquake   
+	db GROUND ;fissure      
+	db GROUND ;dig          
+	db PSYCHIC ;psychic_m    
+	db GHOST ;shadow_ball  
+	db NORMAL ;mimic        
+	db NORMAL ;double_team  
+	db PSYCHIC ;reflect      
+	db NORMAL ;headbutt     
+	db ROCK ;ancientpower 
+	db ROCK ;rock_tomb    
+	db FIRE ;flamethrower 
+	db FIRE ;fire_blast   
+	db NORMAL ;swift        
+	db NORMAL ;skull_bash   
+	db FLYING ;aerial_ace   
+	db PSYCHIC ;dream_eater  
+	db DARK ;dark_pulse   
+	db PSYCHIC ;rest         
+	db ELECTRIC ;thunder_wave 
+	db PSYCHIC ;psywave      
+	db NORMAL ;explosion    
+	db ROCK ;rock_slide   
+	db FAIRY ;dazzlingleam 
+	db NORMAL ;flash   
