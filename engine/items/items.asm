@@ -1800,38 +1800,8 @@ ItemUsePokeVial:
 	ld a,[wIsInBattle]
 	and a
 	jp nz,ItemUseNotTime
-	; Not allowed to use in the Gyms of Elite Four
-	ld a,[wCurMap]
-	cp LORELEIS_ROOM
-	jp z, ItemUseNotTime
-	cp BRUNOS_ROOM
-	jp z, ItemUseNotTime
-	cp AGATHAS_ROOM
-	jp z, ItemUseNotTime
-	cp LANCES_ROOM
-	jp z, ItemUseNotTime
-	cp CHAMPIONS_ROOM
-	jp z, ItemUseNotTime
-	cp HALL_OF_FAME
-	jp z, ItemUseNotTime
-	cp VIRIDIAN_GYM
-	jp z, ItemUseNotTime
-	cp PEWTER_GYM
-	jp z, ItemUseNotTime
-	cp CERULEAN_GYM
-	jp z, ItemUseNotTime
-	cp VERMILION_GYM
-	jp z, ItemUseNotTime
-	cp CELADON_GYM
-	jp z, ItemUseNotTime
-	cp FUCHSIA_GYM
-	jp z, ItemUseNotTime
-	cp CINNABAR_GYM
-	jp z, ItemUseNotTime
-	cp SAFFRON_GYM
-	jp z, ItemUseNotTime
-	cp FIGHTING_DOJO
-	jp z, ItemUseNotTime
+	call IsPokeVialAllowed
+	jp nc,ItemUseNotTime
 	ld a, [wPokeVialUses]
 	cp 6 ; PokeVial usages Can be a number 9 or less
 	jr nc, .outOfUsages
@@ -1874,6 +1844,45 @@ UsedPokeVialToHealText:
 PokeVialNoMoreUsagesText:
 	TX_FAR _PokeVialNoMoreUsagesText
 	db "@"
+
+IsPokeVialAllowed::
+	; Not allowed to use in the Gyms of Elite Four
+	ld a,[wCurMap]
+	cp LORELEIS_ROOM
+	jr z, .notAllowed
+	cp BRUNOS_ROOM
+	jr z, .notAllowed
+	cp AGATHAS_ROOM
+	jr z, .notAllowed
+	cp LANCES_ROOM
+	jr z, .notAllowed
+	cp CHAMPIONS_ROOM
+	jr z, .notAllowed
+	cp HALL_OF_FAME
+	jr z, .notAllowed
+	cp VIRIDIAN_GYM
+	jr z, .notAllowed
+	cp PEWTER_GYM
+	jr z, .notAllowed
+	cp CERULEAN_GYM
+	jr z, .notAllowed
+	cp VERMILION_GYM
+	jr z, .notAllowed
+	cp CELADON_GYM
+	jr z, .notAllowed
+	cp FUCHSIA_GYM
+	jr z, .notAllowed
+	cp CINNABAR_GYM
+	jr z, .notAllowed
+	cp SAFFRON_GYM
+	jr z, .notAllowed
+	cp FIGHTING_DOJO
+	jr z, .notAllowed
+	scf
+	ret
+.notAllowed
+	and a
+	ret
 
 ItemUsePokeflute:
 	ld a,[wIsInBattle]
@@ -3289,119 +3298,16 @@ WriteTMPrefix::
 	push af
 	cp TM_01 ; is this a TM? [not HM]
 	jp nc, .WriteTM
-; if HM, then write "HM" and add 5 to the item ID, so we can reuse the
-; TM printing code
+; if HM, then write "HM" and add 5 to the item ID, so we can reuse
 	add 5
 	ld [wd11e], a
 	ld hl, HiddenPrefix ; points to "HM"
 	ld bc, 2
-	jp .MNum;.WriteMachinePrefix
-.WriteGrass
-	ld hl, GrassPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteFairy
-	ld hl, FairyPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteRock
-	ld hl, RockPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WritePoison
-	ld hl, PoisonPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteBug
-	ld hl, BugPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteFlying
-	ld hl, FlyingPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteIce
-	ld hl, IcePrefix
-	jp .MNum
-.WriteGhost
-	ld hl, GhostPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteDragon
-	ld hl, DragonPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteNormal
-	ld hl, NormalPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteGround
-	ld hl, GroundPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WriteDark
-	ld hl, DarkPrefix
-	ld bc, 3
-	jp .MNum;.WriteMachinePrefix
-.WritePsychic
-	ld hl, PsychicPrefix
-	ld bc, 3
-	jr .MNum;.WriteMachinePrefix
-.WriteWater
- 	ld hl, WaterPrefix
-	ld bc, 3
-	jr .MNum;.WriteMachinePrefix
-.WriteFire
- 	ld hl, FirePrefix
-	ld bc, 3
-	jr .MNum;.WriteMachinePrefix
-.WriteElectric
-	ld hl, ElectricPrefix
-	ld bc, 3
-	jr .MNum;.WriteMachinePrefix
+	jp .continueWriting
 .WriteTM
-	sub HM_01
-	ld c, a
-	ld b, 0
-	ld hl, TMShorthandList
-	add hl,bc
-	ld a, [hl]
-	ld b, a
-	cp FAIRY
-	jp z, .WriteFairy
-	cp GHOST
-	jp z, .WriteGhost
-	cp NORMAL
-	jp z, .WriteNormal
-	cp DRAGON
-	jp z, .WriteDragon
-	cp GRASS
-	jp z, .WriteGrass
-	cp FIRE
-	jp z, .WriteFire
-	cp WATER
-	jp z, .WriteWater
-	cp PSYCHIC
-	jp z, .WritePsychic
-	cp DARK
-	jp z, .WriteDark
-	cp ELECTRIC
-	jp z, .WriteElectric
-	cp ICE
-	jp z, .WriteIce
-	cp GROUND
-	jp z, .WriteGround
-	cp ROCK
-	jp z, .WriteRock
-	cp POISON
-	jp z, .WritePoison
-	cp BUG
-	jp z, .WriteBug
-	cp FLYING
-	jp z, .WriteFlying
 	ld hl, TechnicalPrefix ; points to "TM"
 	ld bc, 2
-.MNum
+.continueWriting
 	ld de, wcd6d
 	call CopyData
 ; now get the machine number and convert it to text
@@ -3423,7 +3329,106 @@ WriteTMPrefix::
 	ld b, "0"
 	add b
 	ld [de], a
+	pop af
+	cp TM_01 ; is this a TM? [not HM]
+	push af
 	inc de
+	jp c, .endChar
+; Type at the end if TM
+	ld b, a
+	ld a, "-"
+	ld [de], a
+	ld a, b
+	sub HM_01
+	ld c, a
+	ld b, 0
+	ld hl, TMShorthandList
+	add hl,bc
+	ld a, [hl]
+	ld b, a
+	cp NORMAL
+	jr nz, .checkFire
+	ld hl, NormalPrefix
+	jp .writeType
+.checkFire
+	cp FIRE
+	jr nz, .checkWater
+	ld hl, FirePrefix
+	jr .writeType
+.checkWater
+	cp WATER
+	jr nz, .checkGrass
+	ld hl, WaterPrefix
+	jr .writeType
+.checkGrass
+	cp GRASS
+	jr nz, .checkElectric
+	ld hl, GrassPrefix
+	jr .writeType
+.checkElectric
+	cp ELECTRIC
+	jr nz, .checkRock
+	ld hl, ElectricPrefix
+	jr .writeType
+.checkRock
+	cp ROCK
+	jr nz, .checkGround
+	ld hl, RockPrefix
+	jr .writeType
+.checkGround
+	cp GROUND
+	jr nz, .checkBug
+	ld hl, GroundPrefix
+	jr .writeType
+.checkBug
+	cp BUG
+	jr nz, .checkFlying
+	ld hl, BugPrefix
+	jr .writeType
+.checkFlying
+	cp FLYING
+	jr nz, .checkPoison
+	ld hl, FlyingPrefix
+	jr .writeType
+.checkPoison
+	cp POISON
+	jr nz, .checkPsychic
+	ld hl, PoisonPrefix
+	jr .writeType
+.checkPsychic
+	cp PSYCHIC
+	jr nz, .checkIce
+	ld hl, PsychicPrefix
+	jr .writeType
+.checkIce
+	cp ICE
+	jr nz, .checkDark
+	ld hl, IcePrefix
+	jr .writeType
+.checkDark
+	cp DARK
+	jr nz, .checkDragon
+	ld hl, IcePrefix
+	jr .writeType
+.checkDragon
+	cp DRAGON
+	jr nz, .checkGhost
+	ld hl, DragonPrefix
+	jr .writeType
+.checkGhost
+	cp GHOST
+	jr nz, .checkFairy
+	ld hl, GhostPrefix
+	jr .writeType
+.checkFairy
+	cp FAIRY
+	jr z, .endChar
+	ld hl, FairyPrefix
+.writeType
+	inc de
+	ld bc, 3
+	call CopyData
+.endChar
 	ld a, "@"
 	ld [de], a
 	pop af
