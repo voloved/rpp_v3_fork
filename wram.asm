@@ -2355,7 +2355,15 @@ wPseudoItemID:: ; d152
 ; that case, this would be ESCAPE_ROPE.
 	ds 1
 
-wUnusedD153:: ; d153
+wRivalPokemonStolen:: ; d153
+; bit 0: Starter
+; bit 1: Pidgey Line
+; bit 2: Rattatta Line
+; bit 3: Abra Line
+; bit 4: Growlithe Line
+; bit 5: Execute Line
+; bit 6: Gyarados
+; bit 7: Rhyhorn
 	ds 1
 
 	ds 2
