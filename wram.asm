@@ -2339,6 +2339,15 @@ wPrize2Price:: ; d143
 wPrize3Price:: ; d145
 	ds 2
 
+wRivalPokemonStolen:: ; d147
+; bit 0: Starter
+; bit 1: Pidgey Line
+; bit 2: Rattatta Line
+; bit 3: Abra Line
+; bit 4: Growlithe Line
+; bit 5: Execute Line
+; bit 6: Gyarados
+; bit 7: Rhyhorn
 	ds 1
 
 wLinkBattleRandomNumberList:: ; d148
@@ -2355,15 +2364,7 @@ wPseudoItemID:: ; d152
 ; that case, this would be ESCAPE_ROPE.
 	ds 1
 
-wRivalPokemonStolen:: ; d153
-; bit 0: Starter
-; bit 1: Pidgey Line
-; bit 2: Rattatta Line
-; bit 3: Abra Line
-; bit 4: Growlithe Line
-; bit 5: Execute Line
-; bit 6: Gyarados
-; bit 7: Rhyhorn
+wUnusedD153:: ; d153
 	ds 1
 
 	ds 2

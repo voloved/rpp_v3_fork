@@ -3,12 +3,12 @@ _AddPartyMon:
 ; [wMonDataLocation] is used in an unusual way in this function.
 ; If the lower nybble is 0, the mon is added to the player's party, else the enemy's.
 ; If the entire value is 0, then the player is allowed to name the mon.
-	call CheckStolen
-	ret c
 	ld de, wPartyCount
 	ld a, [wMonDataLocation]
 	and $f
 	jr z, .next
+	call CheckStolen
+	ret c
 	ld de, wEnemyPartyCount
 .next
 	ld a, [de]
