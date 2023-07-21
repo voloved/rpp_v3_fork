@@ -128,7 +128,9 @@ ItemThiefBall:
 	ld a,[wIsInBattle]
 	and a
 	jp z,ItemUseNotTime ; not in battle
-	jp BallAnyway	
+	callba IsPokeVialAllowed
+	jr c, BallAnyway
+	jp ThrowBallAtTrainerMon
 	
 ItemUseBall:
 
@@ -558,7 +560,12 @@ BallAnyway:
 
 	ld hl,ItemUseBallText05
 	call PrintText
-
+	ld a,[wcf91]
+	cp a,THIEF_BALL
+	jr z,.notUsingThiefBall
+	ld hl,ItemUseBallText09
+	call PrintText
+.notUsingThiefBall
 ; Add the caught Pokémon to the Pokédex.
 	predef IndexToPokedex
 	ld a,[wd11e]
@@ -668,6 +675,11 @@ ItemUseBallText06:
 	TX_FAR _ItemUseBallText06
 	TX_SFX_DEX_PAGE_ADDED
 	TX_BLINK
+	db "@"
+
+ItemUseBallText09:
+;"The trainer does not want to continue since you stole their Pokemon."
+	TX_FAR _ItemUseBallText09
 	db "@"
 
 ItemUseTownMap:
@@ -2600,7 +2612,15 @@ ThrowBallAtTrainerMon:
 	predef MoveAnimation ; do animation
 	ld hl,ThrowBallAtTrainerMonText1
 	call PrintText
+	ld a,[wcf91]
+	cp a,THIEF_BALL
+	jr z, .usingThiefBall
+.default
 	ld hl,ThrowBallAtTrainerMonText2
+	jr .cont
+.usingThiefBall
+	ld hl,ThrowBallAtTrainerMonText3
+.cont
 	call PrintText
 	jr RemoveUsedItem
 
@@ -2638,6 +2658,10 @@ ThrowBallAtTrainerMonText1:
 
 ThrowBallAtTrainerMonText2:
 	TX_FAR _ThrowBallAtTrainerMonText2
+	db "@"
+
+ThrowBallAtTrainerMonText3:
+	TX_FAR _ThrowBallAtTrainerMonText3
 	db "@"
 
 NoCyclingAllowedHereText:

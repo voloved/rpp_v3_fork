@@ -2980,7 +2980,10 @@ BattleAnimCopyTileMapToVRAM:
 TossBallAnimation:
 	ld a,[wcf91]
 	cp a,THIEF_BALL
-	jp z,.skipTrainerCheck
+	jr nz,.trainerCheck
+	callba IsPokeVialAllowed
+	jr c, .skipTrainerCheck
+.trainerCheck
 	ld a,[wIsInBattle]
 	cp a,2
 	jr z,.BlockBall ; if in trainer battle, play different animation
