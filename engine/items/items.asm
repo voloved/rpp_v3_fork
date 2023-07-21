@@ -3277,6 +3277,7 @@ CheckMapForMon:
 	dec hl
 	ret
 
+PUSHS
 SECTION "TM Type Lookup Table", ROMX
 ;Trying to fix up TM/HMs to be less awful. Who knew simply moving the entire func would make it work better?
 
@@ -3522,3 +3523,4 @@ TMShorthandList::
 	db ROCK ;rock_slide   
 	db FAIRY ;dazzlingleam 
 	db NORMAL ;flash   
+POPS
