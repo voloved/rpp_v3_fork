@@ -2339,15 +2339,6 @@ wPrize2Price:: ; d143
 wPrize3Price:: ; d145
 	ds 2
 
-wRivalPokemonStolen:: ; d147
-; bit 0: Starter
-; bit 1: Pidgey Line
-; bit 2: Rattatta Line
-; bit 3: Abra Line
-; bit 4: Growlithe Line
-; bit 5: Execute Line
-; bit 6: Gyarados
-; bit 7: Rhyhorn
 	ds 1
 
 wLinkBattleRandomNumberList:: ; d148
@@ -3274,7 +3265,15 @@ wBeatLorelei::
 ; the game uses this to tell when Elite 4 events need to be reset
 	ds 1
 
-; unused
+wRivalPokemonStolen:: ; d735
+; bit 0: Starter
+; bit 1: Pidgey Line
+; bit 2: Rattatta Line
+; bit 3: Abra Line
+; bit 4: Growlithe Line
+; bit 5: Execute Line
+; bit 6: Gyarados
+; bit 7: Rhyhorn
 	ds 1
 
 wd736:: ; d736
