@@ -2364,6 +2364,10 @@ INCLUDE "text/maps/SilphCo1F.asm"
 INCLUDE "text/maps/SaffronPokecenter.asm"
 INCLUDE "text/maps/SaffronHouse2.asm"
 
+_SortItemsText::
+	text "Would you like to"
+	next "sort items?"
+	done
 
 _TrainerRebattleText::
 	text "Would you like to"

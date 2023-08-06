@@ -147,3 +147,73 @@ HandleItemListSwapping:
 	pop de
 	pop hl
 	jp DisplayListMenuIDLoop
+
+SortItems::
+	push hl
+	push bc
+	ld hl, SortItemsText ; Display the text to ask to sort
+	call PrintText
+	call YesNoChoice
+	ld a, [wCurrentMenuItem]
+	and a
+	jp z, .beginSorting ; If yes
+.done
+	xor a ; Zeroes a
+	pop bc
+	pop hl
+	jp DisplayListMenuIDLoop
+.beginSorting
+	ld hl, wBagItems ; Loads hl with where wBagItems begins
+	ld c, 0 ; Relative to wBagItems, this is where we'd like to begin swapping
+	ld b, MASTER_BALL ; This is the first item to check for
+.loopCurrItemInBag ; Looks for the item we're currently interested in inside the bag
+	ld a, [hl] ; Load the value of hl to a (with is an item number)
+	inc hl ; Increments to the quantity
+	inc hl  ; Increments past the quantity so we're at the next number
+	cp $ff ; See if the item number is $ff, which is 'cancel'
+	jr z, .findNextItem ; If it is cancel, then move onto the next item
+	cp b ; If it's not cancel, then compare it to b
+	jr nz, .loopCurrItemInBag ; If it's not b, then go to the next item in the bag
+	dec hl ; Go back to the previous item's quantity
+	dec hl ; Go back to the previous item
+	jr .hasItem
+.findNextItem
+	ld hl, wBagItems ; Resets hl to start at the beginning of the bag
+	inc b ; Have b look at the next item in the item consts (item_constants.asm)
+	ld a, b
+	cp TM_50 ; Check if we got through all of the items, to the last one
+	jr z, .done
+	jr .loopCurrItemInBag
+.hasItem  ; c contains where to swap to relative to the start of wBagItems
+		  ; hl contains where the item to swap is absolute.
+	ld d, h ; de now holds hl
+	ld e, l
+	ld hl, wBagItems ; hl points to the beginning of the bag item.
+	ld a, b ; have a hold b's value sinc eit'll be cleared
+	ld b, 0 ; set b to zero
+	add hl, bc ; hl now holds where we'd like to swap to
+	ld b, a ; Set b back to its previous value
+	ld a, [hl]
+	ld [$ff95],a ; [$ff95] = second item ID
+	inc hl
+	ld a,[hld]
+	ld [$ff96],a ; [$ff96] = second item quantity
+	ld a,[de]
+	ld [hli],a ; put first item ID in second item slot
+	inc de
+	ld a,[de]
+	ld [hl],a ; put first item quantity in second item slot
+	ld a,[$ff96]
+	ld [de],a ; put second item quantity in first item slot
+	dec de
+	ld a,[$ff95]
+	ld [de],a ; put second item ID in first item slot
+	inc c
+	inc c
+	ld h, d ; hl now holds de
+	ld l, e
+	jr .findNextItem
+
+SortItemsText::
+	TX_FAR _SortItemsText
+	db "@"
