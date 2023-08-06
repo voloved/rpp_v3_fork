@@ -7,152 +7,152 @@ INCLUDE "constants.asm"
 INCLUDE "crysmacros.asm"
 
 ; crystal.py macros: 
-octave: MACRO
+MACRO octave
 	db $d8 - (\1)
 	ENDM
 	
-notetype: MACRO
+MACRO notetype
 	db $d8, \1
 IF _NARG==2
 	db \2
 ENDC
 	ENDM
-forceoctave: MACRO
+MACRO forceoctave
 	db $d9, \1
 	ENDM
-tempo: MACRO
+MACRO tempo
 	db $da
 	bigdw \1
 	ENDM
-dutycycle: MACRO
+MACRO dutycycle
 	db $db, \1
 	ENDM
-intensity: MACRO
+MACRO intensity
 	db $dc, \1
 	ENDM
-soundinput: MACRO
+MACRO soundinput
 	db $dd, \1
 	ENDM
-unknownmusic0xde: MACRO
+MACRO unknownmusic0xde
 	db $de, \1
 	ENDM
-togglesfx: MACRO
+MACRO togglesfx
 	db $df
 	ENDM
-unknownmusic0xe0: MACRO
+MACRO unknownmusic0xe0
 	db $e0, \1, \2
 	ENDM
-vibrato: MACRO
+MACRO vibrato
 	db $e1, \1, \2
 	ENDM
-unknownmusic0xe2: MACRO
+MACRO unknownmusic0xe2
 	db $e2, \1
 	ENDM
-togglenoise: MACRO
+MACRO togglenoise
 	db $e3, \1
 	ENDM
-panning: MACRO
+MACRO panning
 	db $e4, \1
 	ENDM
-volume: MACRO
+MACRO volume
 	db $e5, \1
 	ENDM
-tone: MACRO
+MACRO tone
 	db $e6
 	bigdw \1
 	ENDM
-unknownmusic0xe7: MACRO
+MACRO unknownmusic0xe7
 	db $e7, \1
 	ENDM
-unknownmusic0xe8: MACRO
+MACRO unknownmusic0xe8
 	db $e8, \1
 	ENDM
-globaltempo: MACRO
+MACRO globaltempo
 	db $e9
 	bigdw \1
 	ENDM
-restartchannel: MACRO
+MACRO restartchannel
 	dbw $ea, \1
 	ENDM
-newsong: MACRO
+MACRO newsong
 	db $eb
 	bigdw \1
 	ENDM
-sfxpriorityon: MACRO
+MACRO sfxpriorityon
 	db $ec
 	ENDM
-sfxpriorityoff: MACRO
+MACRO sfxpriorityoff
 	db $ed
 	ENDM
-unknownmusic0xee: MACRO
+MACRO unknownmusic0xee
 	dbw $ee, \1
 	ENDM
-stereopanning: MACRO
+MACRO stereopanning
 	db $ef, \1
 	ENDM
-sfxtogglenoise: MACRO
+MACRO sfxtogglenoise
 	db $f0, \1
 	ENDM
-ftempo: MACRO
+MACRO ftempo
 	db $f1
 	bigdw \1
 	ENDM
-fdutycycle: MACRO
+MACRO fdutycycle
 	db $f2, \1
 	ENDM
-music0xf3: MACRO
+MACRO music0xf3
 	db $f3
 	ENDM
-incoctave: MACRO
+MACRO incoctave
 	db $f4
 	ENDM
-decoctave: MACRO
+MACRO decoctave
 	db $f5
 	ENDM
-music0xf6: MACRO
+MACRO music0xf6
 	db $f6
 	ENDM
-music0xf7: MACRO
+MACRO music0xf7
 	db $f7
 	ENDM
-music0xf8: MACRO
+MACRO music0xf8
 	db $f8
 	ENDM
-unknownmusic0xf9: MACRO
+MACRO unknownmusic0xf9
 	db $f9, \1
 	ENDM
-setcondition: MACRO
+MACRO setcondition
 	db $fa, \1
 	ENDM
-jumpif: MACRO
+MACRO jumpif
 	db $fb, \1
 	dw \2
 	ENDM
-jumpchannel: MACRO
+MACRO jumpchannel
 	dbw $fc, \1
 	ENDM
-loopchannel: MACRO
+MACRO loopchannel
 	db $fd, \1
 	dw \2
 	ENDM
-callchannel: MACRO
+MACRO callchannel
 	dbw $fe, \1
 	ENDM
-endchannel: MACRO
+MACRO endchannel
 	db $ff
 	ENDM
 	
 	
-sound: MACRO
+MACRO sound
 	db \1, \2
 	dw \3
 	ENDM
 
-noise: MACRO
+MACRO noise
 	db \1, \2, \3
 	ENDM
     
-toggleperfectpitch: MACRO ; XXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+MACRO toggleperfectpitch ; XXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 	ENDM
 
 

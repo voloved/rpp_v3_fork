@@ -84,7 +84,7 @@ Char4ETest::
 	jp PlaceNextChar_inc
 
 .next3 ; Check against a dictionary
-dict: macro
+MACRO dict
 if \1 == 0
 	and a
 else

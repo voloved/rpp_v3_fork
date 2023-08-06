@@ -1,10 +1,10 @@
 
 ; Constant enumeration is useful for monsters, items, moves, etc.
-const_def: MACRO
+MACRO const_def
 const_value = 0
 ENDM
 
-const: MACRO
+MACRO const
 \1 EQU const_value
 const_value = const_value + 1
 ENDM
@@ -13,12 +13,12 @@ ENDM
 
 percent EQUS "* $ff / 100"
 
-bcd2: MACRO
+MACRO bcd2
 	dn ((\1) / 1000) % 10, ((\1) / 100) % 10
 	dn ((\1) / 10) % 10, (\1) % 10
 ENDM
 
-bcd3: MACRO
+MACRO bcd3
 	dn ((\1) / 100000) % 10, ((\1) / 10000) % 10
 	dn ((\1) / 1000) % 10, ((\1) / 100) % 10
 	dn ((\1) / 10) % 10, (\1) % 10
@@ -30,19 +30,19 @@ money equs "bcd3"
 ;\1 = Map Width
 ;\2 = Rows above (Y-blocks)
 ;\3 = X movement (X-blocks)
-EVENT_DISP: MACRO
+MACRO EVENT_DISP
 	dw (wOverworldMap + 7 + (\1) + ((\1) + 6) * ((\2) >> 1) + ((\3) >> 1)) ; Ev.Disp
 	db \2,\3 ;Y,X
 ENDM
 
-FLYWARP_DATA: MACRO
+MACRO FLYWARP_DATA
 	EVENT_DISP \1,\2,\3
 	db ((\2) & $01) ;sub-block Y
 	db ((\3) & $01) ;sub-block X
 ENDM
 
 ; external map entry macro
-EMAP: MACRO ; emap x-coordinate,y-coordinate,textpointer
+MACRO EMAP ; emap x-coordinate,y-coordinate,textpointer
 ; the appearance of towns and routes in the town map, indexed by map id
 	; byte  : y-coordinate
 	; byte  : x-coordinate
@@ -52,7 +52,7 @@ EMAP: MACRO ; emap x-coordinate,y-coordinate,textpointer
 ENDM
 
 ; internal map entry macro
-IMAP: MACRO ; imap mapid_less_than,x-coordinate,y-coordinate,textpointer
+MACRO IMAP ; imap mapid_less_than,x-coordinate,y-coordinate,textpointer
 ; the appearance of buildings and dungeons in the town map
 	; byte  : maximum map id subject to this rule
 	; byte  : y-coordinate
@@ -64,7 +64,7 @@ IMAP: MACRO ; imap mapid_less_than,x-coordinate,y-coordinate,textpointer
 ENDM
 
 ; tilesets' headers macro
-tileset: MACRO
+MACRO tileset
 	db BANK(\2)   ; BANK(GFX)
 	dw \1, \2, \3 ; Block, GFX, Coll
 	db \4, \5, \6 ; counter tiles
@@ -76,7 +76,7 @@ INDOOR  EQU 0
 CAVE    EQU 1
 OUTDOOR EQU 2
 
-RGB: MACRO
+MACRO RGB
 	dw (\3 << 10 | \2 << 5 | \1)
 ENDM
 
@@ -98,7 +98,7 @@ NONE  EQU $FF
 ;\7 items only: item id
 ;\7 trainers only: trainer class/pokemon id
 ;\8 trainers only: trainer number/pokemon level
-object: MACRO
+MACRO object
 	db \1
 	db \3 + 4
 	db \2 + 4
@@ -123,7 +123,7 @@ ENDM
 ;\3 (byte) = x movement of connection strip
 ;\4 (byte) = connection strip offset
 ;\5 (word) = connected map blocks pointer
-NORTH_MAP_CONNECTION: MACRO
+MACRO NORTH_MAP_CONNECTION
 	db \2 ; map id
 	dw \5 + (\2_WIDTH * (\2_HEIGHT - 3)) + \4; "Connection Strip" location
 	dw wOverworldMap + 3 + \3 ; current map position
@@ -144,7 +144,7 @@ ENDM
 ;\4 (byte) = connection strip offset
 ;\5 (word) = connected map blocks pointer
 ;\6 (flag) = add 3 to width of connection strip (why?)
-SOUTH_MAP_CONNECTION: MACRO
+MACRO SOUTH_MAP_CONNECTION
 	db \2 ; map id
 	dw \5 + \4 ; "Connection Strip" location
 	dw wOverworldMap + 3 + (\1_HEIGHT + 3) * (\1_WIDTH + 6) + \3 ; current map position
@@ -168,7 +168,7 @@ ENDM
 ;\3 (byte) = y movement of connection strip
 ;\4 (byte) = connection strip offset
 ;\5 (word) = connected map blocks pointer
-WEST_MAP_CONNECTION: MACRO
+MACRO WEST_MAP_CONNECTION
 	db \2 ; map id
 	dw \5 + (\2_WIDTH * \4) + \2_WIDTH - 3 ; "Connection Strip" location
 	dw wOverworldMap + (\1_WIDTH + 6) * (\3 + 3) ; current map position
@@ -189,7 +189,7 @@ ENDM
 ;\4 (byte) = connection strip offset
 ;\5 (word) = connected map blocks pointer
 ;\6 (flag) = add 3 to height of connection strip (why?)
-EAST_MAP_CONNECTION: MACRO
+MACRO EAST_MAP_CONNECTION
 	db \2 ; map id
 	dw \5 + (\2_WIDTH * \4) ; "Connection Strip" location
 	dw wOverworldMap - 3 + (\1_WIDTH + 6) * (\3 + 4) ; current map position
@@ -208,7 +208,7 @@ EAST_MAP_CONNECTION: MACRO
 	dw wOverworldMap + 7 + \2_WIDTH ; window (position of the upper left block after entering the map)
 ENDM
 
-tmlearn: MACRO
+MACRO tmlearn
 x = 0
 	REPT _NARG
 IF \1 != 0
@@ -221,16 +221,16 @@ ENDM
 
 m_tutor EQUS "tmlearn" ; works the same way, but renamed for clarity
 
-add_pic: MACRO
+MACRO add_pic
 	db BANK(\1)
 	dw \1
 ENDM
 
-moveset: MACRO
+MACRO moveset
 	db \1, \2, \3, \4
 ENDM
 
-tilepal: MACRO
+MACRO tilepal
 ; vram bank, pals
 x = \1 << 3
 rept _NARG +- 1

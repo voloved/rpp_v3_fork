@@ -306,7 +306,7 @@ DisplayListMenuID_Mart::
 	ld [wTopMenuItemY],a
 	ld a,5
 	ld [wTopMenuItemX],a
-	ld a,A_BUTTON | B_BUTTON | SELECT
+	ld a,A_BUTTON | B_BUTTON
 	ld [wMenuWatchedKeys],a
 	ld c,10
 	call DelayFrames

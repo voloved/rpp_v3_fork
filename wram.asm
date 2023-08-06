@@ -1,12 +1,12 @@
 
 INCLUDE "constants.asm"
 
-flag_array: MACRO
+MACRO flag_array
 	ds ((\1) + 7) / 8
 ENDM
 
 box_struct_length EQU 25 + NUM_MOVES * 2
-box_struct: MACRO
+MACRO box_struct
 \1Species::    db
 \1HP::         dw
 \1BoxLevel::   db
@@ -27,7 +27,7 @@ box_struct: MACRO
 \1PP::         ds NUM_MOVES
 ENDM
 
-party_struct: MACRO
+MACRO party_struct
 	box_struct \1
 \1Level::      db
 \1Stats::
@@ -38,7 +38,7 @@ party_struct: MACRO
 \1Special::    dw
 ENDM
 
-battle_struct: MACRO
+MACRO battle_struct
 \1Species::    db
 \1HP::         dw
 \1BoxLevel::   db
@@ -230,7 +230,7 @@ wSpriteStateData1:: ; c100
 ; C1xD
 ; C1xE
 ; C1xF
-spritestatedata1: MACRO
+MACRO spritestatedata1
 \1SpriteStateData1::
 \1PictureID:: db
 \1MovementStatus:: db
@@ -287,7 +287,7 @@ wSpriteStateData2:: ; c200
 ; C2xD
 ; C2xE: sprite image base offset (in video ram, player always has value 1, used to compute c1x2)
 ; C2xF
-spritestatedata2: MACRO
+MACRO spritestatedata2
 \1SpriteStateData2::
 \1WalkAnimationCounter:: db
 	ds 1

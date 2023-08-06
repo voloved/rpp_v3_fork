@@ -1,4 +1,4 @@
-trainer_const: MACRO
+MACRO trainer_const
 \1     EQU const_value
 OPP_\1 EQU const_value + 200
 const_value = const_value + 1

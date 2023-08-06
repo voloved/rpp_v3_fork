@@ -1,5 +1,5 @@
 
-StopAllMusic: MACRO
+MACRO StopAllMusic
 	ld a, $ff
 	call PlaySound
 ENDM
@@ -13,7 +13,7 @@ Ch5    EQU 5
 Ch6    EQU 6
 Ch7    EQU 7
 
-audio: MACRO
+MACRO audio
 	db (_NARG - 2) << 6 | \2
 	dw \1_\2
 	IF _NARG > 2
@@ -30,12 +30,12 @@ audio: MACRO
 	ENDC
 ENDM
 
-unknownsfx0x10: MACRO
+MACRO unknownsfx0x10
 	db $dd ; soundinput
 	db \1
 ENDM
 
-unknownsfx0x20: MACRO
+MACRO unknownsfx0x20
 	; noise/sound
 	db \1
 	;db $20 | \1
@@ -44,7 +44,7 @@ unknownsfx0x20: MACRO
 	db \4
 ENDM
 
-unknownnoise0x20: MACRO
+MACRO unknownnoise0x20
 	db \1 ; | $20
 	db \2
 	db \3
@@ -52,112 +52,112 @@ ENDM
 
 
 ;format: instrument length (in 16ths)
-snare1: MACRO
+MACRO snare1
 	db $B0 | (\1 - 1)
 	db $01
 ENDM
 
-snare2: MACRO
+MACRO snare2
 	db $B0 | (\1 - 1)
 	db $02
 ENDM
 
-snare3: MACRO
+MACRO snare3
 	db $B0 | (\1 - 1)
 	db $03
 ENDM
 
-snare4: MACRO
+MACRO snare4
 	db $B0 | (\1 - 1)
 	db $04
 ENDM
 
-snare5: MACRO
+MACRO snare5
 	db $B0 | (\1 - 1)
 	db $05
 ENDM
 
-triangle1: MACRO
+MACRO triangle1
 	db $B0 | (\1 - 1)
 	db $06
 ENDM
 
-triangle2: MACRO
+MACRO triangle2
 	db $B0 | (\1 - 1)
 	db $07
 ENDM
 
-snare6: MACRO
+MACRO snare6
 	db $B0 | (\1 - 1)
 	db $08
 ENDM
 
-snare7: MACRO
+MACRO snare7
 	db $B0 | (\1 - 1)
 	db $09
 ENDM
 
-snare8: MACRO
+MACRO snare8
 	db $B0 | (\1 - 1)
 	db $0A
 ENDM
 
-snare9: MACRO
+MACRO snare9
 	db $B0 | (\1 - 1)
 	db $0B
 ENDM
 
-cymbal1: MACRO
+MACRO cymbal1
 	db $B0 | (\1 - 1)
 	db $0C
 ENDM
 
-cymbal2: MACRO
+MACRO cymbal2
 	db $B0 | (\1 - 1)
 	db $0D
 ENDM
 
-cymbal3: MACRO
+MACRO cymbal3
 	db $B0 | (\1 - 1)
 	db $0E
 ENDM
 
-mutedsnare1: MACRO
+MACRO mutedsnare1
 	db $B0 | (\1 - 1)
 	db $0F
 ENDM
 
-triangle3: MACRO
+MACRO triangle3
 	db $B0 | (\1 - 1)
 	db $10
 ENDM
 
-mutedsnare2: MACRO
+MACRO mutedsnare2
 	db $B0 | (\1 - 1)
 	db $11
 ENDM
 
-mutedsnare3: MACRO
+MACRO mutedsnare3
 	db $B0 | (\1 - 1)
 	db $12
 ENDM
 
-mutedsnare4: MACRO
+MACRO mutedsnare4
 	db $B0 | (\1 - 1)
 	db $13
 ENDM
 
-duty: MACRO
+MACRO duty
 	;db $EC
 	db $db
 	db \1
 ENDM
 
 ;format: rest length (in 16ths)
-rest: MACRO
+MACRO rest
 	db $C0 | (\1 - 1)
 ENDM
 
-executemusic: MACRO
+MACRO executemusic
 	togglesfx
 ENDM

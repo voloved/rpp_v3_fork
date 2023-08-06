@@ -1,6 +1,6 @@
 ; rgbds macros
 
-note: MACRO
+MACRO note
 	db \1 << 4 + (\2 - 1)
 	ENDM
 
@@ -19,27 +19,27 @@ A_ EQU 10
 A# EQU 11
 B_ EQU 12
 
-inc_octave: MACRO
+MACRO inc_octave
 	db $f4
 	ENDM
 
-dec_octave: MACRO
+MACRO dec_octave
 	db $f5
 	ENDM
 
-notetype0: MACRO
+MACRO notetype0
 	db $f6, \1
 	ENDM
 
-notetype1: MACRO
+MACRO notetype1
 	db $f7, \1
 	ENDM
 
-notetype2: MACRO
+MACRO notetype2
 	db $f8, \1
 	ENDM
 
-musicheader: macro
+MACRO musicheader
 	; number of tracks, track idx, address
 	dbw ((\1 - 1) << 6) + (\2 - 1), \3
 	endm

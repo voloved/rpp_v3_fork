@@ -11,14 +11,14 @@ prompt EQUS "db $58"  ; Prompt the player to end a text box (initiating some oth
 page   EQUS "db $49,"     ; Start a new Pokedex page.
 dex    EQUS "db $5f, $50" ; End a Pokedex entry.
 
-TX_RAM: MACRO
+MACRO TX_RAM
 ; prints text to screen
 ; \1: RAM address to read from
 	db $1
 	dw \1
 ENDM
 
-TX_BCD: MACRO
+MACRO TX_BCD
 ; \1: RAM address to read from
 ; \2: number of bytes + print flags
 	db $2
@@ -26,7 +26,7 @@ TX_BCD: MACRO
 	db \2
 ENDM
 
-TX_CURSOR: MACRO
+MACRO TX_CURSOR
 ; Move cursor to (\1, \2)
 ; \1: X coord (0 - 19)
 ; \2: Y coord (0 - 17)
@@ -39,7 +39,7 @@ TX_BLINK   EQUS "db $06"
 ;TX_SCROLL EQUS "db $07"
 TX_ASM     EQUS "db $08"
 
-TX_NUM: MACRO
+MACRO TX_NUM
 ; print a big-endian decimal number.
 ; \1: address to read from
 ; \2: number of bytes to read
@@ -63,7 +63,7 @@ TX_CRY_NIDORINA       EQUS "db $14"
 TX_CRY_PIDGEOT        EQUS "db $15"
 ;TX_CRY_DEWGONG       EQUS "db $16"
 
-TX_FAR: MACRO
+MACRO TX_FAR
 	db $17
 	dw \1
 	db BANK(\1)
@@ -78,7 +78,7 @@ TX_BILLS_PC                EQUS "db $fd"
 
 MART_LIST EQU $FE
 
-TX_MART: MACRO
+MACRO TX_MART
 	db $FE, _NARG
 	REPT _NARG
 	db \1

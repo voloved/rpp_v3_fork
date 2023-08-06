@@ -1,4 +1,4 @@
-tbp: MACRO
+MACRO tbp
 	dbw BANK(\1), \1
 	ENDM
 

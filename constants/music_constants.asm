@@ -39,7 +39,7 @@ BIT_EXECUTE_MUSIC EQU 0 ; if in execute music
 
 ; Song ids are calculated by address to save space.
 
-;music_const: MACRO
+;MACRO music_const
 ;\1 EQUS "RB(\2)"
 ;ENDM
 const_value = 1

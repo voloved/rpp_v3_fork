@@ -7,12 +7,12 @@ INCLUDE "macros/event_macros.asm"
 
 ; Macros for color hack
 
-;ORG: MACRO
+;MACRO ORG
 ;	SECTION "ORG\@",ROMX[\2],BANK[\1]
 ;	ENDM
 
 ; rst $18 = bankswitch
-CALL_INDIRECT: MACRO
+MACRO CALL_INDIRECT
 	ld b, BANK(\1)
 	ld hl, \1
 	rst $18
