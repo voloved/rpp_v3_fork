@@ -993,13 +993,13 @@ BoulderText::
 	ld a, [wWhichTrade]
 	and a
 	jr z, .startStrength
+	farcall CanPartyLearnMove
+	jr nz, .done
 	ld b, HM_04
 	predef GetQuantityOfItemInBag
 	ld a, b
 	and a
 	jr z, .done
-	xor a ; Just have the pokemon in the first slot show the move
-	ld [wWhichPokemon], a
 .startStrength
 	ld a, [wWhichPokemon]
 	push af

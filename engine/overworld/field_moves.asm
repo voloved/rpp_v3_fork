@@ -31,13 +31,13 @@ TrySurf:
 	ld d, SURF
 	call HasPartyMove
 	jr z, .checkBadge
+	call CanPartyLearnMove
+	jr nz, .no
 	ld b, HM_03
 	predef GetQuantityOfItemInBag
 	ld a, b
 	and a
 	jr z, .no
-	xor a ; Just have the pokemon in the first slot show the move
-	ld [wWhichPokemon], a
 .checkBadge
 	ld a, [wObtainedKantoBadges]
 	bit 4, a ; SOUL_BADGE
@@ -92,13 +92,13 @@ TryCut: ; yenatch's code originally checked for the SOUL_BADGE like SURF does by
 	ld d, CUT
 	call HasPartyMove
 	jr z, .checkBadge
+	call CanPartyLearnMove
+	jr nz, .no2
 	ld b, HM_01
 	predef GetQuantityOfItemInBag
 	ld a, b
 	and a
 	jr z, .no2
-	xor a ; Just have the pokemon in the first slot show the move
-	ld [wWhichPokemon], a
 .checkBadge
 	ld a, [wObtainedKantoBadges]
 	bit 1, a ; CASCADE_BADGE
@@ -136,13 +136,13 @@ TryHeadbutt:
 	ld d, HEADBUTT
 	call HasPartyMove
 	jr z, .askToHeadbutt
+	call CanPartyLearnMove
+	jr nz, .no
 	ld b, TM_34
 	predef GetQuantityOfItemInBag
 	ld a, b
 	and a
 	jr z, .no
-	xor a ; Just have the pokemon in the first slot show the move
-	ld [wWhichPokemon], a
 .askToHeadbutt
 	; Prints the "A Pokemon might be hiding in this tree" message
 	call Text2_EnterTheText
@@ -331,6 +331,53 @@ HasPartyMove::
 	pop bc
 	ret
 
+
+CanPartyLearnMove::
+; Return z (optional: in wWhichTrade) if a PartyMon can learn move d.
+; Updates wWhichPokemon.
+	push bc
+	push de
+	push hl
+	ld a, d
+	ld [wMoveNum], a
+	ld a, [wPartyCount]
+	and a
+	jr z, .no
+	ld e, a
+	ld d, 0
+	ld hl, wPartyMon1Species
+.loop
+	ld a, [hl]
+	ld [wcf91],a
+	push de
+	predef CanLearnTM ; check if the pokemon can learn the move
+	pop de
+	ld a,c
+	and a
+	jr nz,.yes
+	inc d
+	ld a, d
+	cp e
+	jr z, .no
+	ld hl, wPartyMon1Species
+    ld bc, wPartyMon2 - wPartyMon1
+    call AddNTimes
+	jr .loop
+.yes
+	ld a, d
+	ld [wWhichPokemon], a
+	xor a ; probably redundant
+	ld [wWhichTrade], a
+	jr .done
+.no
+	ld a, 1
+	and a
+	ld [wWhichTrade], a
+.done
+	pop hl
+	pop de
+	pop bc
+	ret
 
 Text2_EnterTheText: ; Gets everything setup to let you display text properly
 	call EnableAutoTextBoxDrawing
