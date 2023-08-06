@@ -269,9 +269,9 @@ BuildFlyLocationsList:
 	ld hl, wFlyLocationsList - 1
 	ld [hl], $ff
 	inc hl
-	ld a, [wKantoTownVisitedFlag]
+	ld a, $ff
 	ld e, a
-	ld a, [wKantoTownVisitedFlag + 1]
+	ld a, $ff
 	ld d, a
 	ld bc, SAFFRON_CITY + 1
 .loop

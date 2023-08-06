@@ -138,7 +138,7 @@ StartMenu_Pokemon:
 	cp MT_MOON_SQUARE
 	jr z, .canFly
 	call CheckIfInOutsideMap
-	jr z,.canFly
+	jr .canFly
 	ld a,[wWhichPokemon]
 	ld hl,wPartyMonNicks
 	call GetPartyMonName
