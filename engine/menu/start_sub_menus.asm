@@ -334,6 +334,7 @@ StartMenu_Item:
 	ld a,[wBagSavedMenuItem]
 	ld [wCurrentMenuItem],a
 	call DisplayListMenuID
+	jp nz, .sortItems
 	ld a,[wCurrentMenuItem]
 	ld [wBagSavedMenuItem],a
 	jr nc,.choseItem
@@ -370,15 +371,16 @@ StartMenu_Item:
 	inc a
 	inc a ; a = 2
 	ld [hli],a ; max menu item ID
-	ld a,A_BUTTON | B_BUTTON
+	ld a,A_BUTTON | B_BUTTON | START
 	ld [hli],a ; menu watched keys
 	xor a
 	ld [hl],a ; old menu item id
 	call HandleMenuInput
 	call PlaceUnfilledArrowMenuCursor
 	bit 1,a ; was the B button pressed?
-	jr z,.useOrTossItem
-	jp ItemMenuLoop
+	jp nz, ItemMenuLoop
+	bit 3,a ; was the start button pressed?
+	jp nz,.sortItems ; if so, allow the player to swap menu entries
 .useOrTossItem ; if the player made the choice to use or toss the item
 	ld a,[wcf91]
 	ld [wd11e],a
@@ -460,6 +462,9 @@ StartMenu_Item:
 	ld hl, DisplayItemDescription
 	ld b, Bank(DisplayItemDescription)
 	call Bankswitch
+	jp ItemMenuLoop
+.sortItems
+	callab SortItems
 	jp ItemMenuLoop
 
 CannotUseItemsHereText:

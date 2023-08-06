@@ -427,8 +427,6 @@ DisplayListMenuIDLoop_Mart::
 .checkOtherKeys ; check B, SELECT, Up, and Down keys
 	bit 1,a ; was the B button pressed?
 	jp nz,ExitListMenu_Mart ; if so, exit the menu
-	bit 2,a ; was the select button pressed?
-	jp nz,HandleItemListSwapping ; if so, allow the player to swap menu entries
 	ld b,a
 	bit 7,b ; was Down pressed?
 	ld hl,wListScrollOffset

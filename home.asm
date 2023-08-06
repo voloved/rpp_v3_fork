@@ -1588,7 +1588,7 @@ checkOtherKeys: ; check B, SELECT, Up, and Down keys
 	bit 2,a ; was the select button pressed?
 	jp nz,HandleItemListSwapping ; if so, allow the player to swap menu entries
 	bit 3,a ; was the start button pressed?
-	jp nz,SortItems ; if so, allow the player to swap menu entries
+	jp nz,.sortItems ; if so, allow the player to swap menu entries
 	ld b,a
 	bit 7,b ; was Down pressed?
 	ld hl,wListScrollOffset
@@ -1608,6 +1608,9 @@ checkOtherKeys: ; check B, SELECT, Up, and Down keys
 	jp z,DisplayListMenuIDLoop
 	dec [hl]
 	jp DisplayListMenuIDLoop
+.sortItems
+	cp a, -1 ; Sets the zero flag to 0 so the sorting function will happen
+	jp BankswitchBack
 
 DisplayChooseQuantityMenu::
 ; text box dimensions/coordinates for just quantity

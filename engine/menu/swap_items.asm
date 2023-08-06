@@ -161,7 +161,7 @@ SortItems::
 	xor a ; Zeroes a
 	pop bc
 	pop hl
-	jp DisplayListMenuIDLoop
+	ret
 .beginSorting
 	ld hl, wBagItems ; Loads hl with where wBagItems begins
 	ld c, 0 ; Relative to wBagItems, this is where we'd like to begin swapping
