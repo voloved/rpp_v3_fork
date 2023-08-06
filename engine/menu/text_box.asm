@@ -703,6 +703,8 @@ PokemonMenuEntries:
 	next "Cancel@"
 
 GetMonFieldMoves:
+	xor a
+	ld [wcf91], a ; wcf91 holds FLY if fly has been written; 0 otherwise
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Moves
 	ld bc, wPartyMon2 - wPartyMon1
@@ -725,7 +727,7 @@ GetMonFieldMoves:
 .fieldMoveLoop
 	ld a, [hli]
 	cp $ff
-	jr z, .nextMove ; if the move is not a field move
+	jr z, .addFly ; if the move is not a field move
 	cp b
 	jr z, .foundFieldMove
 	inc hl
@@ -733,6 +735,10 @@ GetMonFieldMoves:
 	jr .fieldMoveLoop
 .foundFieldMove
 	ld a, b
+	cp FLY
+	jr nz, .notFly
+	ld [wcf91], a
+.notFly
 	ld [wLastFieldMoveID], a
 	ld a, [hli] ; field move name index
 	ld b, [hl] ; field move leftmost X coordinate
@@ -750,6 +756,37 @@ GetMonFieldMoves:
 	ld a, [wLastFieldMoveID]
 	ld b, a
 	jr .loop
+.addFly
+	ld a, [wcf91]
+	and a
+	jr nz, .nextMove
+	push bc
+	push de
+	push hl
+	ld a, [wWhichPokemon]
+	ld hl, wPartyMon1Species
+	ld bc, wPartyMon2 - wPartyMon1
+	call AddNTimes
+	ld a, [hl]
+	ld [wcf91],a
+	ld a, FLY
+	ld [wMoveNum], a
+	predef CanLearnTM ; check if the pokemon can learn the move
+	ld a,c
+	pop hl
+	pop de
+	pop bc
+	and a
+	jr z, .nextMove
+	ld b, FLY
+	ld a,b
+	ld [wcf91], a ; a is FLY here, so not zero
+	ld hl, FieldMoveDisplayData
+.addFlyFindInFieldMoveDisplayData
+	ld a, [hli]
+	cp b
+	jr z, .foundFieldMove
+	jr .addFlyFindInFieldMoveDisplayData
 .done
 	pop hl
 	ret
