@@ -30,8 +30,15 @@ TrySurf:
 ; Check for a Pokemon in the party with SURF, and for the proper badge to use it.
 	ld d, SURF
 	call HasPartyMove
-	jr nz, .no
-
+	jr z, .checkBadge
+	ld b, HM_03
+	predef GetQuantityOfItemInBag
+	ld a, b
+	and a
+	jr z, .no
+	xor a ; Just have the pokemon in the first slot show the move
+	ld [wWhichPokemon], a
+.checkBadge
 	ld a, [wObtainedKantoBadges]
 	bit 4, a ; SOUL_BADGE
 	jr z, .no
@@ -84,8 +91,15 @@ TryCut: ; yenatch's code originally checked for the SOUL_BADGE like SURF does by
 	; Makes sure you have a Pokemon with CUT and have the proper badge.
 	ld d, CUT
 	call HasPartyMove
-	jr nz, .no2
-
+	jr z, .checkBadge
+	ld b, HM_01
+	predef GetQuantityOfItemInBag
+	ld a, b
+	and a
+	jr z, .no2
+	xor a ; Just have the pokemon in the first slot show the move
+	ld [wWhichPokemon], a
+.checkBadge
 	ld a, [wObtainedKantoBadges]
 	bit 1, a ; CASCADE_BADGE
 	jr z, .no2
@@ -121,8 +135,15 @@ TryHeadbutt:
 	; Makes sure you have a Pokemon with HEADBUTT.
 	ld d, HEADBUTT
 	call HasPartyMove
-	jr nz, .no
-	
+	jr z, .askToHeadbutt
+	ld b, TM_34
+	predef GetQuantityOfItemInBag
+	ld a, b
+	and a
+	jr z, .no
+	xor a ; Just have the pokemon in the first slot show the move
+	ld [wWhichPokemon], a
+.askToHeadbutt
 	; Prints the "A Pokemon might be hiding in this tree" message
 	call Text2_EnterTheText
 	ld hl,MightBeHiding

@@ -992,8 +992,15 @@ BoulderText::
 	farcall HasPartyMove
 	ld a, [wWhichTrade]
 	and a
-	jr nz, .done
-	
+	jr z, .startStrength
+	ld b, HM_04
+	predef GetQuantityOfItemInBag
+	ld a, b
+	and a
+	jr z, .done
+	xor a ; Just have the pokemon in the first slot show the move
+	ld [wWhichPokemon], a
+.startStrength
 	ld a, [wWhichPokemon]
 	push af
 	call ManualTextScroll
@@ -1609,7 +1616,8 @@ checkOtherKeys: ; check B, SELECT, Up, and Down keys
 	dec [hl]
 	jp DisplayListMenuIDLoop
 .sortItems
-	cp a, -1 ; Sets the zero flag to 0 so the sorting function will happen
+	rra ; Sets the zero flag to 0 so the sorting function will happen
+	rla
 	jp BankswitchBack
 
 DisplayChooseQuantityMenu::
