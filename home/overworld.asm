@@ -84,6 +84,16 @@ OverworldLoopLessDelay::
 	ld [hSpriteIndexOrTextID],a ; start menu text ID
 	jp .displayDialogue
 .startButtonNotPressed
+	bit 1,a ; b button
+	jr z,.bButtonNotPressed
+	ld hl,wFlags_D733
+	bit 6, [hl]
+	jr z, .setRun
+	res 6, [hl]
+	jr .bButtonNotPressed
+.setRun
+	set 6, [hl]
+.bButtonNotPressed
 	bit 0,a ; A button
 	jp z,.checkIfDownButtonIsPressed
 ; if A is pressed
@@ -304,6 +314,9 @@ OverworldLoopLessDelay::
 	; Add running shoes
 	ld a, [hJoyHeld] ; Check what buttons are being pressed
 	and B_BUTTON ; Are you holding B?
+	jr nz, .surfFaster
+	ld hl,wFlags_D733
+	bit 6, [hl]
 	jr z, .notRunning ; If you aren't holding B, skip ahead to step normally.
 .surfFaster
 	call DoBikeSpeedup ; Make you go faster if you were holding B

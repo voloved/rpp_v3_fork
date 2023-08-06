@@ -3257,6 +3257,7 @@ wFlags_D733:: ; d733
 ; bit 2: skip the joypad check in CheckWarpsNoCollision (used for the forced warp down the waterfall in the Seafoam Islands)
 ; bit 3: trainer wants to battle
 ; bit 4: use variable [wCurMapScript] instead of the provided index for next frame's map script (used to start battle when talking to trainers)
+; bit 6: If running is toggled
 ; bit 7: used fly out of battle
 	ds 1
 
