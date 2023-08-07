@@ -9,7 +9,7 @@ IF DEF(_HARD) ; Difficult rom
 	db 6,NIDORAN_M
 	db 6,NIDORAN_F
 	db 4,ZIGZAGOON
-	db 4,ZIGZAGOON
+	db 4,MANKEY
 	db 6,WEEDLE
 	db 6,CATERPIE
 
@@ -26,7 +26,7 @@ ELSE ; Normal rom
 	db 5,NIDORAN_M
 	db 5,NIDORAN_F
 	db 3,ZIGZAGOON
-	db 3,ZIGZAGOON
+	db 3,MANKEY
 	db 5,WEEDLE
 	db 5,CATERPIE
 
