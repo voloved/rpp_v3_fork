@@ -3,7 +3,7 @@ CeruleanCashierText::
 	db 7
 	db POKE_BALL
 	db POTION
-	db REPEL
+	db SUPER_REPEL
 	db ANTIDOTE
 	db BURN_HEAL
 	db AWAKENING

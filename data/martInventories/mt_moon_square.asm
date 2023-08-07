@@ -3,7 +3,7 @@ FossilMartText::
 	db 8
 	db POKE_BALL
 	db POTION
-	db REPEL
+	db MAX_REPEL
 	db POKE_DOLL
 	db MOON_STONE
 	db OLD_AMBER

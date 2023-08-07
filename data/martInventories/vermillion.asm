@@ -6,5 +6,5 @@ VermilionCashierText::
 	db ICE_HEAL
 	db AWAKENING
 	db PARLYZ_HEAL
-	db REPEL
+	db SUPER_REPEL
 	db $FF

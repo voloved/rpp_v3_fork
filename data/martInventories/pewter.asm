@@ -4,7 +4,7 @@ PewterCashierText::
 	db POKE_BALL
 	db POTION
 	db ESCAPE_ROPE
-	db REPEL
+	db SUPER_REPEL
 	db ANTIDOTE
 	db AWAKENING
 	db PARLYZ_HEAL
