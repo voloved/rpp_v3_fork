@@ -1819,7 +1819,7 @@ ItemUsePokeVial:
 	call IsPokeVialAllowed
 	jp nc,ItemUseNotTime
 	ld a, [wPokeVialUses]
-	cp 6 ; PokeVial usages Can be a number 9 or less
+	cp 3 ; PokeVial usages Can be a number 9 or less
 	jr nc, .outOfUsages
 	inc a
 	ld [wPokeVialUses], a
@@ -1842,7 +1842,7 @@ GetPokeVialUsagesLeft:
 	ld de,wcd6d
 	ld a, [wPokeVialUses]
 	ld b, a
-	ld a, 6 ; Modify this number if the PokeVial usages are changed
+	ld a, 3 ; Modify this number if the PokeVial usages are changed
 	sub a, b
 	add $F6
 	ld [de],a
