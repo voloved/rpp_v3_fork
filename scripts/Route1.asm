@@ -13,8 +13,8 @@ Route1TextPointers:
 	dw Route1Text1
 	dw Route1Text2
 	dw Route1Tree1
-	dw Route1Text3
 	dw Route1OakText
+	dw Route1Text3
 
 Route1Text1:
 	TX_ASM

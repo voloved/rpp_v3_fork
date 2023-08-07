@@ -2963,7 +2963,7 @@ wRoute5GateCurScript:: ; d662
 wPowerPlantCurScript:: ; d663
 	ds 1
 wRoute7GateCurScript:: ; d664
-wRoute1CurScript::
+	ds 1
 wSSAnne2CurScript:: ; d665
 	ds 1
 wSeafoamIslands4CurScript:: ; d666
@@ -2999,10 +2999,12 @@ wSlidingTilePuzzleTileMapPointer::
 wSlidingTilePuzzleInitialPositions::
 	ds 2
 wSlidingTilePuzzleHeaderEnd::
+	ds 1 ; Unused
 
-; unused bytes originally allocated with game progress flags
-	ds 10
+wRoute1CurScript::
+	ds 1
 
+	ds 8 ; Unused
 
 
 
