@@ -238,4 +238,4 @@ const_value = 0
 	const HS_LATIOS                       ; E5
 	const HS_LATIAS                       ; E6
 	const HS_LUGIA                        ; E7
-;	const HS_HO_OH                        ; E8
+	const HS_ROUTE_1_OAK                  ; E8

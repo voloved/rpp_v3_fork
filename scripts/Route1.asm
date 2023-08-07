@@ -1,10 +1,19 @@
 Route1Script:
 	jp EnableAutoTextBoxDrawing
+	ld hl, Route1ScriptPointers
+	ld a, [wRoute1CurScript]
+	jp CallFunctionInTable
+
+Route1ScriptPointers:
+	dw CheckFightingMapTrainers
+	dw DisplayEnemyTrainerTextAndStartBattle
+	dw EndTrainerBattle
 
 Route1TextPointers:
 	dw Route1Text1
 	dw Route1Text2
 	dw Route1Tree1
+	dw Route1OakText
 	dw Route1Text3
 
 Route1Text1:
@@ -58,3 +67,83 @@ Route1Tree1:
 	ld [wWhichTrade], a
 	callba BerryTreeScript
 	jp TextScriptEnd
+
+Route1OakText:
+	TX_ASM
+	ld hl, OakBeforeBattleText
+	call PrintText
+
+	call YesNoChoice ; this whole bit doesn't work for some reason
+	ld a, [wCurrentMenuItem]
+	and a
+	jr nz, .refused
+	
+	ld hl, OakYes
+	call PrintText
+	ld c, 0 ; BANK(Music_MeetMaleTrainer)
+	ld a, MUSIC_MEET_MALE_TRAINER
+	call PlayMusic
+
+	ld hl, wd72d
+	set 6, [hl]
+	set 7, [hl]
+	
+	call Delay3
+	ld a, OPP_PKMN_TRAINER
+	ld [wCurOpponent], a
+
+	; select which team to use during the encounter
+	ld a, [wRivalStarter]
+	cp STARTER2
+	jr nz, .NotSquirtle
+	ld a, $4 ; Rival had squirtle, so i had charmander
+	jr .done
+.NotSquirtle
+	cp STARTER3
+	jr nz, .Charmander
+	ld a, $5 ; bulb, so i had squirtle
+	jr .done
+.Charmander
+	ld a, $3 ; char, so i had bulbasaur
+.done
+	ld [wTrainerNo], a
+	ld a, 1
+	ld [wIsTrainerBattle], a
+
+	ld a, $2
+	ld [wRoute1CurScript], a
+	
+	ld hl, OakDefeatedText
+	ld de, OakWonText
+	call SaveEndBattleTextPointers
+	ld hl, wd72d
+	set 6, [hl]
+	set 7, [hl]
+	xor a
+	jp TextScriptEnd
+
+.refused
+	ld hl, OakNo
+	call PrintText
+	jp TextScriptEnd
+
+OakBeforeBattleText:
+	TX_FAR _OakBeforeBattleText
+	db "@"
+
+OakYes:
+	TX_FAR _OakYes
+	db "@"
+
+OakNo:
+	TX_FAR _OakNo
+	db "@"
+
+OakDefeatedText:
+	TX_FAR _OakDefeatedText
+	db "@"
+
+OakWonText:
+	TX_FAR _OakWonText
+	db "@"
+
