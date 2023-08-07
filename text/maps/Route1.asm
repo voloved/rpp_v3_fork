@@ -56,7 +56,7 @@ _OakBeforeBattleText::
 	cont "during my lunch"
 	cont "hour!"
 	
-	para "<PLAYER>, you"
+	para "[PLAYER], you"
 	line "have truly come"
 	cont "into your own!"
 	
@@ -71,6 +71,14 @@ _OakBeforeBattleText::
 	line "spar a bit?"
 	cont "What say you?"
 	
+	done
+
+_OakYes::
+	text "Let's go!"
+	done
+
+_OakNo::
+	text "Okay."
 	done
 
 _OakDefeatedText::

@@ -1,8 +1,13 @@
 Route1Script:
 	jp EnableAutoTextBoxDrawing
-	ld hl, Route1_ScriptPointers
+	ld hl, Route1ScriptPointers
 	ld a, [wRoute1CurScript]
 	jp CallFunctionInTable
+
+Route1ScriptPointers:
+	dw CheckFightingMapTrainers
+	dw DisplayEnemyTrainerTextAndStartBattle
+	dw EndTrainerBattle
 
 Route1TextPointers:
 	dw Route1Text1
@@ -75,7 +80,7 @@ Route1OakText:
 	
 	ld hl, OakYes
 	call PrintText
-	ld c, BANK(Music_MeetMaleTrainer)
+	ld c, 0 ; BANK(Music_MeetMaleTrainer)
 	ld a, MUSIC_MEET_MALE_TRAINER
 	call PlayMusic
 
@@ -113,8 +118,21 @@ Route1OakText:
 	call SaveEndBattleTextPointers
 	jp TextScriptEnd
 
+.refused
+	ld hl, OakNo
+	call PrintText
+	jp TextScriptEnd
+
 OakBeforeBattleText:
 	TX_FAR _OakBeforeBattleText
+	db "@"
+
+OakYes:
+	TX_FAR _OakYes
+	db "@"
+
+OakNo:
+	TX_FAR _OakNo
 	db "@"
 
 OakDefeatedText:
