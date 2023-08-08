@@ -2306,7 +2306,7 @@ const_value = 0
 	const EVENT_LANCES_ROOM_LOCK_DOOR                ; 8FF, (D866, bit 7)
 	const EVENT_900                                  ; 900, (D867, bit 0)
 	const EVENT_BEAT_CHAMPION_RIVAL                  ; 901, (D867, bit 1)
-	const EVENT_902                                  ; 902, (D867, bit 2)
+	const EVENT_BEAT_PROF_OAK                        ; 902, (D867, bit 2)
 	const EVENT_903                                  ; 903, (D867, bit 3)
 	const EVENT_904                                  ; 904, (D867, bit 4)
 	const EVENT_905                                  ; 905, (D867, bit 5)

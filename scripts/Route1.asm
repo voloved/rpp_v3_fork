@@ -70,6 +70,8 @@ Route1Tree1:
 
 Route1OakText:
 	TX_ASM
+	CheckAndSetEvent EVENT_BEAT_PROF_OAK
+	jr nz, .alreadyBeat
 	ld hl, OakBeforeBattleText
 	call PrintText
 
@@ -121,9 +123,12 @@ Route1OakText:
 	set 7, [hl]
 	xor a
 	jp TextScriptEnd
-
+.alreadyBeat
+	ld hl, OakAlreadyWon
+	jr .textCont
 .refused
 	ld hl, OakNo
+.textCont
 	call PrintText
 	jp TextScriptEnd
 
@@ -137,6 +142,10 @@ OakYes:
 
 OakNo:
 	TX_FAR _OakNo
+	db "@"
+
+OakAlreadyWon:
+	TX_FAR _OakAlreadyWon
 	db "@"
 
 OakDefeatedText:

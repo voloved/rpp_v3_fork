@@ -81,6 +81,12 @@ _OakNo::
 	text "Okay."
 	done
 
+_OakAlreadyWon::
+	text "[PLAYER], you won"
+	line "this video games."
+	para "Congrats."
+	done
+
 _OakDefeatedText::
 	text "Hmm..."
 	
