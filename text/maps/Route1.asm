@@ -81,6 +81,11 @@ _OakNo::
 	text "Okay."
 	done
 
+_OakAlreadyBattled::
+	text "[PLAYER], do you"
+	line "want a rematch?"
+	done
+
 _OakDefeatedText::
 	text "Hmm..."
 	

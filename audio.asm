@@ -308,7 +308,7 @@ PlayBattleMusic::
 	ld a, [wCurOpponent]
 	cp OPP_SONY3
 	jr z, .finalBattle
-	cp OPP_PKMN_TRAINER
+	cp OPP_PROF_OAK
 	jr z, .finalBattle 
 	cp OPP_LANCE
 	jr nz, .normalTrainerBattle

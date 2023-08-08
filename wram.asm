@@ -2999,12 +2999,9 @@ wSlidingTilePuzzleTileMapPointer::
 wSlidingTilePuzzleInitialPositions::
 	ds 2
 wSlidingTilePuzzleHeaderEnd::
-	ds 1 ; Unused
 
-wRoute1CurScript::
-	ds 1
-
-	ds 8 ; Unused
+; unused bytes originally allocated with game progress flags
+	ds 10
 
 
 

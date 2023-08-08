@@ -642,6 +642,7 @@ IF DEF(_HARD) ; Hard Version
 	db 1,4,0  ; LANCE
 	db 1,4,0  ; HEX_MANIAC
 	db 1,4,0  ; TRAINER
+	db 1,4,0  ; PROF
 ELSE ; Normal Version
 	db 0      ; YOUNGSTER
 	db 1,0    ; BUG CATCHER
@@ -692,6 +693,7 @@ ELSE ; Normal Version
 	db 1,4,0  ; LANCE
 	db 1,0    ; HEX_MANIAC
 	db 1,4,0  ; TRAINER
+	db 1,4,0  ; PROF
 ENDC
 
 TrainerAI:
@@ -780,6 +782,7 @@ IF DEF(_HARD) ; Hard Version
 	dbw 1,HyperPotion2AI ; lance
 	dbw 3,PotionAI ; hex maniac
 	dbw 3,GenericAI ; trainer (usually overwritten in trainer data)
+	dbw 3,FullRestoreAI ; prof oak
 ELSE
 	dbw 3,GenericAI ; youngster
 	dbw 3,GenericAI ; bug catcher
@@ -830,6 +833,7 @@ ELSE
 	dbw 1,HyperPotion2AI ; lance
 	dbw 3,GenericAI ; hex maniac
 	dbw 3,GenericAI ; trainer (usually overwritten in trainer data)
+	dbw 3,FullRestoreAI ; prof oak
 ENDC
 
 SwitchOutAI:

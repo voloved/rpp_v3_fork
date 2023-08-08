@@ -48,6 +48,7 @@ TrainerDataPointers: ; Originally created 28/06/2015 by Neodymium / Free to use 
 	dw LanceData
 	dw HexManiacData
 	dw PkmnTrainerData
+	dw ProfOakData
 
 ; first is the name, followed by the first byte of the data
 
@@ -1237,15 +1238,13 @@ PkmnTrainerData:
 	db $FF
 
     db "Prof Oak@"
-	db SPECIAL_TRAINER2
-	db PROF_OAK ; pic
-	db AI_FULL_RESTORE ; AI
+	db SPECIAL_TRAINER
 	
 	db 66,TAUROS
 	moveset BODY_SLAM, HYPER_BEAM, BLIZZARD, EARTHQUAKE
 
 	db 67,EXEGGUTOR
-	moveset SLEEP_POWDER, PSYCHIC, EXPLOSION, DOUBLE_EDGE
+	moveset SLEEP_POWDER, PSYCHIC_M, EXPLOSION, DOUBLE_EDGE
 
 	db 68,ARCANINE
 	moveset FIRE_BLAST, BODY_SLAM, REST, REFLECT
@@ -1258,16 +1257,35 @@ PkmnTrainerData:
 	db $FF
 	
 	
-    db "Prof Oak@"
-	db SPECIAL_TRAINER2
-	db PROF_OAK ; pic
-	db AI_FULL_RESTORE ; AI
+ProfOakData:
+    db "Oak@"
+	db SPECIAL_TRAINER
 
 	db 66,TAUROS
 	moveset BODY_SLAM, HYPER_BEAM, BLIZZARD, EARTHQUAKE
 
 	db 67,EXEGGUTOR
-	moveset SLEEP_POWDER, PSYCHIC, EXPLOSION, DOUBLE_EDGE
+	moveset SLEEP_POWDER, PSYCHIC_M, EXPLOSION, DOUBLE_EDGE
+
+	db 68,ARCANINE
+	moveset FIRE_BLAST, BODY_SLAM, REST, REFLECT
+
+	db 69,BLASTOISE
+	moveset SURF, SEISMIC_TOSS, COUNTER, ICE_BEAM
+
+	db 70,GYARADOS
+	moveset BODY_SLAM, BLIZZARD, THUNDERBOLT, HYDRO_PUMP
+	db $FF
+	
+	
+    db "Oak@"
+	db SPECIAL_TRAINER
+
+	db 66,TAUROS
+	moveset BODY_SLAM, HYPER_BEAM, BLIZZARD, EARTHQUAKE
+
+	db 67,EXEGGUTOR
+	moveset SLEEP_POWDER, PSYCHIC_M, EXPLOSION, DOUBLE_EDGE
 
 	db 68,ARCANINE
 	moveset FIRE_BLAST, BODY_SLAM, REST, REFLECT
@@ -1281,16 +1299,14 @@ PkmnTrainerData:
 	
 	
 	
-    db "Prof Oak@"
-	db SPECIAL_TRAINER2
-	db PROF_OAK ; pic
-	db AI_FULL_RESTORE ; AI
+    db "Oak@"
+	db SPECIAL_TRAINER
 
 	db 66,TAUROS
 	moveset BODY_SLAM, HYPER_BEAM, BLIZZARD, EARTHQUAKE
 
 	db 67,EXEGGUTOR
-	moveset SLEEP_POWDER, PSYCHIC, EXPLOSION, DOUBLE_EDGE
+	moveset SLEEP_POWDER, PSYCHIC_M, EXPLOSION, DOUBLE_EDGE
 
 	db 68,ARCANINE
 	moveset FIRE_BLAST, BODY_SLAM, REST, REFLECT
@@ -1301,3 +1317,4 @@ PkmnTrainerData:
 	db 70,GYARADOS
 	moveset BODY_SLAM, BLIZZARD, THUNDERBOLT, HYDRO_PUMP
 	db $FF
+

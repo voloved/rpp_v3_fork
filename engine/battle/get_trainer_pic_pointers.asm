@@ -72,6 +72,7 @@ TrainerPicPointers:
 	add_pic LancePic
 	add_pic HexManiacPic
 	add_pic RedPicFront ; placeholder, pic is loaded manually in trainer data
+	add_pic ProfOakPic
 	add_pic TraceyPic
 	add_pic ExecutiveFPic
 	add_pic ExecutiveMPic
@@ -81,7 +82,6 @@ TrainerPicPointers:
 	add_pic JaninePic
 	add_pic RedPicFront
 	add_pic LeafPicFront
-	add_pic ProfOakPic
 	add_pic PiTrainerPic
 	add_pic FlanneryPic
 	add_pic JessiePic

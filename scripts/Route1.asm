@@ -1,7 +1,6 @@
 Route1Script:
 	jp EnableAutoTextBoxDrawing
 	ld hl, Route1ScriptPointers
-	ld a, [wRoute1CurScript]
 	jp CallFunctionInTable
 
 Route1ScriptPointers:
@@ -18,6 +17,9 @@ Route1TextPointers:
 
 Route1Text1:
 	TX_ASM
+	ld a, HS_ROUTE_1_OAK
+	ld [wMissableObjectIndex], a
+	predef ShowObject
 	CheckAndSetEvent EVENT_GOT_POTION_SAMPLE
 	jr nz, .asm_1cada
 	ld hl, Route1ViridianMartSampleText
@@ -70,9 +72,14 @@ Route1Tree1:
 
 Route1OakText:
 	TX_ASM
+	CheckAndSetEvent EVENT_BEAT_PROF_OAK
+	jr nz, .alreadyBattled
 	ld hl, OakBeforeBattleText
+	jr .printQuestion
+.alreadyBattled
+	ld hl, OakAlreadyBattled
+.printQuestion
 	call PrintText
-
 	call YesNoChoice ; this whole bit doesn't work for some reason
 	ld a, [wCurrentMenuItem]
 	and a
@@ -89,29 +96,26 @@ Route1OakText:
 	set 7, [hl]
 	
 	call Delay3
-	ld a, OPP_PKMN_TRAINER
+	ld a, OPP_PROF_OAK
 	ld [wCurOpponent], a
 
 	; select which team to use during the encounter
 	ld a, [wRivalStarter]
 	cp STARTER2
 	jr nz, .NotSquirtle
-	ld a, $4 ; Rival had squirtle, so i had charmander
+	ld a, $2 ; Rival had squirtle, so i had charmander
 	jr .done
 .NotSquirtle
 	cp STARTER3
 	jr nz, .Charmander
-	ld a, $5 ; bulb, so i had squirtle
+	ld a, $3 ; bulb, so i had squirtle
 	jr .done
 .Charmander
-	ld a, $3 ; char, so i had bulbasaur
+	ld a, $1 ; char, so i had bulbasaur
 .done
 	ld [wTrainerNo], a
 	ld a, 1
 	ld [wIsTrainerBattle], a
-
-	ld a, $2
-	ld [wRoute1CurScript], a
 	
 	ld hl, OakDefeatedText
 	ld de, OakWonText
@@ -121,9 +125,9 @@ Route1OakText:
 	set 7, [hl]
 	xor a
 	jp TextScriptEnd
-
 .refused
 	ld hl, OakNo
+.textCont
 	call PrintText
 	jp TextScriptEnd
 
@@ -137,6 +141,10 @@ OakYes:
 
 OakNo:
 	TX_FAR _OakNo
+	db "@"
+
+OakAlreadyBattled:
+	TX_FAR _OakAlreadyBattled
 	db "@"
 
 OakDefeatedText:

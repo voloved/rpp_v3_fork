@@ -572,7 +572,8 @@ MapHSA1:
 MapHSA2:
 	db SEAFOAM_ISLANDS_5,$01,Hide
 	db SEAFOAM_ISLANDS_5,$02,Hide
-	db SEAFOAM_ISLANDS_5,$03,Show
+MapHS0C:
+	db ROUTE_1, $04, Hide ; PROF OAK fight. To test, change to SHOW. - PvK
 MapHS6E:
 	db FARAWAY_ISLAND_INSIDE,$01,Show
 MapHS70:
@@ -580,7 +581,5 @@ MapHS70:
 	db SOUTHERN_ISLAND_INSIDE,$02,Show
 MapHSEE:
 	db NAVEL_ROCK_LUGIA_ROOM,$01,Show
-MapHS0C:
-	db ROUTE_1, $04, Hide ; PROF OAK fight. To test, change to SHOW. - PvK
 ; End of list thing
 	db $FF,$01,Show

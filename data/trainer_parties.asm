@@ -48,6 +48,7 @@ TrainerDataPointers:
 	dw LanceData
 	dw HexManiacData
 	dw PkmnTrainerData
+	dw ProfOakData
 
 ; first is the name, followed by the first byte of the data
 
@@ -1176,16 +1177,15 @@ PkmnTrainerData:
 	moveset TOXIC, PSYCHIC_M, DOUBLE_TEAM, SUPERSONIC
 	db $FF
 
-    db "Prof Oak@"
-	db SPECIAL_TRAINER2
-	db PROF_OAK ; pic
-	db AI_FULL_RESTORE ; AI
+ProfOakData:
+    db "Oak@"
+	db SPECIAL_TRAINER
 	
 	db 66,TAUROS
 	moveset BODY_SLAM, HYPER_BEAM, BLIZZARD, EARTHQUAKE
 
 	db 67,EXEGGUTOR
-	moveset SLEEP_POWDER, PSYCHIC, EXPLOSION, DOUBLE_EDGE
+	moveset SLEEP_POWDER, PSYCHIC_M, EXPLOSION, DOUBLE_EDGE
 
 	db 68,ARCANINE
 	moveset FIRE_BLAST, BODY_SLAM, REST, REFLECT
@@ -1198,16 +1198,14 @@ PkmnTrainerData:
 	db $FF
 	
 	
-    db "Prof Oak@"
-	db SPECIAL_TRAINER2
-	db PROF_OAK ; pic
-	db AI_FULL_RESTORE ; AI
+    db "Oak@"
+	db SPECIAL_TRAINER
 
 	db 66,TAUROS
 	moveset BODY_SLAM, HYPER_BEAM, BLIZZARD, EARTHQUAKE
 
 	db 67,EXEGGUTOR
-	moveset SLEEP_POWDER, PSYCHIC, EXPLOSION, DOUBLE_EDGE
+	moveset SLEEP_POWDER, PSYCHIC_M, EXPLOSION, DOUBLE_EDGE
 
 	db 68,ARCANINE
 	moveset FIRE_BLAST, BODY_SLAM, REST, REFLECT
@@ -1221,16 +1219,14 @@ PkmnTrainerData:
 	
 	
 	
-    db "Prof Oak@"
-	db SPECIAL_TRAINER2
-	db PROF_OAK ; pic
-	db AI_FULL_RESTORE ; AI
+    db "Oak@"
+	db SPECIAL_TRAINER
 
 	db 66,TAUROS
 	moveset BODY_SLAM, HYPER_BEAM, BLIZZARD, EARTHQUAKE
 
 	db 67,EXEGGUTOR
-	moveset SLEEP_POWDER, PSYCHIC, EXPLOSION, DOUBLE_EDGE
+	moveset SLEEP_POWDER, PSYCHIC_M, EXPLOSION, DOUBLE_EDGE
 
 	db 68,ARCANINE
 	moveset FIRE_BLAST, BODY_SLAM, REST, REFLECT
