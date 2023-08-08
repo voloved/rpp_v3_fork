@@ -2974,8 +2974,6 @@ wSeafoamIslands5CurScript:: ; d668
 	ds 1
 wRoute18GateCurScript:: ; d669
 	ds 1
-wRoute1CurScript:: ; d66a
-	ds 1
 wGameProgressFlagsEnd::
 
 wChainHeadbuttStreak::
@@ -3003,7 +3001,7 @@ wSlidingTilePuzzleInitialPositions::
 wSlidingTilePuzzleHeaderEnd::
 
 ; unused bytes originally allocated with game progress flags
-	ds 9
+	ds 10
 
 
 

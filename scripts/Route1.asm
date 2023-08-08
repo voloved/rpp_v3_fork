@@ -1,7 +1,6 @@
 Route1Script:
 	jp EnableAutoTextBoxDrawing
 	ld hl, Route1ScriptPointers
-	ld a, [wRoute1CurScript]
 	jp CallFunctionInTable
 
 Route1ScriptPointers:
@@ -18,6 +17,9 @@ Route1TextPointers:
 
 Route1Text1:
 	TX_ASM
+	ld a, HS_ROUTE_1_OAK
+	ld [wMissableObjectIndex], a
+	predef ShowObject
 	CheckAndSetEvent EVENT_GOT_POTION_SAMPLE
 	jr nz, .asm_1cada
 	ld hl, Route1ViridianMartSampleText
@@ -71,10 +73,13 @@ Route1Tree1:
 Route1OakText:
 	TX_ASM
 	CheckAndSetEvent EVENT_BEAT_PROF_OAK
-	jr nz, .alreadyBeat
+	jr nz, .alreadyBattled
 	ld hl, OakBeforeBattleText
+	jr .printQuestion
+.alreadyBattled
+	ld hl, OakAlreadyBattled
+.printQuestion
 	call PrintText
-
 	call YesNoChoice ; this whole bit doesn't work for some reason
 	ld a, [wCurrentMenuItem]
 	and a
@@ -111,9 +116,6 @@ Route1OakText:
 	ld [wTrainerNo], a
 	ld a, 1
 	ld [wIsTrainerBattle], a
-
-	ld a, $2
-	ld [wRoute1CurScript], a
 	
 	ld hl, OakDefeatedText
 	ld de, OakWonText
@@ -123,9 +125,6 @@ Route1OakText:
 	set 7, [hl]
 	xor a
 	jp TextScriptEnd
-.alreadyBeat
-	ld hl, OakAlreadyWon
-	jr .textCont
 .refused
 	ld hl, OakNo
 .textCont
@@ -144,8 +143,8 @@ OakNo:
 	TX_FAR _OakNo
 	db "@"
 
-OakAlreadyWon:
-	TX_FAR _OakAlreadyWon
+OakAlreadyBattled:
+	TX_FAR _OakAlreadyBattled
 	db "@"
 
 OakDefeatedText:
