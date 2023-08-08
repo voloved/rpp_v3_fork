@@ -147,3 +147,6 @@ TrainerPicAndMoneyPointers:
 
 ;	dw TrainerPic
 	money 5000
+
+;	dw ProfPic
+	money 9900

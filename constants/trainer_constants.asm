@@ -55,18 +55,18 @@ const_value = 1
 	trainer_const LANCE         ; $2F
 	trainer_const HEX_MANIAC    ; $30
 	trainer_const PKMN_TRAINER  ; $31
+	trainer_const PROF_OAK      ; $32
 
 ; Entries below this are only sprites, not actual classes
-	trainer_const TRACEY        ; $32
-	trainer_const EXECUTIVE_F   ; $33
-	trainer_const EXECUTIVE_M   ; $34
-	trainer_const ROCKER_F      ; $35
-	trainer_const JESSIE_JAMES  ; $36
-	trainer_const COSPLAY_GIRL  ; $37
-	trainer_const JANINE        ; $38
-	trainer_const PLAYER_M      ; $39
-	trainer_const PLAYER_F      ; $3A
-	trainer_const PROF_OAK      ; $3B
+	trainer_const TRACEY        ; $33
+	trainer_const EXECUTIVE_F   ; $34
+	trainer_const EXECUTIVE_M   ; $35
+	trainer_const ROCKER_F      ; $36
+	trainer_const JESSIE_JAMES  ; $37
+	trainer_const COSPLAY_GIRL  ; $38
+	trainer_const JANINE        ; $39
+	trainer_const PLAYER_M      ; $3A
+	trainer_const PLAYER_F      ; $3B
 	trainer_const PI_TRAINER    ; $3C
 	trainer_const FLANNERY      ; $3D
 	trainer_const JESSIE        ; $3E

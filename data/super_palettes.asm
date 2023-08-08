@@ -2099,6 +2099,10 @@ TrainerPaletteTable:
 	RGB 28, 18, 17
 	RGB 22, 07, 08
 
+; PAL_PROF_OAK
+	RGB 24, 19, 11
+	RGB 10, 08, 14
+
 ; PAL_TRACEY
 	RGB 25, 18, 12
 	RGB 01, 17, 11
@@ -2134,10 +2138,6 @@ TrainerPaletteTable:
 ; PAL_PLAYER_F copy of PAL_GREEN_TRAINER
 	RGB 30,22,17
 	RGB 9,20,11
-
-; PAL_PROF_OAK
-	RGB 24, 19, 11
-	RGB 10, 08, 14
 
 ; PAL_PI_TRAINER
 	RGB 25, 16, 12

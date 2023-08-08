@@ -50,3 +50,4 @@ TrainerClassDVs:
 	db $EE, $EE ; LANCE
 	db $7F, $DF ; HEX_MANIAC
 	db $7F, $FF ; PKMN_TRAINER
+	db $7F, $FF ; PROF_OAK

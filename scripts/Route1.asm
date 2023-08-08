@@ -89,22 +89,22 @@ Route1OakText:
 	set 7, [hl]
 	
 	call Delay3
-	ld a, OPP_PKMN_TRAINER
+	ld a, OPP_PROF_OAK
 	ld [wCurOpponent], a
 
 	; select which team to use during the encounter
 	ld a, [wRivalStarter]
 	cp STARTER2
 	jr nz, .NotSquirtle
-	ld a, $4 ; Rival had squirtle, so i had charmander
+	ld a, $2 ; Rival had squirtle, so i had charmander
 	jr .done
 .NotSquirtle
 	cp STARTER3
 	jr nz, .Charmander
-	ld a, $5 ; bulb, so i had squirtle
+	ld a, $3 ; bulb, so i had squirtle
 	jr .done
 .Charmander
-	ld a, $3 ; char, so i had bulbasaur
+	ld a, $1 ; char, so i had bulbasaur
 .done
 	ld [wTrainerNo], a
 	ld a, 1

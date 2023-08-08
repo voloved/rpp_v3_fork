@@ -324,6 +324,7 @@ const_value = 0
 	const PAL_LANCE
 	const PAL_HEX_MANIAC
 	const PAL_PKMN_TRAINER
+	const PAL_PROF_OAK
 	
 	const PAL_TRACEY
 	const PAL_EXECUTIVE_F
@@ -334,7 +335,6 @@ const_value = 0
 	const PAL_JANINE
 	const PAL_PLAYER_M
 	const PAL_PLAYER_F
-	const PAL_PROF_OAK
 	const PAL_PI_TRAINER
 	const PAL_FLANNERY
 	const PAL_JESSIE
