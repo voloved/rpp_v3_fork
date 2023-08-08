@@ -156,7 +156,8 @@ _TeruSama1BDescription::
 	prompt
 
 _TeruSama1CDescription::
-	text "..."
+	text "Repels all wild"
+	line "#mon when on."
 	prompt
 
 _EscapeRopeDescription::

@@ -1,6 +1,9 @@
 ; try to initiate a wild pokemon encounter
 ; returns success in Z
 TryDoWildEncounter:
+	ld hl,wd736
+	bit 5, [hl]
+	jr nz, .CantEncounter
 	ld a, [wNPCMovementScriptPointerTableNum]
 	and a
 	ret nz
@@ -124,3 +127,104 @@ WildMonEncounterSlotChances:
 	db $E9, $0E ; 13/256 =  5.1% chance of slot 7
 	db $F4, $10 ; 11/256 =  4.3% chance of slot 8
 	db $FF, $12 ;  3/256 =  1.2% chance of slot 9
+
+SetStolen::
+; wcf91 holds the species info
+	ld a, [wTrainerClass]
+	cp SONY1
+	jr z, .isRival
+	cp SONY2
+	jr z, .isRival
+	cp SONY3
+	jr z, .isRival
+	ret
+.isRival
+	ld a, [wRivalPokemonStolen]
+	ld b, a
+	ld a, [wcf91]
+.checkStarter
+	cp BULBASAUR
+	jr c, .checkPidgey
+	cp BLASTOISE
+	jr z, .stoleStarter
+	jr nc, .checkPidgey
+	jr .stoleStarter
+.checkPidgey
+	cp PIDGEY
+	jr c, .checkRattata
+	cp PIDGEOT
+	jr z, .stolePidgey
+	jr nc, .checkRattata
+	jr .stolePidgey
+.checkRattata
+	cp RATTATA
+	jr z, .stoleRattata
+	cp RATICATE
+	jr z, .stoleRattata
+.checkAbra
+	cp ABRA
+	jr c, .checkGrowlithe
+	cp ALAKAZAM
+	jr z, .stoleAbra
+	jr nc, .checkGrowlithe
+	jr .stoleAbra
+.checkGrowlithe
+	cp GROWLITHE
+	jr z, .stoleGrowlithe
+	cp ARCANINE
+	jr z, .stoleGrowlithe
+.checkExeggcute
+	cp EXEGGCUTE
+	jr z, .stoleExeggcute
+	cp EXEGGUTOR
+	jr z, .stoleExeggcute
+.checkGyarados
+	cp GYARADOS
+	jr z, .stoleGyarados
+.checkRhyhorn
+	cp RHYHORN
+	jr nz, .stoleRhyhorn
+	ret
+.stoleStarter
+	ld a, b
+	set 0, a
+	jr .done
+.stolePidgey
+	ld a, b
+	set 1, a
+	jr .done
+.stoleRattata
+	ld a, b
+	set 2, a
+	jr .done
+.stoleAbra
+	ld a, b
+	set 3, a
+	jr .done
+.stoleGrowlithe
+	ld a, b
+	set 4, a
+	jr .done
+.stoleExeggcute
+	ld a, b
+	set 5, a
+	jr .done
+.stoleGyarados
+	ld a, b
+	set 6, a
+	jr .done
+.stoleRhyhorn
+	ld a, b
+	set 7, a
+	jr .done
+.done
+	ld [wRivalPokemonStolen], a
+	ret
+; bit 0: Starter
+; bit 1: Pidgey Line
+; bit 2: Rattata Line
+; bit 3: Abra Line
+; bit 4: Growlithe Line
+; bit 5: Exeggcute Line
+; bit 6: Gyarados
+; bit 7: Rhyhorn

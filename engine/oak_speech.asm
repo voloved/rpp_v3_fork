@@ -56,6 +56,11 @@ OakSpeech:
 	ld [wcf91],a
 	ld a,3
 	ld [wItemQuantity],a
+	call AddItemToInventory ; give three thief balls
+	ld a,CLEANSE_TAG
+	ld [wcf91],a
+	ld a,1
+	ld [wItemQuantity],a   ; give one cleanse tag
 	call AddItemToInventory
 	ld a,[wDefaultMap]
 	ld [wDestinationMap],a

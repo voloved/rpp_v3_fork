@@ -2816,6 +2816,18 @@ _ThrewRockText::
 	line "Rock."
 	done
 
+_CleanseTagTurnOn::
+	text "[PLAYER]'s turned"
+	line "on Cleanse Tag."
+	cont "All wild battles"
+	cont "will be avoided."
+	prompt
+
+_CleanseTagTurnOff::
+	text "[PLAYER]'s turned"
+	line "off Cleanse Tag."
+	prompt
+
 _UsedPokeVialToHealText::
 	text "[PLAYER]'s party"
 	line "has been healed."

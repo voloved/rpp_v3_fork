@@ -33,7 +33,7 @@ const_value = 1
 ; Currently Unused Items
 	const TERU_SAMA_1A ; $1A
 	const TERU_SAMA_1B ; $1B
-	const TERU_SAMA_1C ; $1C
+	const CLEANSE_TAG  ; $1C
 
 	const ESCAPE_ROPE   ; $1D
 	const REPEL         ; $1E

@@ -43,7 +43,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; EON TICKET
 	dw UnusableItem      ; TERU-SAMA
 	dw UnusableItem      ; TERU-SAMA
-	dw UnusableItem      ; TERU-SAMA
+	dw ItemUseCleanseTag ; CLEANSE TAG
 	dw ItemUseEscapeRope ; ESCAPE_ROPE
 	dw ItemUseRepel      ; REPEL
 	dw UnusableItem      ; OLD_AMBER
@@ -1590,6 +1590,34 @@ ThrewBaitText:
 
 ThrewRockText:
 	TX_FAR _ThrewRockText
+	db "@"
+
+ItemUseCleanseTag:
+	ld a,[wIsInBattle]
+	and a
+	jp nz,ItemUseNotTime
+	ld hl,wd736
+	bit 5, [hl]
+	jr z, .setCleanse
+	res 5, [hl]
+	ld a, SFX_TURN_OFF_PC
+	ld hl,CleanseTagTurnOff
+	jr .continue
+.setCleanse
+	set 5, [hl]
+	ld a, SFX_HEAL_AILMENT
+	ld hl,CleanseTagTurnOn
+.continue
+	call PlaySound
+	call PrintText
+	ret
+
+CleanseTagTurnOn:
+	TX_FAR _CleanseTagTurnOn
+	db "@"
+
+CleanseTagTurnOff:
+	TX_FAR _CleanseTagTurnOff
 	db "@"
 
 ; also used for Dig out-of-battle effect

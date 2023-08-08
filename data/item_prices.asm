@@ -26,7 +26,7 @@ ItemPrices:
 	money 0     ; SOULBADGE
 	money 0     ; MARSHBADGE
 	money 0     ; VOLCANOBADGE
-	money 0     ; EARTHBADGE
+	money 200   ; CleanseTag
 	money 550   ; ESCAPE_ROPE
 	money 350   ; REPEL
 	money 4200  ; OLD_AMBER

@@ -200,7 +200,6 @@ INCLUDE "engine/turn_sprite.asm"
 INCLUDE "engine/menu/start_sub_menus.asm"
 INCLUDE "engine/items/tms.asm"
 INCLUDE "engine/battle/end_of_battle.asm"
-INCLUDE "engine/battle/wild_encounters.asm"
 INCLUDE "engine/battle/moveEffects/recoil_effect.asm"
 INCLUDE "engine/battle/moveEffects/conversion_effect.asm"
 INCLUDE "engine/battle/moveEffects/haze_effect.asm"
@@ -2396,7 +2395,6 @@ MiltankPicBack:         INCBIN "pic/monback/miltank.pic"
 
 
 SECTION "bank33",ROMX,BANK[$33]
-
 ChinchouPicFront:       INCBIN "pic/bmon/chinchou.pic"
 ChinchouPicBack:        INCBIN "pic/monback/chinchou.pic"
 LanturnPicFront:        INCBIN "pic/bmon/lanturn.pic"
@@ -2447,7 +2445,6 @@ LinoonePicFront::   INCBIN "pic/bmon/linoone.pic"
 LinoonePicBack::    INCBIN "pic/monback/linooneb.pic"
 HoohPicFront::      INCBIN "pic/bmon/hooh.pic"
 HoohPicBack::       INCBIN "pic/monback/hoohb.pic"
-
 
 SECTION "bank34",ROMX,BANK[$34]
 
@@ -2719,3 +2716,4 @@ SECTION "Trainer Parties", ROMX,BANK[$3B]
 INCLUDE "engine/battle/read_trainer_party.asm"
 INCLUDE "engine/overworld/advance_player_sprite.asm"
 INCLUDE "engine/mon_gender.asm"
+INCLUDE "engine/battle/wild_encounters.asm"
