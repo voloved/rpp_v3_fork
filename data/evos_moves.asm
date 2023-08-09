@@ -530,11 +530,13 @@ Mon016_EvosMoves:
 	db 5,MUD_SLAP ; Sand Attack → similar move
 	db 9,GUST
 	db 13,QUICK_ATTACK
+	db 16,AERIAL_ACE
 	db 17,RAGE ; Whirlwind → RBY TM Move
 	db 21,TWISTER
 	db 25,SWIFT ; Feather Dance → TM Move
 	db 29,AGILITY
 	db 33,WING_ATTACK
+	db 35,RAZOR_WIND
 	db 37,REST ; Roost → Other healing move
 	db 41,DRILL_PECK ; Tailwind → New Move
 	db 45,STEEL_WING ; Mirror Move → TM Move
@@ -553,10 +555,12 @@ Mon017_EvosMoves:
 	db 9,GUST
 	db 13,QUICK_ATTACK
 	db 17,RAGE ; Whirlwind → RBY TM move
+	db 19,AERIAL_ACE
 	db 22,TWISTER
 	db 27,SWIFT ; Feather Dance → TM Move
 	db 32,AGILITY
 	db 37,WING_ATTACK
+	db 39,RAZOR_WIND
 	db 42,REST ; Roost → Other healing move
 	db 47,DRILL_PECK ; Tailwind → New Move
 	db 52,STEEL_WING ; Mirror Move → TM Move
@@ -574,10 +578,12 @@ Mon018_EvosMoves:
 	db 9,GUST
 	db 13,QUICK_ATTACK
 	db 17,RAGE ; Whirlwind → RBY TM move
+	db 19,AERIAL_ACE
 	db 22,TWISTER
 	db 27,SWIFT ; Feather Dance → TM move
 	db 32,AGILITY
 	db 38,WING_ATTACK
+	db 40,RAZOR_WIND
 	db 44,REST ; Roost → Other healing move
 	db 50,DRILL_PECK ; Tailwind → new move
 	db 56,STEEL_WING ; Mirror Move → TM Move
