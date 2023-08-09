@@ -73,8 +73,6 @@ INCLUDE "engine/menu/draw_start_menu.asm"
 
 INCLUDE "engine/overworld/cable_club_npc.asm"
 
-INCLUDE "engine/menu/text_box.asm"
-
 INCLUDE "engine/battle/moveEffects/drain_hp_effect.asm"
 
 INCLUDE "engine/menu/players_pc.asm"
@@ -2717,3 +2715,4 @@ INCLUDE "engine/battle/read_trainer_party.asm"
 INCLUDE "engine/overworld/advance_player_sprite.asm"
 INCLUDE "engine/mon_gender.asm"
 INCLUDE "engine/battle/wild_encounters.asm"
+INCLUDE "engine/menu/text_box.asm"
