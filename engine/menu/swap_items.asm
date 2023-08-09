@@ -163,13 +163,14 @@ SortItems::
 	pop hl
 	ret
 .beginSorting
+	ld de, 0
+	ld hl, ItemSortList
+	ld b, [hl] ; This is the first item to check for
 	ld hl, wBagItems ; Loads hl with where wBagItems begins
 	ld c, 0 ; Relative to wBagItems, this is where we'd like to begin swapping
-	ld b, MASTER_BALL ; This is the first item to check for
 .loopCurrItemInBag ; Looks for the item we're currently interested in inside the bag
-	ld a, [hl] ; Load the value of hl to a (with is an item number)
-	inc hl ; Increments to the quantity
-	inc hl  ; Increments past the quantity so we're at the next number
+	ld a, [hli] ; Load the value of hl to a (with is an item number) and Increments to the quantity
+	inc hl ; Increments past the quantity so we're at the next number
 	cp $ff ; See if the item number is $ff, which is 'cancel'
 	jr z, .findNextItem ; If it is cancel, then move onto the next item
 	cp b ; If it's not cancel, then compare it to b
@@ -178,14 +179,19 @@ SortItems::
 	dec hl ; Go back to the previous item
 	jr .hasItem
 .findNextItem
+	ld d, 0
+	inc e
+	ld hl, ItemSortList
+	add hl, de
+	ld b, [hl]
 	ld hl, wBagItems ; Resets hl to start at the beginning of the bag
-	inc b ; Have b look at the next item in the item consts (item_constants.asm)
 	ld a, b
-	cp TM_50 ; Check if we got through all of the items, to the last one
+	cp $ff ; Check if we got through all of the items, to the last one
 	jr z, .done
 	jr .loopCurrItemInBag
-.hasItem  ; c contains where to swap to relative to the start of wBagItems
-		  ; hl contains where the item to swap is absolute.
+.hasItem ; c contains where to swap to relative to the start of wBagItems
+		 ; hl contains where the item to swap is absolute.
+	push de
 	ld d, h ; de now holds hl
 	ld e, l
 	ld hl, wBagItems ; hl points to the beginning of the bag item.
@@ -212,8 +218,176 @@ SortItems::
 	inc c
 	ld h, d ; hl now holds de
 	ld l, e
+	pop de
 	jr .findNextItem
 
 SortItemsText::
 	TX_FAR _SortItemsText
 	db "@"
+
+ItemSortList::
+	; Items I'll use Often
+	db CLEANSE_TAG
+	db S_S_TICKET
+	; Used Ket Items
+	db BICYCLE
+	db ITEMFINDER
+	db EXP_SHARE
+	db SURFBOARD
+	db TOWN_MAP
+	; Rods
+	db OLD_ROD
+	db GOOD_ROD
+	db SUPER_ROD
+	; Balls
+	db POKE_BALL
+	db GREAT_BALL
+	db ULTRA_BALL
+	db THIEF_BALL
+	db SAFARI_BALL
+	db MASTER_BALL
+	; Common Items
+	db REPEL
+	db SUPER_REPEL
+	db MAX_REPEL
+	db ESCAPE_ROPE
+	db POKE_DOLL
+	; Health
+	db POTION
+	db SUPER_POTION
+	db HYPER_POTION
+	db MAX_POTION
+	db FULL_RESTORE
+	db FRESH_WATER
+	db SODA_POP
+	db LEMONADE
+	; Revival
+	db REVIVE
+	db MAX_REVIVE
+	; Status
+	db ANTIDOTE
+	db BURN_HEAL
+	db ICE_HEAL
+	db AWAKENING
+	db PARLYZ_HEAL
+	db FULL_HEAL
+	db POKE_FLUTE
+	; PP
+	db ETHER
+	db MAX_ETHER
+	db ELIXER
+	db MAX_ELIXER
+	; Battle Raises
+	db X_ACCURACY
+	db X_ATTACK
+	db X_DEFEND
+	db X_SPEED
+	db X_SPECIAL
+	db GUARD_SPEC
+	db DIRE_HIT	
+	; Permanent Raises
+	db RARE_CANDY
+	db HP_UP
+	db PROTEIN
+	db IRON
+	db CARBOS
+	db CALCIUM
+	db PP_UP
+	; Berries
+	db ORAN_BERRY
+	db SITRUS_BERRY
+	db LEPPA_BERRY
+	db PECHA_BERRY
+	db RAWST_BERRY
+	db ASPEAR_BERRY
+	db CHESTO_BERRY
+	db CHERI_BERRY
+	db LUM_BERRY
+	db ACAI_BERRY
+	; Stones
+	db LEAF_STONE
+	db FIRE_STONE
+	db THUNDER_STONE
+	db WATER_STONE
+	db SUN_STONE
+	db MOON_STONE
+	; Money
+	db NUGGET
+	db COIN_CASE
+	; Fossils
+	db DOME_FOSSIL
+	db HELIX_FOSSIL
+	db OLD_AMBER
+	; Maps and Items with No Use
+	db SAFARI_BAIT
+	db SAFARI_ROCK
+	db OLD_SEA_MAP
+	db MYSTIC_TICKET
+	db EON_TICKET
+	; Key Items With No Use
+	db SECRET_KEY
+	db BIKE_VOUCHER
+	db CARD_KEY
+	db COIN
+	db GOLD_TEETH
+	db OAKS_PARCEL
+	db LIFT_KEY
+	db SILPH_SCOPE
+	; TMs
+	db TM_01
+	db TM_02
+	db TM_03
+	db TM_04
+	db TM_05
+	db TM_06
+	db TM_07
+	db TM_08
+	db TM_09
+	db TM_10
+	db TM_11
+	db TM_12
+	db TM_13
+	db TM_14
+	db TM_15
+	db TM_16
+	db TM_17
+	db TM_18
+	db TM_19
+	db TM_20
+	db TM_21
+	db TM_22
+	db TM_23
+	db TM_24
+	db TM_25
+	db TM_26
+	db TM_27
+	db TM_28
+	db TM_29
+	db TM_30
+	db TM_31
+	db TM_32
+	db TM_33
+	db TM_34
+	db TM_35
+	db TM_36
+	db TM_37
+	db TM_38
+	db TM_39
+	db TM_40
+	db TM_41
+	db TM_42
+	db TM_43
+	db TM_44
+	db TM_45
+	db TM_46
+	db TM_47
+	db TM_48
+	db TM_49
+	db TM_50
+	; HMs
+	db HM_01
+	db HM_02
+	db HM_03
+	db HM_04
+	db HM_05
+	db $ff
