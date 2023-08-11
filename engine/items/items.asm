@@ -42,7 +42,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; FERRY TICKET
 	dw UnusableItem      ; EON TICKET
 	dw UnusableItem      ; TERU-SAMA
-	dw UnusableItem      ; TERU-SAMA
+	dw ItemUsePokeVial   ; PokeVial
 	dw ItemUseCleanseTag ; CLEANSE TAG
 	dw ItemUseEscapeRope ; ESCAPE_ROPE
 	dw ItemUseRepel      ; REPEL
@@ -78,7 +78,7 @@ ItemUsePtrTable:
 	dw ItemUseMedicine   ; FRESH_WATER
 	dw ItemUseMedicine   ; SODA_POP
 	dw ItemUseMedicine   ; LEMONADE
-	dw ItemUsePokeVial   ; S_S_TICKET
+	dw UnusableItem      ; S_S_TICKET
 	dw UnusableItem      ; GOLD_TEETH
 	dw ItemUseXStat      ; X_ATTACK
 	dw ItemUseXStat      ; X_DEFEND

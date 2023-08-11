@@ -1153,7 +1153,7 @@ const_value = 0
 	const EVENT_47E                                  ; 47E, (D7D6, bit 6)
 	const EVENT_GOT_ITEMFINDER                       ; 47F, (D7D6, bit 7)
 	const EVENT_GOT_TM39                             ; 480, (D7D7, bit 0)
-	const EVENT_481                                  ; 481, (D7D7, bit 1)
+	const EVENT_GOT_POKEVIAL                         ; 481, (D7D7, bit 1)
 	const EVENT_BEAT_ROUTE_12_TRAINER_0              ; 482, (D7D7, bit 2)
 	const EVENT_BEAT_ROUTE_12_TRAINER_1              ; 483, (D7D7, bit 3)
 	const EVENT_BEAT_ROUTE_12_TRAINER_2              ; 484, (D7D7, bit 4)

@@ -25,7 +25,7 @@ ItemPrices:
 	money 0     ; RAINBOWBADGE
 	money 0     ; SOULBADGE
 	money 0     ; MARSHBADGE
-	money 0     ; VOLCANOBADGE
+	money 0     ; PokeVial
 	money 200   ; CleanseTag
 	money 550   ; ESCAPE_ROPE
 	money 350   ; REPEL

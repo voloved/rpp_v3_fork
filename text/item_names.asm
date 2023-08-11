@@ -25,7 +25,7 @@ ItemNames:
 	db "MysticTicket@"
 	db "Eon Ticket@"
 	db "Terusama@"
-	db "Terusama@"
+	db "Poké Vial@"
 	db "Cleanse Tag@"
 	db "Escape Rope@"
 	db "Repel@"

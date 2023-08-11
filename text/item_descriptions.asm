@@ -151,11 +151,12 @@ _TeruSama1ADescription::
 	text "..."
 	prompt
 
-_TeruSama1BDescription::
-	text "..."
+_PokeVialDescription::
+	text "Heals your party"
+	line "between Centers."
 	prompt
 
-_TeruSama1CDescription::
+_CleanseTagDescription::
 	text "Repels all wild"
 	line "#mon when on."
 	prompt
@@ -399,8 +400,6 @@ _LemonadeDescription::
 _SSTicketDescription::
 	text "A ticket to board"
 	line "the S.S. Anne."
-	cont "It can also heal"
-	cont "your party."
 	prompt
 
 _GoldTeethDescription::
@@ -1031,12 +1030,14 @@ _TeruSama1ADescription_Mart::
 	text "..."
 	done
 
-_TeruSama1BDescription_Mart::
-	text "..."
+_PokeVialDescription_Mart::
+	text "Heals your party"
+	line "between Centers."
 	done
 
-_TeruSama1CDescription_Mart::
-	text "..."
+_CleanseTagDescription_Mart:: 
+	text "Helps repel"
+	line "wild #mon."
 	done
 
 _EscapeRopeDescription_Mart::

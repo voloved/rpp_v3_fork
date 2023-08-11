@@ -70,9 +70,9 @@ ItemDescriptionPointers:
 	db "@"
 	TX_FAR _TeruSama1ADescription
 	db "@"
-	TX_FAR _TeruSama1BDescription
+	TX_FAR _PokeVialDescription
 	db "@"
-	TX_FAR _TeruSama1CDescription
+	TX_FAR _CleanseTagDescription 
 	db "@"
 	TX_FAR _EscapeRopeDescription
 	db "@"
@@ -431,9 +431,9 @@ ItemDescriptionPointers_Mart:
 	db "@"
 	TX_FAR _TeruSama1ADescription_Mart
 	db "@"
-	TX_FAR _TeruSama1BDescription_Mart
+	TX_FAR _PokeVialDescription_Mart
 	db "@"
-	TX_FAR _TeruSama1CDescription_Mart
+	TX_FAR _CleanseTagDescription_Mart
 	db "@"
 	TX_FAR _EscapeRopeDescription_Mart
 	db "@"

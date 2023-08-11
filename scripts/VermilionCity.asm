@@ -216,7 +216,44 @@ SSAnneNotHereText:
 	db "@"
 
 VermilionCityText4:
+	TX_ASM
+	CheckEvent EVENT_GOT_POKEVIAL
+	jr nz, .gotPokeVial
+	ld a, $1
+	ld hl, VermilionCityText4A
+	call PrintText
+	lb bc, POKE_VIAL, 1
+	call GiveItem
+	jr nc, .BagFull
+	ld hl, ReceivedPokeVialText
+	call PrintText
+	SetEvent EVENT_GOT_POKEVIAL
+	jr .gotPokeVial
+.BagFull
+	ld hl, PokeVialNoRoomText
+	call PrintText
+	jr .end
+.gotPokeVial
+	ld hl, PokeVialExplanationText
+	call PrintText
+.end
+	jp TextScriptEnd
+
+VermilionCityText4A:
 	TX_FAR _VermilionCityText4
+	db "@"
+
+ReceivedPokeVialText:
+	TX_FAR _ReceivedPokeVialText
+	db $0B, "@"
+
+PokeVialExplanationText:
+	TX_FAR _PokeVialExplanationText
+	db "@"
+
+PokeVialNoRoomText:
+	TX_FAR _PokeVialNoRoomText
+	TX_WAIT
 	db "@"
 
 VermilionCityText5:
