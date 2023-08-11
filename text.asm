@@ -2827,14 +2827,14 @@ _ThrewRockText::
 	done
 
 _CleanseTagTurnOn::
-	text "[PLAYER]'s turned"
+	text "[PLAYER] turned"
 	line "on Cleanse Tag."
 	cont "All wild battles"
 	cont "will be avoided."
 	prompt
 
 _CleanseTagTurnOff::
-	text "[PLAYER]'s turned"
+	text "[PLAYER] turned"
 	line "off Cleanse Tag."
 	prompt
 
