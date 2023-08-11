@@ -2369,6 +2369,16 @@ _SortItemsText::
 	next "sort items?"
 	done
 
+_SortComplete::
+	text "Sorting is"
+	next "Complete."
+	prompt
+
+_NothingToSort::
+	text "There is nothing"
+	next "to sort."
+	prompt
+
 _TrainerRebattleText::
 	text "Would you like to"
 	next "rebattle me?"

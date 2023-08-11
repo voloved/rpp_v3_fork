@@ -158,26 +158,36 @@ SortItems::
 	and a
 	jp z, .beginSorting ; If yes
 .done
+	ld a, [$ff99]
+	cp 0
+	jr z, .nothingSorted
+	ld hl, SortComplete
+	jr .printResultText
+.nothingSorted
+	ld hl, NothingToSort
+.printResultText
+	call PrintText
 	xor a ; Zeroes a
 	pop bc
 	pop hl
 	ret
 .beginSorting
+	xor a
+	ld [$ff99], a ; 1 if something in the bag got sorted
 	ld de, 0
 	ld hl, ItemSortList
 	ld b, [hl] ; This is the first item to check for
-	ld hl, wBagItems ; Loads hl with where wBagItems begins
+	ld hl, wBagItems
 	ld c, 0 ; Relative to wBagItems, this is where we'd like to begin swapping
-.loopCurrItemInBag ; Looks for the item we're currently interested in inside the bag
-	ld a, [hli] ; Load the value of hl to a (with is an item number) and Increments to the quantity
-	inc hl ; Increments past the quantity so we're at the next number
+.loopCurrItemInBag
+	ld a, [hl] ; Load the value of hl to a (which is an item number) and Increments to the quantity
 	cp $ff ; See if the item number is $ff, which is 'cancel'
 	jr z, .findNextItem ; If it is cancel, then move onto the next item
-	cp b ; If it's not cancel, then compare it to b
-	jr nz, .loopCurrItemInBag ; If it's not b, then go to the next item in the bag
-	dec hl ; Go back to the previous item's quantity
-	dec hl ; Go back to the previous item
-	jr .hasItem
+	cp b
+	jr z, .hasItem ; If it's not b, then go to the next item in the bag
+	inc hl ; increments past the quantity to the next item to check
+	inc hl
+	jr .loopCurrItemInBag
 .findNextItem
 	ld d, 0
 	inc e
@@ -191,14 +201,20 @@ SortItems::
 	jr .loopCurrItemInBag
 .hasItem ; c contains where to swap to relative to the start of wBagItems
 		 ; hl contains where the item to swap is absolute.
+		 ; b contains the item ID
 	push de
-	ld d, h ; de now holds hl
+	ld d, h
 	ld e, l
-	ld hl, wBagItems ; hl points to the beginning of the bag item.
-	ld a, b ; have a hold b's value sinc eit'll be cleared
-	ld b, 0 ; set b to zero
+	ld hl, wBagItems
+	ld a, b
+	ld b, 0
 	add hl, bc ; hl now holds where we'd like to swap to
-	ld b, a ; Set b back to its previous value
+	ld b, a
+	ld a, [de]
+	cp [hl]
+	jr z, .cont ; If they're the same item
+	ld a, 1
+	ld [$ff99], a
 	ld a, [hl]
 	ld [$ff95],a ; [$ff95] = second item ID
 	inc hl
@@ -214,9 +230,10 @@ SortItems::
 	dec de
 	ld a,[$ff95]
 	ld [de],a ; put second item ID in first item slot
+.cont
 	inc c
 	inc c
-	ld h, d ; hl now holds de
+	ld h, d
 	ld l, e
 	pop de
 	jr .findNextItem
@@ -225,10 +242,18 @@ SortItemsText::
 	TX_FAR _SortItemsText
 	db "@"
 
+SortComplete::
+	TX_FAR _SortComplete
+	db "@"
+
+NothingToSort::
+	TX_FAR _NothingToSort
+	db "@"
+
 ItemSortList::
 	; Items I'll use Often
 	db CLEANSE_TAG
-	db S_S_TICKET
+	db POKE_VIAL
 	; Used Ket Items
 	db BICYCLE
 	db ITEMFINDER
@@ -321,6 +346,7 @@ ItemSortList::
 	; Maps and Items with No Use
 	db SAFARI_BAIT
 	db SAFARI_ROCK
+	db S_S_TICKET
 	db OLD_SEA_MAP
 	db MYSTIC_TICKET
 	db EON_TICKET
