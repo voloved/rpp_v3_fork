@@ -6,6 +6,7 @@ GainExperience:
 	ld hl, wPartyMon1
 	xor a
 	ld [wWhichPokemon], a
+	ld [wTempCoins1], a ; Flag to see if EXp Share text was shown
 .partyMonLoop ; loop over each mon and add gained exp
 	inc hl
 	ld a, [hli]
@@ -21,16 +22,6 @@ GainExperience:
 	and a ; is mon's gain exp flag set?
 	pop hl
 	jp z, .nextMon ; if mon's gain exp flag not set, go to next mon
-	ld a, [wBoostExpByExpAll]
-	and a
-	jp z, .finishedExpAllMessage
-	xor a
-	ld [wBoostExpByExpAll], a
-	push hl
-	ld hl, WithExpAllText
-	call PrintText
-	pop hl
-.finishedExpAllMessage 
 	ld de, (wPartyMon1HPExp + 1) - (wPartyMon1HP + 1)
 	add hl, de
 	ld d, h
@@ -165,7 +156,24 @@ GainExperience:
 	ld hl, wPartyMonNicks
 	call GetPartyMonName
 	ld hl, GainedText
+	ld a, [wBoostExpByExpAll] ;get using ExpAll flag
+	and a
+	jr z, .printExpText ; if there's no EXP. all, show text normally
+	ld a, [wWhichPokemon]
+	and a ; Is this the first pokemon (the one currently out)
+	jr z, .printExpText
+	ld a, [wTempCoins1]
+	and a
+	jr nz, .skipExpText
+	ld a, [wGainBoostedExp]
+	and a ; Is this mon with no EXP?
+	jr nz, .skipExpText
+	ld a, 1
+	ld [wTempCoins1], a
+	ld hl, ExpAllGainedText
+.printExpText
 	call PrintText
+.skipExpText
 	xor a ; PLAYER_PARTY_DATA
 	ld [wMonDataLocation], a
 	call AnimateEXPBar
@@ -313,6 +321,7 @@ GainExperience:
 	ld hl, wPartyGainExpFlags
 	xor a
 	ld [hl], a ; clear gain exp flags
+	ld [wTempCoins1], a ; Clear wTempCoins1 (not necissary, but a good idea)
 	ld a, [wPlayerMonNumber]
 	ld c, a
 	ld b, FLAG_SET
@@ -383,6 +392,12 @@ GainedText:
 	ld hl, BoostedText
 	ret
 
+ExpAllGainedText:
+	TX_FAR _ExpAllGainedText
+	TX_ASM
+	ld hl, ExpAllPointsText
+	ret 
+
 WithExpAllText:
 	TX_FAR _WithExpAllText
 	db "@"
@@ -392,6 +407,10 @@ BoostedText:
 
 ExpPointsText:
 	TX_FAR _ExpPointsText
+	db "@"
+
+ExpAllPointsText:
+	TX_FAR _ExpAllPointsText
 	db "@"
 
 GrewLevelText:

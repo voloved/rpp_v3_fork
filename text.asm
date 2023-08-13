@@ -1338,6 +1338,10 @@ _GainedText::
 	text " gained"
 	line "@@"
 
+_ExpAllGainedText::
+	text "Others gained"
+	next "@@"
+
 _WithExpAllText::
 	text "[PLAYER]'s other"
 	line "#mon gained"
@@ -1353,6 +1357,12 @@ _BoostedText::
 _ExpPointsText::
 	TX_NUM wExpAmountGained, 2, 4
 	text " Exp. Points!"
+	prompt
+
+_ExpAllPointsText::
+	TX_NUM wExpAmountGained, 2, 4
+	text " Exp. from"
+	cont "Exp. Share!"
 	prompt
 
 _GrewLevelText::
