@@ -964,7 +964,11 @@ FaintEnemyPokemon:
 	ld hl, wEnemyMonBaseStats
 	ld b, $7
 .halveExpDataLoop
+	ld a, [hl] ; load the stat value to a
+	and a, $01 ; with this we are clearing all bits but the last one (which will be zero if the stat was an even number, one if it was odd)
 	srl [hl]
+	add a, [hl] ; we are restoring the discarded bit we stored earlier
+	ld [hl], a ; store the halved stat + rounding up it in wRam
 	inc hl
 	dec b
 	jr nz, .halveExpDataLoop
