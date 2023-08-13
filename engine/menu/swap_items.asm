@@ -157,7 +157,8 @@ SortItems::
 	ld a, [wCurrentMenuItem]
 	and a
 	jp z, .beginSorting ; If yes
-.done
+	jr .done
+.finishedSorting
 	ld a, [$ff99]
 	cp 0
 	jr z, .nothingSorted
@@ -167,6 +168,7 @@ SortItems::
 	ld hl, NothingToSort
 .printResultText
 	call PrintText
+.done
 	xor a ; Zeroes a
 	pop bc
 	pop hl
@@ -197,7 +199,7 @@ SortItems::
 	ld hl, wBagItems ; Resets hl to start at the beginning of the bag
 	ld a, b
 	cp $ff ; Check if we got through all of the items, to the last one
-	jr z, .done
+	jr z, .finishedSorting
 	jr .loopCurrItemInBag
 .hasItem ; c contains where to swap to relative to the start of wBagItems
 		 ; hl contains where the item to swap is absolute.
@@ -254,7 +256,7 @@ ItemSortList::
 	; Items I'll use Often
 	db CLEANSE_TAG
 	db POKE_VIAL
-	; Used Ket Items
+	; Used Key Items
 	db BICYCLE
 	db ITEMFINDER
 	db EXP_SHARE
@@ -309,7 +311,7 @@ ItemSortList::
 	db X_SPEED
 	db X_SPECIAL
 	db GUARD_SPEC
-	db DIRE_HIT	
+	db DIRE_HIT
 	; Permanent Raises
 	db RARE_CANDY
 	db HP_UP

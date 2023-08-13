@@ -371,16 +371,15 @@ StartMenu_Item:
 	inc a
 	inc a ; a = 2
 	ld [hli],a ; max menu item ID
-	ld a,A_BUTTON | B_BUTTON | START
+	ld a,A_BUTTON | B_BUTTON
 	ld [hli],a ; menu watched keys
 	xor a
 	ld [hl],a ; old menu item id
 	call HandleMenuInput
 	call PlaceUnfilledArrowMenuCursor
 	bit 1,a ; was the B button pressed?
-	jp nz, ItemMenuLoop
-	bit 3,a ; was the start button pressed?
-	jp nz,.sortItems ; if so, allow the player to swap menu entries
+	jr z, .useOrTossItem
+	jp ItemMenuLoop
 .useOrTossItem ; if the player made the choice to use or toss the item
 	ld a,[wcf91]
 	ld [wd11e],a
