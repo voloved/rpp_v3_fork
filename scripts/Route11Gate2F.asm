@@ -24,10 +24,7 @@ Route11GateUpstairsText2:
 	TX_ASM
 	CheckEvent EVENT_GOT_ITEMFINDER, 1
 	jr c, .asm_4949b
-	ld hl, wPokedexOwned
-	ld b, wPokedexOwnedEnd - wPokedexOwned
-	call CountSetBits
-	ld a, [wNumSetBits]
+	ld a, 10 ; pokemon needed
 	ld [hOaksAideRequirement], a
 	ld a, ITEMFINDER ; oak's aide reward
 	ld [hOaksAideRewardItem], a
