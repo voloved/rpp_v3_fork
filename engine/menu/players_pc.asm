@@ -127,6 +127,12 @@ PlayerPCDeposit:
 	call PrintText
 	jp .loop
 .roomAvailable
+	ld a, [wcf91]
+	cp CLEANSE_TAG
+	jr nz, .notCleanseTag
+	ld hl,wd736
+	res 5, [hl]
+.notCleanseTag
 	ld hl, wNumBagItems
 	call RemoveItemFromInventory
 	call WaitForSoundToFinish
