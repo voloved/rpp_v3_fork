@@ -3341,6 +3341,8 @@ PoisonPrefix::
 	db "PSN"
 FlyingPrefix::
 	db "FLY"
+SteelPrefix::
+	db "STL"
 
 TechnicalPrefix::
 	db "TM"
@@ -3411,7 +3413,7 @@ WriteTMPrefix::
 	cp FIRE
 	jr nz, .checkWater
 	ld hl, FirePrefix
-	jr .writeType
+	jp .writeType
 .checkWater
 	cp WATER
 	jr nz, .checkGrass
@@ -3474,9 +3476,13 @@ WriteTMPrefix::
 	jr .writeType
 .checkGhost
 	cp GHOST
-	jr nz, .checkFairy
+	jr nz, .checkSteel
 	ld hl, GhostPrefix
 	jr .writeType
+.checkSteel
+	cp STEEL
+	jr nz, .checkFairy
+	ld hl, SteelPrefix
 .checkFairy
 	cp FAIRY
 	jr z, .endChar
