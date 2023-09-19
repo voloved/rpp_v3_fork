@@ -203,6 +203,7 @@ db $0D, $FF, $FF; Smoochum
 db $06, $8F, $FF; Elekid
 db $04, $FF, $30; Magby
 db $20, $08, $40; Mime Jr
-db $14, $0A, $C0; Happiny
+;db $14, $0A, $C0; Happiny
+db $0A, $AF, $40; Annihilape
 db $05, $55, $01; Munchlax
 

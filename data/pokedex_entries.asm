@@ -202,7 +202,8 @@ dw SmoochumDexEntry
 dw ElekidDexEntry
 dw MagbyDexEntry
 dw MimeJrDexEntry
-dw HappinyDexEntry
+;dw HappinyDexEntry
+dw AnnihilapeDexEntry
 dw MunchlaxDexEntry
 dw ZigzagoonDexEntry
 dw LinooneDexEntry
@@ -1635,13 +1636,20 @@ MimeJrDexEntry:
 	TX_FAR _MimeJrDexEntry
 	db "@"
 	
-HappinyDexEntry:
-	db "Playhouse@"
-	db 2,0
-	dw 538
-	TX_FAR _HappinyDexEntry
-	db "@"
+;HappinyDexEntry:
+;	db "Playhouse@"
+;	db 2,0
+;	dw 538
+;	TX_FAR _HappinyDexEntry
+;	db "@"
 	
+AnnihilapeDexEntry:
+	db "RageMonkey@"
+	db 3,11
+	dw 1235
+	TX_FAR _AnnihilapeDexEntry
+	db "@"
+
 MunchlaxDexEntry:
 	db "Big Eater@"
 	db 2,0

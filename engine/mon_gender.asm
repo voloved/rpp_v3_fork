@@ -254,7 +254,8 @@ MonGenderRatios:
 	db MALE_75_PERCENT   ; Elekid
 	db MALE_75_PERCENT   ; Magby
 	db SAME_BOTH_GENDERS ; Mime Jr
-	db FEMALE_ONLY       ; Happiny
+;	db FEMALE_ONLY       ; Happiny
+	db SAME_BOTH_GENDERS ; Annihilape
 	db MALE_88_PERCENT   ; Munchlax
 	db SAME_BOTH_GENDERS ; Zigzagoon
 	db SAME_BOTH_GENDERS ; Linoone

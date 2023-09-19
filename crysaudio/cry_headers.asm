@@ -1216,11 +1216,17 @@ MimeJrCryHeader:
 	db $00  ; echo
 	dw $0c0 ; length
 
-HappinyCryHeader:
-	dw $14  ; cry id
-	db $0a  ; pitch
+;HappinyCryHeader:
+;	dw $14  ; cry id
+;	db $0a  ; pitch
+;	db $00  ; echo
+;	dw $140 ; length
+
+AnnihilapeCryHeader:
+	dw $0a  ; cry id
+	db $af  ; pitch
 	db $00  ; echo
-	dw $140 ; length
+	dw $0c0 ; length
 
 MuchlaxCryHeader:
 	dw $05  ; cry id

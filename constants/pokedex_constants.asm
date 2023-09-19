@@ -203,7 +203,8 @@ const_value = 1
 	const DEX_ELEKID     ; 201
 	const DEX_MAGBY      ; 202
 	const DEX_MIME_JR    ; 203
-	const DEX_HAPPINY    ; 204
+;	const DEX_HAPPINY    ; 204
+	const DEX_ANNIHILAPE ; 204
 	const DEX_MUNCHLAX   ; 205
 	const DEX_ZIGZAGOON  ; 206
 	const DEX_LINOONE    ; 207

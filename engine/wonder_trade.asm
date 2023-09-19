@@ -516,7 +516,8 @@ MinimumPokemonLevels: ; Offered Pokemon must be within the level range
 	db   1,  15 ; Elekid
 	db   1,  15 ; Magby
 	db   1,  15 ; Mime Jr.
-	db   1,  15 ; Happiny
+;	db   1,  15 ; Happiny
+	db  36, 100 ; Annihilape
 	db   1,  15 ; Munchlax
 	db   1,  19 ; Zigzagoon
 	db  20, 100 ; Linoone

@@ -407,14 +407,24 @@ _MimeJrDexEntry::
 	next "#mon"
 	dex
 	
-_HappinyDexEntry::
-	text "It loves white"
-	next "round things. It"
-	next "carries an egg-"
-	
-	page "shaped rock in"
-	next "imitation of"
-	next "Chansey"
+;_HappinyDexEntry::
+;	text "It loves white"
+;	next "round things. It"
+;	next "carries an egg-"
+;	
+;	page "shaped rock in"
+;	next "imitation of"
+;	next "Chansey"
+;	dex
+
+_AnnihilapeDexEntry::
+	text "When its anger"
+	next "rose beyond a "
+	next "critical point,"
+
+	page "this Pokémon"
+	next "gained power"
+	next "past its body."
 	dex
 	
 _MunchlaxDexEntry::

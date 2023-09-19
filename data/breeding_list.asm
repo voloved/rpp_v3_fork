@@ -112,7 +112,7 @@ db KOFFING    ; Koffing
 db KOFFING    ; Weezing
 db RHYHORN    ; Rhyhorn
 db RHYHORN    ; Rhydon
-db HAPPINY    ; Chansey
+db CHANSEY    ; Chansey
 db TANGELA    ; Tangela
 db KANGASKHAN ; Kangaskhan
 db HORSEA     ; Horsea
@@ -169,7 +169,7 @@ db POLIWAG    ; Politoed
 db SLOWPOKE   ; Slowking
 db ODDISH     ; Bellossom
 db HORSEA     ; Kingdra
-db HAPPINY    ; Blissey
+db CHANSEY    ; Blissey
 db PORYGON    ; Porygon 2
 db PORYGON    ; Porygon Z
 db MAGBY      ; Magmortar
@@ -203,7 +203,8 @@ db SMOOCHUM   ; Smoochum
 db ELEKID     ; Elekid
 db MAGBY      ; Magby
 db MIME_JR    ; Mime Jr
-db HAPPINY    ; Happiny
+;db HAPPINY    ; Happiny
+db MANKEY     ; Annihilape
 db MUNCHLAX   ; Munchlax
 db ZIGZAGOON  ; Zigzagoon
 db ZIGZAGOON  ; Linoone

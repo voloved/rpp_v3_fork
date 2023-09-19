@@ -203,7 +203,8 @@ const_value = 1
 	const ELEKID      ; 201
 	const MAGBY       ; 202
 	const MIME_JR     ; 203
-	const HAPPINY     ; 204
+;	const HAPPINY     ; 204
+	const ANNIHILAPE  ; 204
 	const MUNCHLAX    ; 205
 	const ZIGZAGOON   ; 206
 	const LINOONE     ; 207

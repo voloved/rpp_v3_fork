@@ -1471,6 +1471,7 @@ Mon056_EvosMoves:
 Mon057_EvosMoves:
 ;PRIMEAPE
 ;Evolutions
+	db EV_LEVEL,35,ANNIHILAPE
 	db 0
 ;Learnset
 	db 1,SCRATCH
@@ -4897,16 +4898,41 @@ Mon203_EvosMoves:
 	db 50,DAZZLINGLEAM ; Safeguard → TM move
 	db 0
 
-Mon204_EvosMoves:
+;Mon204_EvosMoves:
 ;HAPPINY
 ;Evolutions
-	db EV_LEVEL,10,CHANSEY
+;	db EV_LEVEL,10,CHANSEY
+;	db 0
+;Learnset
+;	db 1,POUND
+;	db 1,BABYDOLLEYES
+;	db 7,MIRROR_MOVE
+;	db 10,LOVELY_KISS
+;	db 0
+
+Mon204_EvosMoves:
+;ANNIHILAPE
+;Evolutions
 	db 0
 ;Learnset
-	db 1,POUND
-	db 1,BABYDOLLEYES
-	db 7,MIRROR_MOVE
-	db 10,LOVELY_KISS
+	db 1,SHADOW_PUNCH ; evolution move
+	db 1,LOW_KICK
+	db 5,FURY_SWIPES
+	db 8,KARATE_CHOP
+	db 12,MUD_SLAP ; Pursuit → tutor move
+	db 15,SEISMIC_TOSS
+	db 19,MEGA_PUNCH ; Swagger → RBY TM Move
+	db 22,CROSS_CHOP
+	db 26,STORM_THROW ; Assurance → new move
+	db 30,FEINT_ATTACK ; Punishment → new move
+	db 35,THRASH
+	db 35,SHADOW_PUNCH ; evolution move
+	db 35,SHADOW_CLAW  ; evolution move
+	db 39,DYNAMICPUNCH ; Close Combat → TM Move
+	db 45,SHADOW_BALL
+	db 48,GUNK_SHOT ; Stomping Tantrum → HGSS tutor move
+	db 53,OUTRAGE
+	db 61,MOONBLAST
 	db 0
 
 Mon205_EvosMoves:
