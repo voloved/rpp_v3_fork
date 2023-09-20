@@ -3483,9 +3483,10 @@ WriteTMPrefix::
 	cp STEEL
 	jr nz, .checkFairy
 	ld hl, SteelPrefix
+	jr .writeType
 .checkFairy
 	cp FAIRY
-	jr z, .endChar
+	jr nz, .endChar
 	ld hl, FairyPrefix
 .writeType
 	inc de
