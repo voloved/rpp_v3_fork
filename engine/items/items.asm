@@ -3343,6 +3343,8 @@ FlyingPrefix::
 	db "FLY"
 SteelPrefix::
 	db "STL"
+FightingPrefix::
+	db "FIG"
 
 TechnicalPrefix::
 	db "TM"
@@ -3418,7 +3420,7 @@ WriteTMPrefix::
 	cp WATER
 	jr nz, .checkGrass
 	ld hl, WaterPrefix
-	jr .writeType
+	jp .writeType
 .checkGrass
 	cp GRASS
 	jr nz, .checkElectric
@@ -3476,8 +3478,13 @@ WriteTMPrefix::
 	jr .writeType
 .checkGhost
 	cp GHOST
-	jr nz, .checkSteel
+	jr nz, .checkFighting
 	ld hl, GhostPrefix
+	jr .writeType
+.checkFighting
+	cp FIGHTING
+	jr nz, .checkSteel
+	ld hl, FightingPrefix
 	jr .writeType
 .checkSteel
 	cp STEEL
