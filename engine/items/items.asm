@@ -3391,11 +3391,9 @@ WriteTMPrefix::
 	add b
 	ld [de], a
 	pop af
-	cp TM_01 ; is this a TM? [not HM]
 	push af
 	inc de
-	jp c, .endChar
-; Type at the end if TM
+; Type at the end
 	ld b, a
 	ld a, "-"
 	ld [de], a
