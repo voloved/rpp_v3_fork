@@ -704,7 +704,7 @@ PokemonMenuEntries:
 
 GetMonFieldMoves:
 	xor a
-	ld [wcf91], a ; wcf91 holds X1 if fly, 1X if flash has been written; 0 otherwise
+	ld [wTempCoins1], a ; wTempCoins1 holds X1 if fly, 1X if flash has been written; 0 otherwise
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Moves
 	ld bc, wPartyMon2 - wPartyMon1
@@ -734,11 +734,23 @@ GetMonFieldMoves:
 	inc hl
 	jr .fieldMoveLoop
 .foundFieldMove
+	push hl
+	ld hl, wTempCoins1
 	ld a, b
 	cp FLY
-	jr nz, .notFly
-	ld [wcf91], a
-.notFly
+	jr nz, .foundFieldMoveCheckFlash
+	bit 0, [hl]
+	jp nz, .nextMove
+	set 0, [hl]
+	jr .foundFieldMoveChecked
+.foundFieldMoveCheckFlash
+	cp FLASH
+	jr nz, .foundFieldMoveChecked
+	bit 1, [hl]
+	jp nz, .nextMove
+	set 1, [hl]
+.foundFieldMoveChecked
+	pop hl
 	ld [wLastFieldMoveID], a
 	ld a, [hli] ; field move name index
 	ld b, [hl] ; field move leftmost X coordinate
@@ -757,14 +769,12 @@ GetMonFieldMoves:
 	ld b, a
 	jr .loop
 .addFly
-	ld a, [wcf91]
+	ld a, [wTempCoins1]
 	bit 0, a
 	jr nz, .addFlash
 	push bc
 	push de
 	push hl
-	ld hl, wcf91
-	set 0, [hl] ; if fly, set bit 0
 	ld b, HM_02
 	predef GetQuantityOfItemInBag
 	ld a, b
@@ -773,15 +783,19 @@ GetMonFieldMoves:
 	pop hl
 	pop de
 	pop bc
-	jr .nextMove
+	jr .noFly
 .done
 	pop hl
+	xor a
+	ld [wTempCoins1], a 
 	ret
 .hasTMFly
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Species
 	ld bc, wPartyMon2 - wPartyMon1
 	call AddNTimes
+	ld a, [hl]
+	ld [wcf91],a
 	ld a, FLY
 	ld [wMoveNum], a
 	predef CanLearnTM ; check if the pokemon can learn the move
@@ -790,17 +804,24 @@ GetMonFieldMoves:
 	pop de
 	pop bc
 	and a
-	jr z, .nextMove
+	jp z, .noFly
 	ld b, FLY
 	ld a,b
 	ld hl, FieldMoveDisplayData
+	jr .addMoveFindInFieldMoveDisplayData
+.noFly
+	push hl
+	ld hl, wTempCoins1
+	set 0, [hl] ; if fly, set bit 0
+	pop hl
+	jp .nextMove
 .addMoveFindInFieldMoveDisplayData
 	ld a, [hli]
 	cp b
-	jr z, .foundFieldMove
+	jp z, .foundFieldMove
 	jr .addMoveFindInFieldMoveDisplayData
 .addFlash
-	ld a, [wcf91]
+	ld a, [wTempCoins1]
 	bit 1, a
 	jp nz, .nextMove
 	ld a,[wCurMap]
@@ -813,8 +834,6 @@ GetMonFieldMoves:
 	push bc
 	push de
 	push hl
-	ld hl, wcf91
-	set 1, [hl] ; if flash, set bit 1
 	ld b, TM_50
 	predef GetQuantityOfItemInBag
 	ld a, b
@@ -823,12 +842,14 @@ GetMonFieldMoves:
 	pop hl
 	pop de
 	pop bc
-	jp .nextMove
+	jp .noFlash
 .hasTMFlash
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Species
 	ld bc, wPartyMon2 - wPartyMon1
 	call AddNTimes
+	ld a, [hl]
+	ld [wcf91],a
 	ld a, FLASH
 	ld [wMoveNum], a
 	predef CanLearnTM ; check if the pokemon can learn the move
@@ -837,11 +858,17 @@ GetMonFieldMoves:
 	pop de
 	pop bc
 	and a
-	jp z, .nextMove
+	jp z, .noFlash
 	ld b, FLASH
 	ld a,b
 	ld hl, FieldMoveDisplayData
 	jr .addMoveFindInFieldMoveDisplayData
+.noFlash
+	push hl
+	ld hl, wTempCoins1
+	set 1, [hl] ; if fly, set bit 0
+	pop hl
+	jp .nextMove
 
 ; Format: [Move id], [name index], [leftmost tile]
 ; Move id = id of move
