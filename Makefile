@@ -46,11 +46,11 @@ endif
 
 %_red.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokered_obj): %_red.o: %.asm $$(dep)
-	$(RGBDS_DIR)rgbasm -D _RED -h -o $@ $*.asm
+	$(RGBDS_DIR)rgbasm -D _RED -l -h -o $@ $*.asm
 
 %_blue.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 $(pokeblue_obj): %_blue.o: %.asm $$(dep)
-	$(RGBDS_DIR)rgbasm -D _BLUE -h -o $@ $*.asm
+	$(RGBDS_DIR)rgbasm -D _BLUE -l -h -o $@ $*.asm
 
 pokered_opt  = -Cjv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
 pokeblue_opt = -Cjv -k 01 -l 0x33 -m 0x13 -p 0 -r 03 -t "POKEMON RED"
