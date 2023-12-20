@@ -35,7 +35,7 @@ StartMenu_Pokemon:
 	ld [wTextBoxID],a
 	call DisplayTextBoxID ; display pokemon menu options
 	ld hl,wFieldMoves
-	lb bc, 2, 12 ; max menu item ID, top menu item Y
+	lb bc, 3, 10 ; max menu item ID, top menu item Y
 	ld e,5
 .adjustMenuVariablesLoop
 	dec e
@@ -73,7 +73,10 @@ StartMenu_Pokemon:
 	ld b,a
 	ld a,[wCurrentMenuItem] ; menu selection
 	cp b
-	jp z,.exitMenu ; if the player chose Cancel
+	jp z,.choseCancel ; if the player chose Cancel
+	dec b
+	cp b
+	jr z,.choseRelearn
 	dec b
 	cp b
 	jr z,.choseSwitch
@@ -85,6 +88,16 @@ StartMenu_Pokemon:
 	ld hl,wFieldMoves
 	add hl,bc
 	jp .choseOutOfBattleMove
+.choseCancel
+	call GoBackToPartyMenu
+	jp .checkIfPokemonChosen
+.choseRelearn
+	call SaveScreenTilesToBuffer2 ; This may be the incorrect move to use this buffer
+	farcall MoveRelearner
+	xor a
+	call LoadScreenTilesFromBuffer2
+	call GoBackToPartyMenu ; May not be needed
+	jp .checkIfPokemonChosen
 .choseSwitch
 	ld a,[wPartyCount]
 	cp a,2 ; is there more than one pokemon in the party?

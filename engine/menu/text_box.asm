@@ -573,21 +573,21 @@ DisplayFieldMoveMonMenu:
 	ld [hli], a ; wFieldMoves + 2
 	ld [hli], a ; wFieldMoves + 3
 	ld [hli], a ; wNumFieldMoves
-	ld [hl], 12 ; wFieldMovesLeftmostXCoord
+	ld [hl], 11 ; wFieldMovesLeftmostXCoord
 	call GetMonFieldMoves
 	ld a, [wNumFieldMoves]
 	and a
 	jr nz, .fieldMovesExist
 
 ; no field moves
-	coord hl, 11, 11
-	ld b, 5
-	ld c, 7
+	coord hl, 10, 8
+	ld b, 8 ; Y axis textbox end
+	ld c, 8 ; X axis textbox end
 	call TextBoxBorder
 	call UpdateSprites
-	ld a, 12
+	ld a, 11 ; Cursor location
 	ld [hFieldMoveMonMenuTopMenuItemX], a
-	coord hl, 13, 12
+	coord hl, 12, 10 ; Where text starts
 	ld de, PokemonMenuEntries
 	jp PlaceString
 
@@ -596,13 +596,13 @@ DisplayFieldMoveMonMenu:
 
 ; Calculate the text box position and dimensions based on the leftmost X coord
 ; of the field move names before adjusting for the number of field moves.
-	coord hl, 0, 11
+	coord hl, 0, 9
 	ld a, [wFieldMovesLeftmostXCoord]
 	dec a
 	ld e, a
 	ld d, 0
 	add hl, de
-	ld b, 5
+	ld b, 7
 	ld a, 18
 	sub e
 	ld c, a
@@ -627,7 +627,7 @@ DisplayFieldMoveMonMenu:
 	call UpdateSprites
 
 ; Calculate the position of the first field move name to print.
-	coord hl, 0, 12
+	coord hl, 0, 10
 	ld a, [wFieldMovesLeftmostXCoord]
 	inc a
 	ld e, a
@@ -676,7 +676,7 @@ DisplayFieldMoveMonMenu:
 	pop hl
 	ld a, [wFieldMovesLeftmostXCoord]
 	ld [hFieldMoveMonMenuTopMenuItemX], a
-	coord hl, 0, 12
+	coord hl, 0, 10
 	ld a, [wFieldMovesLeftmostXCoord]
 	inc a
 	ld e, a
@@ -700,6 +700,7 @@ FieldMoveNames:
 PokemonMenuEntries:
 	db   "Stats"
 	next "Switch"
+	next "Relearn"
 	next "Cancel@"
 
 GetMonFieldMoves:

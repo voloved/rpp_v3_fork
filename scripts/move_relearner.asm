@@ -35,6 +35,28 @@ MoveRelearnerText1:
 	call LoadGBPal
 	pop af
 	jp c, .exit
+	call MoveRelearner
+	and a
+	jr z, .exit
+	; Charge 500 money
+	xor a
+	ld [wWhichTrade], a
+	ld [wTrainerFacingDirection], a
+	ld a, $5
+	ld [wTrainerEngageDistance], a
+	ld hl, wTrainerFacingDirection
+	ld de, wPlayerMoney + 2
+	ld c, $3
+	predef SubBCDPredef
+	ld hl, MoveRelearnerByeText
+	call PrintText
+	jp TextScriptEnd
+.exit
+	ld hl, MoveRelearnerByeText
+	call PrintText
+	jp TextScriptEnd
+
+MoveRelearner:
 	ld a, [wWhichPokemon]
 	ld b, a
 	push bc
@@ -84,25 +106,8 @@ MoveRelearnerText1:
 	pop af
 	ld [wLetterPrintingDelayFlags], a
 	ld a, b
-	and a
-	jr z, .exit
-	; Charge 500 money
-	xor a
-	ld [wWhichTrade], a
-	ld [wTrainerFacingDirection], a
-	ld a, $5
-	ld [wTrainerEngageDistance], a
-	ld hl, wTrainerFacingDirection
-	ld de, wPlayerMoney + 2
-	ld c, $3
-	predef SubBCDPredef
-	ld hl, MoveRelearnerByeText
-	call PrintText
-	jp TextScriptEnd
 .exit
-	ld hl, MoveRelearnerByeText
-	call PrintText
-	jp TextScriptEnd
+	ret
 
 MoveRelearnerGreetingText:
 	TX_FAR _MoveRelearnerGreetingText
