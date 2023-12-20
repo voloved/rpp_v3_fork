@@ -17,9 +17,6 @@ Route1TextPointers:
 
 Route1Text1:
 	TX_ASM
-	ld a, HS_ROUTE_1_OAK
-	ld [wMissableObjectIndex], a
-	predef ShowObject
 	CheckAndSetEvent EVENT_GOT_POTION_SAMPLE
 	jr nz, .asm_1cada
 	ld hl, Route1ViridianMartSampleText
