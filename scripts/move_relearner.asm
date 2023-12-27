@@ -24,7 +24,6 @@ MoveRelearnerText1:
 	; Select pokemon from party.
 	call SaveScreenTilesToBuffer2
 	xor a
-	ld [wListScrollOffset], a
 	ld [wPartyMenuTypeOrMessageID], a
 	ld [wUpdateSpritesEnabled], a
 	ld [wMenuItemToSwap], a
@@ -57,6 +56,8 @@ MoveRelearnerText1:
 	jp TextScriptEnd
 
 MoveRelearner:
+	xor a
+	ld [wListScrollOffset], a
 	ld a, [wWhichPokemon]
 	ld b, a
 	push bc

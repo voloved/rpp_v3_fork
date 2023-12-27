@@ -73,7 +73,7 @@ StartMenu_Pokemon:
 	ld b,a
 	ld a,[wCurrentMenuItem] ; menu selection
 	cp b
-	jp z,.choseCancel ; if the player chose Cancel
+	jr z,.choseCancel ; if the player chose Cancel
 	dec b
 	cp b
 	jr z,.choseRelearn
@@ -92,12 +92,8 @@ StartMenu_Pokemon:
 	call GoBackToPartyMenu
 	jp .checkIfPokemonChosen
 .choseRelearn
-	call SaveScreenTilesToBuffer2 ; This may be the incorrect move to use this buffer
 	farcall MoveRelearner
-	xor a
-	call LoadScreenTilesFromBuffer2
-	call GoBackToPartyMenu ; May not be needed
-	jp .checkIfPokemonChosen
+	jp StartMenu_Pokemon
 .choseSwitch
 	ld a,[wPartyCount]
 	cp a,2 ; is there more than one pokemon in the party?

@@ -266,6 +266,12 @@ ItemSortList::
 	db OLD_ROD
 	db GOOD_ROD
 	db SUPER_ROD
+	; Common Items
+	db REPEL
+	db SUPER_REPEL
+	db MAX_REPEL
+	db ESCAPE_ROPE
+	db POKE_DOLL
 	; Balls
 	db POKE_BALL
 	db GREAT_BALL
@@ -273,12 +279,6 @@ ItemSortList::
 	db THIEF_BALL
 	db SAFARI_BALL
 	db MASTER_BALL
-	; Common Items
-	db REPEL
-	db SUPER_REPEL
-	db MAX_REPEL
-	db ESCAPE_ROPE
-	db POKE_DOLL
 	; Health
 	db POTION
 	db SUPER_POTION
