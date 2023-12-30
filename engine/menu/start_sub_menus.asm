@@ -127,7 +127,7 @@ StartMenu_Pokemon:
 	ld a,[hli]
 	ld h,[hl]
 	ld l,a
-	ld a,[wObtainedKantoBadges] ; badges obtained
+	ld a,$ff ; Badge obtaining no longer needed to use HM
 	jp hl
 .outOfBattleMovePointers
 	dw .cut

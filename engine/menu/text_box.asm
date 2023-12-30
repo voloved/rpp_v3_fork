@@ -741,15 +741,18 @@ GetMonFieldMoves:
 	cp FLY
 	jr nz, .foundFieldMoveCheckFlash
 	bit 0, [hl]
-	jp nz, .nextMove
+	jr nz, .nextMoveCheckedFlyFlash
 	set 0, [hl]
 	jr .foundFieldMoveChecked
 .foundFieldMoveCheckFlash
 	cp FLASH
 	jr nz, .foundFieldMoveChecked
 	bit 1, [hl]
-	jp nz, .nextMove
+	jr nz, .nextMoveCheckedFlyFlash
 	set 1, [hl]
+.nextMoveCheckedFlyFlash
+	pop hl
+	jp .nextMove
 .foundFieldMoveChecked
 	pop hl
 	ld [wLastFieldMoveID], a
