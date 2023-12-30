@@ -30,8 +30,8 @@ DirectorText:
 	jr nz, .alreadyGiven
 
 	; check pokédex
-	ld hl, wPokedexOwned
-	ld b, wPokedexOwnedEnd - wPokedexOwned
+	ld hl, wPokedexSeen
+	ld b, wPokedexSeenEnd - wPokedexSeen
 	call CountSetBits
 	ld a, [wNumSetBits]
 	cp 150

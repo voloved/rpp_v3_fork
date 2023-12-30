@@ -26,7 +26,7 @@ _GameDesignerText::
 
 	para "You should come"
 	line "back here once"
-	cont "you've caught at"
+	cont "you've seen at"
 	cont "least 150 kinds"
 	cont "of #mon."
 
@@ -41,7 +41,7 @@ _GameDesignerText::
 	
 _GameDesignerGiveTicketText::
 	text "Ah! I see you've"
-	line "caught at least"
+	line "seen at least"
 	cont "150 kinds of"
 	cont "#mon now."
 	

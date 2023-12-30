@@ -2381,11 +2381,11 @@ _SortItemsText::
 
 _SortComplete::
 	text "Sorting is"
-	next "Complete."
+	next "complete."
 	prompt
 
 _NothingToSort::
-	text "There is nothing"
+	text "There are no items"
 	next "to sort."
 	prompt
 
