@@ -233,8 +233,10 @@ const_value = 0
 	const HS_SEAFOAM_ISLANDS_4_BOULDER_4  ; E0
 	const HS_SEAFOAM_ISLANDS_5_BOULDER_1  ; E1
 	const HS_SEAFOAM_ISLANDS_5_BOULDER_2  ; E2
-	const HS_ROUTE_1_OAK                  ; E3
+	const HS_ARTICUNO                     ; E3 X
 	const HS_MEW                          ; E4
 	const HS_LATIOS                       ; E5
 	const HS_LATIAS                       ; E6
 	const HS_LUGIA                        ; E7
+	const HS_HO_OH                        ; E8
+	const HS_ROUTE_1_OAK                  ; E9

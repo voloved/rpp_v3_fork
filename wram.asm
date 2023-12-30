@@ -2752,7 +2752,7 @@ wPlayerCoins:: ; d5a4
 wMissableObjectFlags:: ; d5a6
 ; bit array of missable objects. set = removed
 ; TODO: will be removed once hide/show uses normal flags with the Gen 2 style system
-	flag_array $E7
+	flag_array $E9
 wMissableObjectFlagsEnd::
 
 wd5cd:: ds 1 ; temp copy of c1x2 (sprite facing/anim)
@@ -3001,7 +3001,8 @@ wSlidingTilePuzzleInitialPositions::
 wSlidingTilePuzzleHeaderEnd::
 
 ; unused bytes originally allocated with game progress flags
-	ds 10
+	ds 8
+
 
 
 
