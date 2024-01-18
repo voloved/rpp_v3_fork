@@ -7,6 +7,8 @@ NUM_DVS       EQU 2
 
 PARTY_LENGTH EQU 6
 
+POKEVIAL_USAGES EQU 3 ; PokeVial usages Can be a number 9 or less
+
 MONS_PER_BOX EQU 20
 NUM_BOXES    EQU 12
 
