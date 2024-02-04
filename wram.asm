@@ -2237,6 +2237,10 @@ wIsKeyItem:: ; d124
 wTextBoxID:: ; d125
 	ds 1
 
+; bit 4 - flag to indicate crossing between outdoor areas
+; bit 5 - flag to indicate a map was loaded
+; bit 6 - another flag to indicate a map was loaded?
+; bit 7 - used for elevator animations and pushing vermilion dock truck
 wCurrentMapScriptFlags:: ds 1 ; not exactly sure what this is used for, but it seems to be used as a multipurpose temp flag value
 
 wCurEnemyLVL:: ; d127
@@ -3364,8 +3368,11 @@ ENDU
 wTrainerHeaderPtr:: ; da30
 	ds 2
 
+wCutTrees::
+; Check CutTreeLocations for the indexes
+	ds 3
 ; unused?
-	ds 6
+	ds 3
 
 wOpponentAfterWrongAnswer:: ; da38
 ; the trainer the player must face after getting a wrong answer in the Cinnabar

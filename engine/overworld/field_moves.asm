@@ -26,6 +26,7 @@ TrySurf:
 	ld hl,TilePairCollisionsWater
 	call CheckForTilePairCollisions2
 	jr c, .no
+	jr .yestho  ;DELETE WHEN TESTING IS DONE
 
 ; Check for a Pokemon in the party with SURF, and for the proper badge to use it.
 	ld d, SURF
@@ -42,7 +43,7 @@ TrySurf:
 	ld a, [wObtainedKantoBadges]
 	bit 4, a ; SOUL_BADGE
 	jr z, .no
-	
+.yestho  ;DELETE WHEN TESTING IS DONE
 ; Are we allowed to surf here?
 	call Text2_EnterTheText
 	callba IsSurfingAllowed ; in current Pokered, this is callba IsSurfingAllowed
@@ -104,6 +105,7 @@ TryCut: ; yenatch's code originally checked for the SOUL_BADGE like SURF does by
 	bit 1, a ; CASCADE_BADGE
 	jr z, .no2
 
+.yestho  ;DELETE WHEN TESTING IS DONE
 	; Asks the player if they want to use CUT, the way Gen 2 does.
 	ld hl,WantToCutTxt
 	call PrintText
@@ -122,6 +124,7 @@ TryCut: ; yenatch's code originally checked for the SOUL_BADGE like SURF does by
 	ret
 	
 .no2
+	jr .yestho  ;DELETE WHEN TESTING IS DONE
 	call Text3_DrakesDeception
 .no
 	ld a, 1
@@ -377,6 +380,149 @@ CanPartyLearnMove::
 	pop hl
 	pop de
 	pop bc
+	ret
+
+CutTreeLocations:
+; first byte = The map the tree is on
+; second byte = The Y coordinate of the block
+; third byte = The X coordinate of the block
+; fourth byte = Tree block without the tree in it
+	db VIRIDIAN_CITY, 2, 7
+	db VIRIDIAN_CITY, 11, 4
+	db ROUTE_2, 11, 7
+	db ROUTE_2, 30, 6
+	db PEWTER_CITY, 9, 17
+	db CERULEAN_CITY, 4, 11
+	db CERULEAN_CITY, 4, 11
+	db ROUTE_8, 4, 11
+	db ROUTE_9, 4, 11
+	db VERMILION_CITY, 9, 7
+	db ROUTE_10, 4, 11
+	db CELADON_CITY, 4, 11
+	db ROUTE_13, 4, 11
+	db ROUTE_14, 4, 11
+	db ROUTE_14, 4, 11
+	db ROUTE_16, 4, 11
+	db ROUTE_25, 4, 11
+	db $FF ; list terminator
+
+FindCutTreeIdx:
+	; d = Y loc
+	; e = X loc
+	; b = map loc
+	; Output: c = current loop
+	;         carry flag = set if found
+	;         a = The new tile to use
+	ld hl, CutTreeLocations
+	ld c, 0
+	jr .loopfirst
+.loopinctwo
+	inc hl
+.loopincone
+	inc hl
+	inc c
+.loopfirst ; find the matching tile block in the array
+	ld a, [hl]
+	inc hl
+	cp $ff
+	and a
+	ret z ; Not in list; return with a cleared carry flag
+	cp b ; Compare map
+	jr nz, .loopinctwo
+	ld a, [hl]  ; hl +1 (Y loc)
+	inc hl
+	cp d
+	jr nz, .loopincone
+	ld a, [hl]  ; hl +2 (X loc)
+	cp e
+	jr nz, .loopincone
+	scf
+	ret ; Found; return with set carry flag
+
+SetCutTree::
+	ld a, [wYCoord]
+	sra a
+	ld d, a ; d holds the Y block loc
+	ld a, [wXCoord]
+	sra a
+	ld e, a ; e holds the X block loc
+	ld a, [wSpriteStateData1 + 9] ; player sprite's facing direction
+	and a
+	jr z, .down
+	cp SPRITE_FACING_UP
+	jr z, .up
+	cp SPRITE_FACING_LEFT
+	jr z, .left
+; right	
+	ld a, [wXBlockCoord]
+	and a
+	jr z, .findMapLoc
+	inc e
+	jr .findMapLoc
+.down
+	ld a, [wYBlockCoord]
+	and a
+	jr z, .findMapLoc
+	inc d
+	jr .findMapLoc
+.up
+	ld a, [wYBlockCoord]
+	and a
+	jr nz, .findMapLoc
+	dec d
+	jr .findMapLoc
+.left
+	ld a, [wXBlockCoord]
+	and a
+	jr nz, .findMapLoc
+	dec e
+.findMapLoc
+	ld a,[wCurMap]
+	ld b, a
+	call FindCutTreeIdx
+	ret nc
+	ld b, 1
+	ld hl, wCutTrees
+	ld a, c
+	cp 8
+	jr c, .setByte
+	; second byte of wCutTrees
+	sub 8
+	inc hl
+	ld c, a
+.setByte
+	predef FlagActionPredef
+	ret
+
+ClearCutTrees::
+	; d = Y loc
+	; e = X loc
+	ld a,[wCurMap]
+	ld b, a
+	call FindCutTreeIdx
+	ret nc
+	ld hl, wCutTrees
+	ld a, c
+.iterByte
+	cp 8
+	jr c, .checkByte
+	sub 8
+	inc hl
+	ld c, a
+	jr .iterByte
+.checkByte
+	ld b, 2
+	predef FlagActionPredef
+	ld a, c
+	and a
+	ret z
+	ld b, d
+	ld c, e
+	push bc
+	predef FindTileBlock
+	farcall FindTileBlockReplacementCut
+	pop bc
+	predef_jump ReplaceTileBlock
 	ret
 
 Text2_EnterTheText: ; Gets everything setup to let you display text properly

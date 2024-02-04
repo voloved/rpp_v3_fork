@@ -1,8 +1,26 @@
 ViridianCityScript:
 	call EnableAutoTextBoxDrawing
+	call ViridianCityCheckHideCutTree
 	ld hl, ViridianCityScriptPointers
 	ld a, [wViridianCityCurScript]
 	jp CallFunctionInTable
+
+ViridianCityCheckHideCutTree:
+	ld hl, wCurrentMapScriptFlags
+	ld a, [hl]
+	and %00110000
+	res 4, [hl]
+	res 5, [hl]
+	ret z
+	; d = Y loc
+	; e = X loc
+	ld d, 2
+	ld e, 7
+	farcall ClearCutTrees
+	ld d, 11
+	ld e, 4
+	farcall ClearCutTrees
+	ret
 
 ViridianCityScriptPointers:
 	dw ViridianCityScript0

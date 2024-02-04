@@ -124,3 +124,33 @@ CompareHLWithBC:
 	ld a, l
 	sub c
 	ret
+
+; loads the current tile block into in [wNewTileBlockID]
+; b = Y
+; c = X
+FindTileBlock:
+	call GetPredefRegisters
+	ld hl, wOverworldMap
+	ld a, [wCurMapWidth]
+	add $6
+	ld e, a
+	ld d, $0
+	add hl, de
+	add hl, de
+	add hl, de
+	ld e, $3
+	add hl, de
+	ld e, a
+	ld a, b
+	and a
+	jr z, .addX
+; add width * Y
+.addWidthYTimesLoop
+	add hl, de
+	dec b
+	jr nz, .addWidthYTimesLoop
+.addX
+	add hl, bc ; add X
+	ld a, [hl]
+	ld [wNewTileBlockID], a
+	ret
