@@ -88,9 +88,6 @@ StartMenu_Pokemon:
 	ld hl,wFieldMoves
 	add hl,bc
 	jp .choseOutOfBattleMove
-.choseCancel
-	call GoBackToPartyMenu
-	jp .checkIfPokemonChosen
 .choseRelearn
 	farcall MoveRelearner
 	jp StartMenu_Pokemon
@@ -101,6 +98,7 @@ StartMenu_Pokemon:
 	call SwitchPartyMon_InitVarOrSwapData ; init [wMenuItemToSwap]
 	ld a,SWAP_MONS_PARTY_MENU
 	ld [wPartyMenuTypeOrMessageID],a
+.choseCancel
 	call GoBackToPartyMenu
 	jp .checkIfPokemonChosen
 .choseStats
