@@ -245,12 +245,7 @@ ReplaceTreeTileBlock:
 	pop de
 	ld a, [hl]
 	ld c, a
-	call LoopForTileReplacement
-	ld [hl], a
-	ret
-
-LoopForTileReplacement: ; find the matching tile block in the array
-.loop
+.loop ; find the matching tile block in the array
 	ld a, [de]
 	inc de
 	inc de
@@ -260,14 +255,7 @@ LoopForTileReplacement: ; find the matching tile block in the array
 	jr nz, .loop
 	dec de
 	ld a, [de] ; replacement tile block from matching array entry
-	ret
-
-FindTileBlockReplacementCut::
-	ld de, CutTreeBlockSwaps
-	ld a, [wNewTileBlockID]
-	ld c, a
-	call LoopForTileReplacement
-	ld [wNewTileBlockID], a
+	ld [hl], a
 	ret
 
 CutTreeBlockSwaps:
