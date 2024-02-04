@@ -519,7 +519,9 @@ ClearCutTrees::
 	ld b, d
 	ld c, e
 	push bc
-	predef FindTileBlock
+	predef FindTileBlock ; hl holds block ID at X,Y coord on the map
+	ld a, [hl]
+	ld [wNewTileBlockID], a
 	farcall FindTileBlockReplacementCut
 	pop bc
 	predef_jump ReplaceTileBlock
