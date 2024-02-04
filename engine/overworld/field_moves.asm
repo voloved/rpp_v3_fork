@@ -387,23 +387,23 @@ CutTreeLocations:
 ; second byte = The Y coordinate of the block
 ; third byte = The X coordinate of the block
 ; fourth byte = Tree block without the tree in it
-	db VIRIDIAN_CITY, 2, 7, $6F
-	db VIRIDIAN_CITY, 11, 4, $6F
-	db ROUTE_2, 11, 7, $35
-	db ROUTE_2, 30, 6, $35
-	db PEWTER_CITY, 9, 17, $35
-	db CERULEAN_CITY, 4, 11, $35
-	db CERULEAN_CITY, 4, 11, $35
-	db ROUTE_8, 4, 11, $35
-	db ROUTE_9, 4, 11, $35
-	db VERMILION_CITY, 9, 7, $4C
-	db ROUTE_10, 4, 11, $35
-	db CELADON_CITY, 4, 11, $35
-	db ROUTE_13, 4, 11, $35
-	db ROUTE_14, 4, 11, $35
-	db ROUTE_14, 4, 11, $35
-	db ROUTE_16, 4, 11, $35
-	db ROUTE_25, 4, 11, $35
+	db VIRIDIAN_CITY, 2, 7
+	db VIRIDIAN_CITY, 11, 4
+	db ROUTE_2, 11, 7
+	db ROUTE_2, 30, 6
+	db PEWTER_CITY, 9, 17
+	db CERULEAN_CITY, 4, 11
+	db CERULEAN_CITY, 4, 11
+	db ROUTE_8, 4, 11
+	db ROUTE_9, 4, 11
+	db VERMILION_CITY, 9, 7
+	db ROUTE_10, 4, 11
+	db CELADON_CITY, 4, 11
+	db ROUTE_13, 4, 11
+	db ROUTE_14, 4, 11
+	db ROUTE_14, 4, 11
+	db ROUTE_16, 4, 11
+	db ROUTE_25, 4, 11
 	db $FF ; list terminator
 
 FindCutTreeIdx:
@@ -416,8 +416,6 @@ FindCutTreeIdx:
 	ld hl, CutTreeLocations
 	ld c, 0
 	jr .loopfirst
-.loopincthree
-	inc hl
 .loopinctwo
 	inc hl
 .loopincone
@@ -430,16 +428,14 @@ FindCutTreeIdx:
 	and a
 	ret z ; Not in list; return with a cleared carry flag
 	cp b ; Compare map
-	jr nz, .loopincthree
+	jr nz, .loopinctwo
 	ld a, [hl]  ; hl +1 (Y loc)
 	inc hl
 	cp d
-	jr nz, .loopinctwo
+	jr nz, .loopincone
 	ld a, [hl]  ; hl +2 (X loc)
-	inc hl
 	cp e
 	jr nz, .loopincone
-	ld a, [hl]  ; hl +3 (Tree block)
 	scf
 	ret ; Found; return with set carry flag
 
@@ -505,26 +501,27 @@ ClearCutTrees::
 	ld b, a
 	call FindCutTreeIdx
 	ret nc
-	ld b, a
 	ld hl, wCutTrees
 	ld a, c
+.iterByte
 	cp 8
 	jr c, .checkByte
 	sub 8
 	inc hl
 	ld c, a
+	jr .iterByte
 .checkByte
-	push bc
 	ld b, 2
 	predef FlagActionPredef
 	ld a, c
 	and a
-	pop bc
 	ret z
-	ld a, b
 	ld b, d
 	ld c, e
-	ld [wNewTileBlockID], a
+	push bc
+	predef FindTileBlock
+	farcall FindTileBlockReplacementCut
+	pop bc
 	predef_jump ReplaceTileBlock
 	ret
 
