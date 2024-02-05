@@ -52,11 +52,6 @@ OakSpeech:
 	ld a,1
 	ld [wItemQuantity],a
 	call AddItemToInventory  ; give one potion
-	ld a,THIEF_BALL
-	ld [wcf91],a
-	ld a,3
-	ld [wItemQuantity],a
-	call AddItemToInventory ; give three thief balls
 	ld a,CLEANSE_TAG
 	ld [wcf91],a
 	ld a,1
@@ -67,10 +62,15 @@ OakSpeech:
 	ld a,1
 	ld [wItemQuantity],a   ; give one pokedoll
 	call AddItemToInventory
-	ld a,TM_32
+	ld a,TELEPORTER
 	ld [wcf91],a
 	ld a,1
-	ld [wItemQuantity],a   ; give one teleport (in case we ever get stuck after loading a save) 
+	ld [wItemQuantity],a   ; give a teleporter (in case we ever get stuck after loading a save) 
+	call AddItemToInventory
+	ld a,THIEF_BALL
+	ld [wcf91],a
+	ld a,3
+	ld [wItemQuantity],a   ; give three thief balls
 	call AddItemToInventory
 	ld a,[wDefaultMap]
 	ld [wDestinationMap],a

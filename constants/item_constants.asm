@@ -31,7 +31,7 @@ const_value = 1
 	const EON_TICKET   ; $19
 
 ; Currently Unused Items
-	const TERU_SAMA_1A ; $1A
+	const TELEPORTER   ; $1A
 	const POKE_VIAL    ; $1B
 	const CLEANSE_TAG  ; $1C
 

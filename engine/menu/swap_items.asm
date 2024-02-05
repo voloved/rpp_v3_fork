@@ -270,6 +270,7 @@ ItemSortList::
 	db REPEL
 	db SUPER_REPEL
 	db MAX_REPEL
+	db TELEPORTER
 	db ESCAPE_ROPE
 	db POKE_DOLL
 	; Balls

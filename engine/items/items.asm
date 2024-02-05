@@ -41,8 +41,8 @@ ItemUsePtrTable:
 	dw UnusableItem      ; OLD SEA MAP
 	dw UnusableItem      ; FERRY TICKET
 	dw UnusableItem      ; EON TICKET
-	dw UnusableItem      ; TERU-SAMA
-	dw ItemUsePokeVial   ; PokeVial
+	dw ItemUseTeleporter ; TELEPORTER
+	dw ItemUsePokeVial   ; POKEVIAL
 	dw ItemUseCleanseTag ; CLEANSE TAG
 	dw ItemUseEscapeRope ; ESCAPE_ROPE
 	dw ItemUseRepel      ; REPEL
@@ -1620,6 +1620,12 @@ CleanseTagTurnOff:
 	TX_FAR _CleanseTagTurnOff
 	db "@"
 
+ItemUseTeleporter:
+	ld a,[wIsInBattle]
+	and a
+	jp nz,ItemUseNotTimeText
+	jr ItemUseEscapeRopeUse
+
 ; also used for Dig out-of-battle effect
 ItemUseEscapeRope:
 	ld a,[wIsInBattle]
@@ -1637,6 +1643,12 @@ ItemUseEscapeRope:
 	jr z,.notUsable
 	cp b
 	jr nz,.loop
+	call ItemUseEscapeRopeUse
+	jp RemoveUsedItem
+.notUsable
+	jp ItemUseNotTime
+
+ItemUseEscapeRopeUse:
 	ld hl,wd732
 	set 3,[hl]
 	set 6,[hl]
@@ -1655,9 +1667,7 @@ ItemUseEscapeRope:
 	call ItemUseReloadOverworldData
 	ld c,30
 	call DelayFrames
-	jp RemoveUsedItem
-.notUsable
-	jp ItemUseNotTime
+	ret
 
 EscapeRopeTilesets:
 	db FOREST,CEMETERY,INTERIOR,CAVERN,FACILITY,SAFARI,ICE_CAVERN,$FF
@@ -3572,7 +3582,7 @@ TMShorthandList::
 	db PSYCHIC ;psychic_m
 	db GHOST ;shadow_ball
 	db NORMAL ;mimic
-	db PSYCHIC ;teleport
+	db NORMAL ;double_team
 	db PSYCHIC ;reflect
 	db NORMAL ;headbutt
 	db ROCK ;ancientpower

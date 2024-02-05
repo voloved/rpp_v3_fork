@@ -68,7 +68,7 @@ ItemDescriptionPointers:
 	db "@"
 	TX_FAR _EonTicketDescription
 	db "@"
-	TX_FAR _TeruSama1ADescription
+	TX_FAR _TeleporterDescription
 	db "@"
 	TX_FAR _PokeVialDescription
 	db "@"
@@ -429,7 +429,7 @@ ItemDescriptionPointers_Mart:
 	db "@"
 	TX_FAR _EonTicketDescription_Mart
 	db "@"
-	TX_FAR _TeruSama1ADescription_Mart
+	TX_FAR _TeleporterDescription_Mart
 	db "@"
 	TX_FAR _PokeVialDescription_Mart
 	db "@"

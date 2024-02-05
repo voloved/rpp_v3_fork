@@ -24,7 +24,7 @@ ItemNames:
 	db "Old Sea Map@"
 	db "MysticTicket@"
 	db "Eon Ticket@"
-	db "Terusama@"
+	db "Teleporter@"
 	db "Poké Vial@"
 	db "Cleanse Tag@"
 	db "Escape Rope@"

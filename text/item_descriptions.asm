@@ -147,8 +147,9 @@ _EonTicketDescription::
 	cont "island."
 	prompt
 
-_TeruSama1ADescription::
-	text "..."
+_TeleporterDescription::
+	text "Use to teleport"
+	line "from any location."
 	prompt
 
 _PokeVialDescription::
@@ -816,7 +817,8 @@ _TM31Description::
 	prompt
 
 _TM32Description::
-	text "TM32 - Teleport"
+	text "TM32 -"
+	line "Double Team"
 	prompt
 
 _TM33Description::
@@ -1025,8 +1027,9 @@ _EonTicketDescription_Mart::
 	line "Southern Island."
 	done
 
-_TeruSama1ADescription_Mart::
-	text "..."
+_TeleporterDescription_Mart::
+	text "Use to teleport"
+	line "from any location."
 	done
 
 _PokeVialDescription_Mart::
@@ -1575,7 +1578,8 @@ _TM31Description_Mart::
 	done
 
 _TM32Description_Mart::
-	text "TM32 - Teleport"
+	text "TM32 -"
+	line "Double Team"
 	done
 
 _TM33Description_Mart::
