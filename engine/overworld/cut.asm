@@ -250,14 +250,13 @@ ReplaceTreeTileBlock:
 	ret
 
 LoopForTileReplacement: ; find the matching tile block in the array
-.loop
 	ld a, [de]
 	inc de
 	inc de
 	cp $ff
 	ret z
 	cp c
-	jr nz, .loop
+	jr nz, LoopForTileReplacement
 	dec de
 	ld a, [de] ; replacement tile block from matching array entry
 	ret

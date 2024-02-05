@@ -8,6 +8,7 @@ EnterMap::
 	ld a, $ff
 	ld [wJoyIgnore], a
 	call LoadMapData
+	farcall ClearCutTrees
 	callba ClearVariablesOnEnterMap
 	ld hl, wd72c
 	bit 0, [hl] ; has the player already made 3 steps since the last battle?
@@ -730,6 +731,7 @@ CheckMapConnections::
 ; $C2XE without loading any tile patterns.
 	callba InitMapSprites
 	call LoadTileBlockMap
+	farcall ClearCutTrees
 	jp OverworldLoopLessDelay
 
 .didNotEnterConnectedMap

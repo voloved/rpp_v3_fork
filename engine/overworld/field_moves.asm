@@ -390,7 +390,7 @@ CutTreeLocations:
 	db VIRIDIAN_CITY, 2, 7
 	db VIRIDIAN_CITY, 11, 4
 	db ROUTE_2, 11, 7
-	db ROUTE_2, 30, 6
+	db ROUTE_2, 32, 6
 	db PEWTER_CITY, 9, 17
 	db CERULEAN_CITY, 4, 11
 	db CERULEAN_CITY, 4, 11
@@ -405,39 +405,6 @@ CutTreeLocations:
 	db ROUTE_16, 4, 11
 	db ROUTE_25, 4, 11
 	db $FF ; list terminator
-
-FindCutTreeIdx:
-	; d = Y loc
-	; e = X loc
-	; b = map loc
-	; Output: c = current loop
-	;         carry flag = set if found
-	;         a = The new tile to use
-	ld hl, CutTreeLocations
-	ld c, 0
-	jr .loopfirst
-.loopinctwo
-	inc hl
-.loopincone
-	inc hl
-	inc c
-.loopfirst ; find the matching tile block in the array
-	ld a, [hl]
-	inc hl
-	cp $ff
-	and a
-	ret z ; Not in list; return with a cleared carry flag
-	cp b ; Compare map
-	jr nz, .loopinctwo
-	ld a, [hl]  ; hl +1 (Y loc)
-	inc hl
-	cp d
-	jr nz, .loopincone
-	ld a, [hl]  ; hl +2 (X loc)
-	cp e
-	jr nz, .loopincone
-	scf
-	ret ; Found; return with set carry flag
 
 SetCutTree::
 	ld a, [wYCoord]
@@ -478,9 +445,29 @@ SetCutTree::
 	dec e
 .findMapLoc
 	ld a,[wCurMap]
-	ld b, a
-	call FindCutTreeIdx
-	ret nc
+	ld b, a 
+	ld hl, CutTreeLocations ; d = Y loc ; e = X loc ; b = map loc
+	ld c, 0
+	jr .loopfirst
+.loopinctwo
+	inc hl
+.loopincone
+	inc hl
+	inc c
+.loopfirst ; find the matching tile block in the array
+	ld a, [hl]
+	inc hl
+	cp $ff
+	ret z ; Not in list; return with a cleared carry flag
+	cp b ; Compare map
+	jr nz, .loopinctwo
+	ld a, [hl]  ; hl +1 (Y loc)
+	inc hl
+	cp d
+	jr nz, .loopincone
+	ld a, [hl]  ; hl +2 (X loc)
+	cp e
+	jr nz, .loopincone
 	ld b, 1
 	ld hl, wCutTrees
 	ld a, c
@@ -495,14 +482,37 @@ SetCutTree::
 	ret
 
 ClearCutTrees::
-	; d = Y loc
-	; e = X loc
+	ld hl, wCurrentMapScriptFlags
+	ld a, [hl]
+	and %00110000 ; Check if the map was just loaded or we entered from another location
+	res 4, [hl]
+	res 5, [hl]
+	ret z
+	ld hl, CutTreeLocations
+	ld c, 0
+	jr .loopfirst
+.loopinctwo
+	inc hl
+.loopincone
+	inc hl
+	inc c
+.loopfirst ; find the matching tile block in the array
 	ld a,[wCurMap]
 	ld b, a
-	call FindCutTreeIdx
-	ret nc
+	ld a, [hl]
+	inc hl
+	cp $ff
+	ret z ; Not in list; return with a cleared carry flag
+	cp b ; Compare map
+	jr nz, .loopinctwo
+	
+	ld d, [hl]  ; hl +1 (Y loc)
+	inc hl
+	ld e, [hl]  ; hl +2 (X loc)
+	push hl
 	ld hl, wCutTrees
 	ld a, c
+	ld [wTempCoins1], a ; temporarily store the current iteration
 .iterByte
 	cp 8
 	jr c, .checkByte
@@ -515,17 +525,24 @@ ClearCutTrees::
 	predef FlagActionPredef
 	ld a, c
 	and a
-	ret z
+	ld a, [wTempCoins1]
+	ld c, a
+	pop hl
+	jr z, .loopincone
 	ld b, d
 	ld c, e
+	push hl
 	push bc
 	predef FindTileBlock ; hl holds block ID at X,Y coord on the map
 	ld a, [hl]
 	ld [wNewTileBlockID], a
 	farcall FindTileBlockReplacementCut
 	pop bc
-	predef_jump ReplaceTileBlock
-	ret
+	predef ReplaceTileBlock
+	ld a, [wTempCoins1]
+	ld c, a
+	pop hl
+	jr .loopincone
 
 Text2_EnterTheText: ; Gets everything setup to let you display text properly
 	call EnableAutoTextBoxDrawing

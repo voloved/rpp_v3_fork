@@ -1,6 +1,5 @@
 VermilionCityScript:
 	call EnableAutoTextBoxDrawing
-	call VermilionCityCheckHideCutTree
 	ld hl, wCurrentMapScriptFlags
 	bit 6, [hl]
 	res 6, [hl]
@@ -13,20 +12,6 @@ VermilionCityScript:
 	ld hl, VermilionCityScriptPointers
 	ld a, [wVermilionCityCurScript]
 	jp CallFunctionInTable
-
-VermilionCityCheckHideCutTree:
-	ld hl, wCurrentMapScriptFlags
-	ld a, [hl]
-	and %00110000
-	res 4, [hl]
-	res 5, [hl]
-	ret z
-	; d = Y loc
-	; e = X loc
-	ld d, 9
-	ld e, 7
-	farcall ClearCutTrees
-	ret
 
 VermilionCityScript_197c0:
 	call Random
