@@ -816,8 +816,7 @@ _TM31Description::
 	prompt
 
 _TM32Description::
-	text "TM32 -"
-	line "Double Team"
+	text "TM32 - Teleport"
 	prompt
 
 _TM33Description::
@@ -1576,8 +1575,7 @@ _TM31Description_Mart::
 	done
 
 _TM32Description_Mart::
-	text "TM32 -"
-	line "Double Team"
+	text "TM32 - Teleport"
 	done
 
 _TM33Description_Mart::

@@ -62,6 +62,11 @@ OakSpeech:
 	ld a,1
 	ld [wItemQuantity],a   ; give one cleanse tag
 	call AddItemToInventory
+	ld a,TM_32
+	ld [wcf91],a
+	ld a,1
+	ld [wItemQuantity],a   ; give one teleport (in case we ever get stuck after loading a save) 
+	call AddItemToInventory
 	ld a,[wDefaultMap]
 	ld [wDestinationMap],a
 	call SpecialWarpIn

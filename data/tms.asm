@@ -29,7 +29,7 @@
 	db PSYCHIC_M    ; Saffron City
 	db SHADOW_BALL  ; Route 9
 	db MIMIC        ; Saffron City
-	db DOUBLE_TEAM  ; Safari Zone, Celadon Dept
+	db TELEPORT     ; Safari Zone, Celadon Dept
 	db REFLECT      ; Power Plant, Celadon Dept
 	db HEADBUTT     ; Mt Moon, Celadon Dept
 	db ANCIENTPOWER ; Pokemon Lab
