@@ -144,6 +144,8 @@ StartMenu_Pokemon:
 	ld a, [wCurMap]
 	cp MT_MOON_SQUARE
 	jr z, .canFly
+	cp CELADON_MART_ROOF
+	jr z, .canFly
 	call CheckIfInOutsideMap
 	jr z,.canFly
 	ld a,[wWhichPokemon]
@@ -217,6 +219,8 @@ StartMenu_Pokemon:
 .teleport
 	ld a, [wCurMap]
 	cp MT_MOON_SQUARE
+	jr z, .canTeleport
+	cp CELADON_MART_ROOF
 	jr z, .canTeleport
 	call CheckIfInOutsideMap
 	jr z,.canTeleport
