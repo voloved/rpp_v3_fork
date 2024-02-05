@@ -2237,7 +2237,6 @@ wIsKeyItem:: ; d124
 wTextBoxID:: ; d125
 	ds 1
 
-; bit 4 - flag to indicate crossing between outdoor areas
 ; bit 5 - flag to indicate a map was loaded
 ; bit 6 - another flag to indicate a map was loaded?
 ; bit 7 - used for elevator animations and pushing vermilion dock truck

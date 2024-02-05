@@ -26,7 +26,6 @@ TrySurf:
 	ld hl,TilePairCollisionsWater
 	call CheckForTilePairCollisions2
 	jr c, .no
-	jr .yestho  ;DELETE WHEN TESTING IS DONE
 
 ; Check for a Pokemon in the party with SURF, and for the proper badge to use it.
 	ld d, SURF
@@ -43,7 +42,6 @@ TrySurf:
 	ld a, [wObtainedKantoBadges]
 	bit 4, a ; SOUL_BADGE
 	jr z, .no
-.yestho  ;DELETE WHEN TESTING IS DONE
 ; Are we allowed to surf here?
 	call Text2_EnterTheText
 	callba IsSurfingAllowed ; in current Pokered, this is callba IsSurfingAllowed
@@ -105,7 +103,6 @@ TryCut: ; yenatch's code originally checked for the SOUL_BADGE like SURF does by
 	bit 1, a ; CASCADE_BADGE
 	jr z, .no2
 
-.yestho  ;DELETE WHEN TESTING IS DONE
 	; Asks the player if they want to use CUT, the way Gen 2 does.
 	ld hl,WantToCutTxt
 	call PrintText
@@ -124,7 +121,6 @@ TryCut: ; yenatch's code originally checked for the SOUL_BADGE like SURF does by
 	ret
 	
 .no2
-	jr .yestho  ;DELETE WHEN TESTING IS DONE
 	call Text3_DrakesDeception
 .no
 	ld a, 1
@@ -386,24 +382,29 @@ CutTreeLocations:
 ; first byte = The map the tree is on
 ; second byte = The Y coordinate of the block
 ; third byte = The X coordinate of the block
-; fourth byte = Tree block without the tree in it
 	db VIRIDIAN_CITY, 2, 7
 	db VIRIDIAN_CITY, 11, 4
 	db ROUTE_2, 11, 7
-	db ROUTE_2, 32, 6
-	db PEWTER_CITY, 9, 17
-	db CERULEAN_CITY, 4, 11
-	db CERULEAN_CITY, 4, 11
-	db ROUTE_8, 4, 11
-	db ROUTE_9, 4, 11
+	db ROUTE_2, 26, 6
+	db ROUTE_2, 30, 6
+	db ROUTE_2, 34, 6
+	db PEWTER_CITY, 2, 13
+	db CERULEAN_CITY, 14, 9
+	db ROUTE_8, 5, 20
+	db ROUTE_8, 6, 14
+	db ROUTE_9, 4, 2
 	db VERMILION_CITY, 9, 7
-	db ROUTE_10, 4, 11
-	db CELADON_CITY, 4, 11
-	db ROUTE_13, 4, 11
-	db ROUTE_14, 4, 11
-	db ROUTE_14, 4, 11
-	db ROUTE_16, 4, 11
-	db ROUTE_25, 4, 11
+	db ROUTE_10, 9, 4
+	db ROUTE_10, 10, 4
+	db ROUTE_10, 11, 4
+	db ROUTE_10, 12, 4
+	db CELADON_CITY, 10, 23
+	db ROUTE_13, 2, 17
+	db ROUTE_14, 16, 5
+	db ROUTE_14, 13, 2
+	db ROUTE_14, 21, 1
+	db ROUTE_16, 4, 17
+	db ROUTE_25, 1, 13
 	db $FF ; list terminator
 
 SetCutTree::
@@ -482,12 +483,6 @@ SetCutTree::
 	ret
 
 ClearCutTrees::
-	ld hl, wCurrentMapScriptFlags
-	ld a, [hl]
-	and %00110000 ; Check if the map was just loaded or we entered from another location
-	res 4, [hl]
-	res 5, [hl]
-	ret z
 	ld hl, CutTreeLocations
 	ld c, 0
 	jr .loopfirst
