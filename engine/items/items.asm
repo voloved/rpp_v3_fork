@@ -1777,11 +1777,39 @@ CardKeyTable3:
 
 ItemUsePokedoll:
 	ld a,[wIsInBattle]
+	and a
+	jp z,.noTrainerEnc
 	dec a
 	jp nz,ItemUseNotTime
 	ld a,$01
 	ld [wEscapedFromBattle],a
+	ld hl,wd736 ; turn off ignoring trainers if a poke doll is used
+	res 4, [hl]
 	jp PrintItemUseTextAndRemoveItem
+.noTrainerEnc
+	ld hl,wd736
+	bit 4, [hl]
+	jr z, .setDoll
+	res 4, [hl]
+	ld a, SFX_TURN_OFF_PC
+	ld hl,PokeDollTurnOff
+	jr .continue
+.setDoll
+	set 4, [hl]
+	ld a, SFX_HEAL_AILMENT
+	ld hl,PokeDollTurnOn
+.continue
+	call PlaySound
+	call PrintText
+	ret
+
+PokeDollTurnOn:
+	TX_FAR _PokeDollTurnOn
+	db "@"
+
+PokeDollTurnOff:
+	TX_FAR _PokeDollTurnOff
+	db "@"
 
 ItemUseGuardSpec:
 	ld a,[wIsInBattle]

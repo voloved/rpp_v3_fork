@@ -133,6 +133,12 @@ PlayerPCDeposit:
 	ld hl,wd736
 	res 5, [hl]
 .notCleanseTag
+	ld a, [wcf91]
+	cp POKE_DOLL
+	jr nz, .notPokeDoll
+	ld hl,wd736
+	res 4, [hl]
+.notPokeDoll
 	ld hl, wNumBagItems
 	call RemoveItemFromInventory
 	call WaitForSoundToFinish

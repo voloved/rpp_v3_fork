@@ -2848,6 +2848,18 @@ _CleanseTagTurnOff::
 	line "off Cleanse Tag."
 	prompt
 
+_PokeDollTurnOn::
+	text "[PLAYER] took out"
+	line "the Poke Doll."
+	cont "Trainers will be"
+	cont "ignoring them."
+	prompt
+
+_PokeDollTurnOff::
+	text "[PLAYER] put the"
+	line "Poke Doll away."
+	prompt
+
 _UsedPokeVialToHealText::
 	text "[PLAYER]'s party"
 	line "has been healed."

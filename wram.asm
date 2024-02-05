@@ -3284,7 +3284,8 @@ wd736:: ; d736
 ; bit 0: check if the player is standing on a door and make him walk down a step if so
 ; bit 1: the player is currently stepping down from a door
 ; bit 2: standing on a warp
-; bit 5: Using Cleanse Tag
+; bit 4: No trainers see you.
+; bit 5: Using Cleanse Tag; No wild encounters
 ; bit 6: jumping down a ledge / fishing animation
 ; bit 7: player sprite spinning due to spin tiles (Rocket hideout / Viridian Gym)
 	ds 1

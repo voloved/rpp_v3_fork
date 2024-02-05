@@ -1,13 +1,14 @@
 ; try to initiate a wild pokemon encounter
 ; returns success in Z
 TryDoWildEncounter:
-	ld hl,wd736
+	ld hl,wd736 
 	bit 5, [hl]
 	jr nz, .CantEncounter
 	ld a, [wNPCMovementScriptPointerTableNum]
 	and a
 	ret nz
 	ld a, [wd736]
+	res 4, a ; Ignore the pokedoll's effect
 	and a
 	ret nz
 	callab IsPlayerStandingOnDoorTileOrWarpTile

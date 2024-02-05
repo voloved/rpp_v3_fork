@@ -255,6 +255,9 @@ ReadTrainerScreenPosition:
 ; note that this does not necessarily mean the sprite is seeing the player, he could be behind it's back
 ; a: distance player to sprite
 CheckSpriteCanSeePlayer:
+	ld hl,wd736
+	bit 4, [hl]
+	jr nz, .notInLine
 	ld b, a
 	ld a, [wTrainerEngageDistance] ; how far the trainer can see
 	cp b
