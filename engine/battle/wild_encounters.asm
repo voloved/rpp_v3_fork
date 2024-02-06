@@ -1,9 +1,6 @@
 ; try to initiate a wild pokemon encounter
 ; returns success in Z
 TryDoWildEncounter:
-	ld hl,wd736 
-	bit 5, [hl]
-	jr nz, .CantEncounter
 	ld a, [wNPCMovementScriptPointerTableNum]
 	and a
 	ret nz
