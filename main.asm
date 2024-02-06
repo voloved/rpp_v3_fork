@@ -2675,6 +2675,7 @@ INCLUDE "engine/battle/physical_special_split.asm"
 INCLUDE "scripts/move_deleter.asm"
 INCLUDE "scripts/move_relearner.asm"
 INCLUDE "scripts/move_tutor.asm"
+INCLUDE "engine/overworld/remove_cut_trees.asm"
 
 SECTION "trainer pics 2", ROMX,BANK[$39]
 
