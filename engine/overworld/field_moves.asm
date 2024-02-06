@@ -30,7 +30,7 @@ TrySurf:
 ; Check for a Pokemon in the party with SURF, and for the proper badge to use it.
 	ld d, SURF
 	call HasPartyMove
-	jr z, .checkBadge
+	jr z, .canUseMove
 	call CanPartyLearnMove
 	jr nz, .no
 	ld b, HM_03
@@ -38,10 +38,7 @@ TrySurf:
 	ld a, b
 	and a
 	jr z, .no
-.checkBadge
-	ld a, [wObtainedKantoBadges]
-	bit 4, a ; SOUL_BADGE
-	jr z, .no
+.canUseMove
 ; Are we allowed to surf here?
 	call Text2_EnterTheText
 	callba IsSurfingAllowed ; in current Pokered, this is callba IsSurfingAllowed
@@ -90,7 +87,7 @@ TryCut: ; yenatch's code originally checked for the SOUL_BADGE like SURF does by
 	; Makes sure you have a Pokemon with CUT and have the proper badge.
 	ld d, CUT
 	call HasPartyMove
-	jr z, .checkBadge
+	jr z, .canUseMove
 	call CanPartyLearnMove
 	jr nz, .no2
 	ld b, HM_01
@@ -98,11 +95,7 @@ TryCut: ; yenatch's code originally checked for the SOUL_BADGE like SURF does by
 	ld a, b
 	and a
 	jr z, .no2
-.checkBadge
-	ld a, [wObtainedKantoBadges]
-	bit 1, a ; CASCADE_BADGE
-	jr z, .no2
-
+.canUseMove
 	; Asks the player if they want to use CUT, the way Gen 2 does.
 	ld hl,WantToCutTxt
 	call PrintText

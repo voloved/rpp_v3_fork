@@ -11,24 +11,17 @@ _KogaExplainToxicText::
 
 _FuchsiaGymText9::
 IF DEF(_HARD)
-	text "Now that you have"
-	line "the SoulBadge,"
-	cont "it also lets you"
-	cont "Surf outside of"
-	cont "battle!"
+	text "Ah! Take this"
+	line "too!"
 ELSE
 	text "Now that you have"
 	line "the SoulBadge,"
 	cont "the Defense of"
 	cont "your #mon"
 	cont "increases!"
-
-	para "It also lets you"
-	line "Surf outside of"
-	cont "battle!"
-ENDC
 	para "Ah! Take this"
 	line "too!"
+ENDC
 	done
 
 _ReceivedTM06Text::

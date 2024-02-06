@@ -52,11 +52,6 @@ _CeladonGymText9::
 	line "will make #mon"
 	cont "up to Lv60 obey."
 
-	para "It also allows"
-	line "#mon to use"
-	cont "Strength in and"
-	cont "out of battle."
-
 	para "Please also take"
 	line "this with you."
 	done

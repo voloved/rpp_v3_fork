@@ -77,9 +77,6 @@ ELSE
 	line "#mon become"
 	cont "more powerful!"
 ENDC
-	para "Also, the move"
-	line "Flash can now be"
-	cont "used anytime!"
 	prompt
 
 _PewterGymBattleText1::

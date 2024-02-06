@@ -35,14 +35,6 @@ _CeruleanGymText_5c7c8::
 	para "That includes"
 	line "even outsiders!"
 
-	para "There's more, you"
-	line "can now use Cut"
-	cont "anytime!"
-
-	para "You can Cut down"
-	line "small bushes to"
-	cont "open new paths!"
-
 	para "You can also have"
 	line "my favorite TM!"
 	done
