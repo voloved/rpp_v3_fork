@@ -59,7 +59,7 @@ Cut2:: ; added for Field Move hack
 	call InitCutAnimOAM
 	ld de, CutTreeBlockSwaps
 	call ReplaceTreeTileBlock
-	farcall SetCutTree
+	farcall SetCutTreeFlags
 	call RedrawMapView
 	callba AnimCut
 	ld a, $1

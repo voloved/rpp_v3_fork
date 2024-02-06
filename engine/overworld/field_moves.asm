@@ -407,7 +407,7 @@ CutTreeLocations:
 	db ROUTE_25, 1, 13
 	db $FF ; list terminator
 
-SetCutTree::
+SetCutTreeFlags::
 	ld a, [wYCoord]
 	sra a
 	ld d, a ; d holds the Y block loc
@@ -482,7 +482,7 @@ SetCutTree::
 	predef FlagActionPredef
 	ret
 
-ClearCutTrees::
+RemoveAlreadyCutTrees::
 	ld hl, CutTreeLocations
 	ld c, 0
 	jr .loopfirst
