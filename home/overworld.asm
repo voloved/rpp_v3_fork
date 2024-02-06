@@ -8,7 +8,6 @@ EnterMap::
 	ld a, $ff
 	ld [wJoyIgnore], a
 	call LoadMapData
-	farcall ClearCutTrees
 	callba ClearVariablesOnEnterMap
 	ld hl, wd72c
 	bit 0, [hl] ; has the player already made 3 steps since the last battle?
@@ -2194,6 +2193,7 @@ LoadMapData::
 	call LoadMapHeader
 	callba InitMapSprites ; load tile pattern data for sprites
 	call LoadTileBlockMap
+	farcall ClearCutTrees
 	call LoadTilesetTilePatternData
 	call LoadCurrentMapView
 

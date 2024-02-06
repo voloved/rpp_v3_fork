@@ -392,7 +392,7 @@ CutTreeLocations:
 	db CERULEAN_CITY, 14, 9
 	db ROUTE_8, 5, 20
 	db ROUTE_8, 6, 14
-	db ROUTE_9, 4, 2
+	db ROUTE_9, 4, 3
 	db VERMILION_CITY, 9, 7
 	db ROUTE_10, 9, 4
 	db ROUTE_10, 10, 4
@@ -527,13 +527,14 @@ ClearCutTrees::
 	ld b, d
 	ld c, e
 	push hl
-	push bc
 	predef FindTileBlock ; hl holds block ID at X,Y coord on the map
 	ld a, [hl]
 	ld [wNewTileBlockID], a
+	push hl
 	farcall FindTileBlockReplacementCut
-	pop bc
-	predef ReplaceTileBlock
+	pop hl
+	ld a, [wNewTileBlockID]
+	ld [hl], a
 	ld a, [wTempCoins1]
 	ld c, a
 	pop hl
