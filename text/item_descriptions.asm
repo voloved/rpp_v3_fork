@@ -334,6 +334,12 @@ _PokeDollDescription::
 	line "be used to escape"
 	cont "from a wild"
 	cont "#mon."
+	cont "It can also be"
+	cont "held while"
+	cont "walking to make"
+	cont "others not want"
+	cont "to start a"
+	cont "conversation."
 	prompt
 
 _FullHealDescription::

@@ -2845,9 +2845,10 @@ _CleanseTagTurnOff::
 
 _PokeDollTurnOn::
 	text "[PLAYER] took out"
-	line "the Poke Doll."
-	cont "Trainers will be"
-	cont "ignoring them."
+	line "the Poke Doll,"
+	cont "causing trainers"
+	cont "to avoid eye"
+	cont "contact."
 	prompt
 
 _PokeDollTurnOff::
