@@ -2398,7 +2398,7 @@ wPartyMonNicks:: ds NAME_LENGTH * PARTY_LENGTH ; d2b5
 wPartyDataEnd::
 
 
-wMainDataStart::
+wMainDataStart:: ; Saving starts
 
 wPokedexOwned:: ; d2f7
 	flag_array NUM_POKEMON
@@ -3427,7 +3427,7 @@ wDayCareMon2OT::   ds NAME_LENGTH ; Man
 
 wDayCareMon2:: box_struct wDayCareMon2 ; Man
 
-wMainDataEnd::
+wMainDataEnd:: ; Saving ends
 
 
 wBoxDataStart::

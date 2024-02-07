@@ -244,7 +244,7 @@ VermilionTruck1:
 	ld a, MEW
 	ld [wCurOpponent], a
 	call PlayCry ; play Pokémon cry
-	ld a, 1
+	ld a, 30
 	ld [wCurEnemyLVL], a
 	xor a
 	ld [wIsTrainerBattle], a ; wild battle
