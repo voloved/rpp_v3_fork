@@ -48,6 +48,8 @@ StartMenu_Pokemon:
 	dec c
 	jr .adjustMenuVariablesLoop
 .storeMenuVariables
+	ld a,1
+	ld [wMenuWrappingEnabled],a
 	ld hl,wTopMenuItemY
 	ld a,c
 	ld [hli],a ; top menu item Y

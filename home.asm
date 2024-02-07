@@ -1606,14 +1606,32 @@ checkOtherKeys: ; check B, SELECT, Up, and Down keys
 	ld b,a
 	ld a,[wListCount]
 	cp b ; will going down scroll past the Cancel button?
-	jp c,DisplayListMenuIDLoop
+	jp c,.alreadyAtBottom
 	inc [hl] ; if not, go down
 	jp DisplayListMenuIDLoop
 .upPressed
 	ld a,[hl]
 	and a
-	jp z,DisplayListMenuIDLoop
+	jp z,.alreadyAtTop
 	dec [hl]
+	jp DisplayListMenuIDLoop
+.alreadyAtBottom
+	xor a
+	; skip to the top: when both of these are 0 we're at the top of the list
+	ld [wListScrollOffset], a
+	ld [wCurrentMenuItem], a
+	jp DisplayListMenuIDLoop
+.alreadyAtTop
+	ld a, [wListCount]
+	cp 3
+	; if the list length is 3 or less we don't have to account for offsets
+	jr c, .shortList
+	ld a, [wListCount]
+	sub 2 ; scroll offset is only incremented after we pass the 3rd item in the list so need to account for that when setting "max scroll offset"
+	ld [wListScrollOffset], a
+.shortList
+	ld a, [wMaxMenuItem] ; wMaxMenuItem = lowest item you can reach before scrolling is triggered (usually 3rd in the list)
+	ld [wCurrentMenuItem], a
 	jp DisplayListMenuIDLoop
 .sortItems
 	rra ; Sets the zero flag to 0 so the sorting function will happen
