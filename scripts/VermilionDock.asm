@@ -1,5 +1,10 @@
 VermilionDockScript:
 	call EnableAutoTextBoxDrawing
+	ld a, [wSSAnne10CurScript] ; Reusing wSSAnne10CurScript; but it should always finish with it at 0
+	ld hl, VermilionDockScriptPointers
+	jp CallFunctionInTable
+
+VermilionDocksScript0:
 	CheckEventHL EVENT_STARTED_WALKING_OUT_OF_DOCK
 	jr nz, .asm_1db8d
 	CheckEventReuseHL EVENT_GOT_HM01
@@ -207,9 +212,59 @@ endr
 	ret
 
 VermilionDockTextPointers:
-	dw VermilionDockText1
-	dw VermilionDockText1
+	dw VermilionTruck1
+	dw VermilionTruck1
 
 VermilionDockText1:
 	TX_FAR _VermilionDockText1
 	db "@"
+
+VermilionDockText2:
+	TX_FAR _VermilionDockText2
+	db "@"
+
+VermilionDockText3:
+	TX_FAR _VermilionDockText3
+	db "@"
+
+VermilionDockScriptPointers:
+	dw VermilionDocksScript0
+	dw DisplayEnemyTrainerTextAndStartBattle
+	dw EndTrainerBattle
+	dw VermilionDocksScript3
+
+VermilionTruck1:
+	TX_ASM
+	ld hl, VermilionDockText1
+	call PrintText	
+	CheckEvent EVENT_BEAT_MEW
+	jr nz, .alreadyBattled
+	ld hl, VermilionDockText3
+	call PrintText
+	ld a, MEW
+	ld [wCurOpponent], a
+	call PlayCry ; play Pokémon cry
+	ld a, 1
+	ld [wCurEnemyLVL], a
+	xor a
+	ld [wIsTrainerBattle], a ; wild battle
+	call WaitForSoundToFinish
+	ld a, $3
+	ld [wSSAnne10CurScript], a
+	jp TextScriptEnd
+.alreadyBattled
+	ld hl, VermilionDockText2
+	call PrintText
+	call ResetToScript0
+	jp TextScriptEnd
+
+VermilionDocksScript3:
+	ld a, [wIsInBattle]
+	cp $ff ; lost battle
+	jp z, ResetToScript0
+	SetEvent EVENT_BEAT_MEW
+
+ResetToScript0:
+	xor a
+	ld [wSSAnne10CurScript], a
+	ret
