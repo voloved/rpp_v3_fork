@@ -729,6 +729,7 @@ CheckMapConnections::
 	callba InitMapSprites
 	call LoadTileBlockMap
 	farcall RemoveAlreadyCutTrees
+	farcall RemoveSSAnne
 	jp OverworldLoopLessDelay
 
 .didNotEnterConnectedMap
@@ -2194,6 +2195,7 @@ LoadMapData::
 	callba InitMapSprites ; load tile pattern data for sprites
 	call LoadTileBlockMap
 	farcall RemoveAlreadyCutTrees
+	farcall RemoveSSAnne
 	call LoadTilesetTilePatternData
 	call LoadCurrentMapView
 

@@ -8,7 +8,7 @@ VermilionDocksScript0:
 	CheckEventHL EVENT_STARTED_WALKING_OUT_OF_DOCK
 	jr nz, .asm_1db8d
 	CheckEventReuseHL EVENT_GOT_HM01
-	ret z
+;	ret z
 	ld a, [wDestinationWarpID]
 	cp $1
 	ret nz
@@ -267,4 +267,45 @@ VermilionDocksScript3:
 ResetToScript0:
 	xor a
 	ld [wSSAnne10CurScript], a
+	ret
+
+ShipTileSwapArray:
+; first byte = The Y coordinate of the block
+; second byte = The X coordinate of the block
+; third byte = Block to replace
+	db 1, 5, $01
+	db 1, 6, $0D
+	db 1, 7, $17
+	db 1, 8, $01
+	db 2, 5, $0D
+	db 2, 6, $0D
+	db 2, 7, $0D
+	db 2, 8, $0D
+	db $FF ; list terminator
+
+
+RemoveSSAnne:
+	ld a, [wCurMap]
+	cp VERMILION_DOCK
+	ret nz
+	CheckEvent EVENT_SS_ANNE_LEFT
+	ret z
+	ld de, ShipTileSwapArray
+.loop
+	ld a, [de]
+	cp $ff
+	jr z, .done
+	ld b, a
+	inc de
+	ld a, [de]
+	ld c, a
+	inc de
+	push de
+	predef FindTileBlock
+	pop de
+	ld a, [de]
+	inc de
+	ld [hl], a
+	jr .loop
+.done
 	ret
