@@ -705,7 +705,12 @@ PokemonMenuEntries:
 
 GetMonFieldMoves:
 	xor a
-	ld [wTempCoins1], a ; wTempCoins1 holds X1 if fly, 1X if flash has been written; 0 otherwise
+	ld [wTempCoins1], a
+	; wTempCoins1 holds XXX1 if fly is already in list 
+	;                   XX1X if flash is already in list 
+	;                   X1XX if fly was already checked to be added
+	;                   1XXX if flash was already checked to be added
+	;                   0 otherwise
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Moves
 	ld bc, wPartyMon2 - wPartyMon1
@@ -739,9 +744,11 @@ GetMonFieldMoves:
 	ld hl, wTempCoins1
 	ld a, b
 	cp FLY
-	jr nz, .foundFieldMoveCheckFlash
+	jr z, .foundFly
+	jr .foundFieldMoveChecked
+.foundFly
 	bit 0, [hl]
-	jr nz, .nextMoveCheckedFlyFlash
+	jr nz, .foundFieldMoveCheckFlash
 	set 0, [hl]
 	jr .foundFieldMoveChecked
 .nextMoveCheckedFlyFlash
@@ -749,10 +756,13 @@ GetMonFieldMoves:
 	jp .nextMove
 .foundFieldMoveCheckFlash
 	cp FLASH
-	jr nz, .foundFieldMoveChecked
+	jr z, .foundFlash
+	jr .foundFieldMoveChecked
+.foundFlash
 	bit 1, [hl]
 	jr nz, .nextMoveCheckedFlyFlash
 	set 1, [hl]
+	jr .foundFieldMoveChecked
 .foundFieldMoveChecked
 	pop hl
 	ld [wLastFieldMoveID], a
@@ -776,6 +786,10 @@ GetMonFieldMoves:
 	ld a, [wTempCoins1]
 	bit 0, a
 	jr nz, .addFlash
+	bit 2, a
+	jr nz, .addFlash
+	set 2, a
+	ld [wTempCoins1], a
 	push bc
 	push de
 	push hl
@@ -787,7 +801,7 @@ GetMonFieldMoves:
 	pop hl
 	pop de
 	pop bc
-	jr .noFly
+	jr .nextMove
 .done
 	pop hl
 	xor a
@@ -808,17 +822,15 @@ GetMonFieldMoves:
 	pop de
 	pop bc
 	and a
-	jp z, .noFly
+	jp z, .nextMove
+	push hl
+	ld hl, wTempCoins1
+	set 0, [hl]
+	pop hl
 	ld b, FLY
 	ld a,b
 	ld hl, FieldMoveDisplayData
 	jr .addMoveFindInFieldMoveDisplayData
-.noFly
-	push hl
-	ld hl, wTempCoins1
-	set 0, [hl] ; if fly, set bit 0
-	pop hl
-	jp .nextMove
 .addMoveFindInFieldMoveDisplayData
 	ld a, [hli]
 	cp b
@@ -828,6 +840,10 @@ GetMonFieldMoves:
 	ld a, [wTempCoins1]
 	bit 1, a
 	jp nz, .nextMove
+	bit 3, a
+	jp nz, .nextMove
+	set 3, a
+	ld [wTempCoins1], a
 	ld a,[wCurMap]
 	cp ROCK_TUNNEL_1
 	jr z, .inRockTunnel
@@ -846,7 +862,7 @@ GetMonFieldMoves:
 	pop hl
 	pop de
 	pop bc
-	jp .noFlash
+	jp .nextMove
 .hasTMFlash
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Species
@@ -862,17 +878,15 @@ GetMonFieldMoves:
 	pop de
 	pop bc
 	and a
-	jp z, .noFlash
+	jp z, .nextMove
+	push hl
+	ld hl, wTempCoins1
+	set 1, [hl]
+	pop hl
 	ld b, FLASH
 	ld a,b
 	ld hl, FieldMoveDisplayData
 	jr .addMoveFindInFieldMoveDisplayData
-.noFlash
-	push hl
-	ld hl, wTempCoins1
-	set 1, [hl] ; if fly, set bit 0
-	pop hl
-	jp .nextMove
 
 ; Format: [Move id], [name index], [leftmost tile]
 ; Move id = id of move
