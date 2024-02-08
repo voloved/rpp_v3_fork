@@ -723,7 +723,7 @@ GetMonFieldMoves:
 	push hl
 .nextMove
 	dec c
-	jr z, .done
+	jp z, .done
 	ld a, [de] ; move ID
 	and a
 	jr z, .done
@@ -790,6 +790,8 @@ GetMonFieldMoves:
 	jr nz, .addFlash
 	set 2, a
 	ld [wTempCoins1], a
+	call CheckIfCanFly
+	jr nc, .addFlash
 	push bc
 	push de
 	push hl
@@ -801,7 +803,7 @@ GetMonFieldMoves:
 	pop hl
 	pop de
 	pop bc
-	jr .nextMove
+	jp .nextMove
 .done
 	pop hl
 	xor a
@@ -887,6 +889,20 @@ GetMonFieldMoves:
 	ld a,b
 	ld hl, FieldMoveDisplayData
 	jr .addMoveFindInFieldMoveDisplayData
+
+CheckIfCanFly::
+	ld a, [wCurMap]
+	cp MT_MOON_SQUARE
+	jr z, .canFly
+	cp CELADON_MART_ROOF
+	jr z, .canFly
+	call CheckIfInOutsideMap
+	jr z,.canFly
+	and a
+	ret
+.canFly
+	scf
+	ret
 
 ; Format: [Move id], [name index], [leftmost tile]
 ; Move id = id of move

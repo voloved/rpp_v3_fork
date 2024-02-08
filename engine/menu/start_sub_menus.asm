@@ -146,13 +146,8 @@ StartMenu_Pokemon:
 	dw .softboiled
 	dw .headbutt
 .fly
-	ld a, [wCurMap]
-	cp MT_MOON_SQUARE
-	jr z, .canFly
-	cp CELADON_MART_ROOF
-	jr z, .canFly
-	call CheckIfInOutsideMap
-	jr z,.canFly
+	callab CheckIfCanFly
+	jr c, .canFly
 	ld a,[wWhichPokemon]
 	ld hl,wPartyMonNicks
 	call GetPartyMonName
