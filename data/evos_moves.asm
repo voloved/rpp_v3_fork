@@ -3680,7 +3680,6 @@ Mon151_EvosMoves:
 ;Evolutions
 	db 0
 ;Learnset
-	db 1,TELEPORT
 	db 1,POUND
 	db 1,TRANSFORM
 	db 10,MEGA_PUNCH

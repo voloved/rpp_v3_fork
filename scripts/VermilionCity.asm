@@ -40,7 +40,10 @@ VermilionCityScriptPointers:
 VermilionCityScript0:
 	ld a, [wObtainedKantoBadges] ; Don't stop player if they have the Marsh badge
 	bit 6, a ; VOLCANO_BADGE
-	ret nz
+	jr z, .continue
+	CheckEvent EVENT_BEAT_MEW
+	ret z
+.continue
 	ld a, [wSpriteStateData1 + 9]
 	and a ; cp SPRITE_FACING_DOWN
 	ret nz
