@@ -1616,12 +1616,18 @@ checkOtherKeys: ; check B, SELECT, Up, and Down keys
 	dec [hl]
 	jp DisplayListMenuIDLoop
 .alreadyAtBottom
+	ld a,[hJoyPressed] ; newly pressed buttons
+	bit 7,a ; was the Down just pressed?
+	jp z,DisplayListMenuIDLoop
 	xor a
 	; skip to the top: when both of these are 0 we're at the top of the list
 	ld [wListScrollOffset], a
 	ld [wCurrentMenuItem], a
 	jp DisplayListMenuIDLoop
 .alreadyAtTop
+	ld a,[hJoyPressed] ; newly pressed buttons
+	bit 6,a ; was the Up just pressed?
+	jp z,DisplayListMenuIDLoop
 	ld a, [wListCount]
 	cp 3
 	; if the list length is 3 or less we don't have to account for offsets
