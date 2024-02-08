@@ -91,7 +91,13 @@ StartMenu_Pokemon:
 	add hl,bc
 	jp .choseOutOfBattleMove
 .choseRelearn
+	ld a, [wMapPalOffset] ; wMapPalOffset is used in Rock Tunnel to dim it, and dims the relearned menu as well.
+	push af ; Save the current dim, reset it, and set it back when relearner is done.
+	xor a
+	ld [wMapPalOffset], a
 	farcall MoveRelearner
+	pop af
+	ld [wMapPalOffset], a
 	jp StartMenu_Pokemon
 .choseSwitch
 	ld a,[wPartyCount]
