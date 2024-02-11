@@ -24,6 +24,8 @@ Route15GateUpstairsText1:
 	cp $1
 	jr nz, .asm_49689
 	SetEvent EVENT_GOT_EXP_ALL
+	ld hl,wExtraFlags ; Turn on Exp Share by default
+	set 5, [hl]
 .asm_49683
 	ld hl, Route15GateUpstairsText_4968c
 	call PrintText
