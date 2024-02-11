@@ -90,7 +90,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; SILPH_SCOPE
 	dw ItemUsePokeflute  ; POKE_FLUTE
 	dw UnusableItem      ; LIFT_KEY
-	dw UnusableItem      ; EXP_ALL
+	dw ItemUseExpShare   ; EXP_ALL
 	dw ItemUseOldRod     ; OLD_ROD
 	dw ItemUseGoodRod    ; GOOD_ROD
 	dw ItemUseSuperRod   ; SUPER_ROD
@@ -1618,6 +1618,34 @@ CleanseTagTurnOn:
 
 CleanseTagTurnOff:
 	TX_FAR _CleanseTagTurnOff
+	db "@"
+
+ItemUseExpShare:
+	ld a,[wIsInBattle]
+	and a
+	jp nz,ItemUseNotTime
+	ld hl,wExtraFlags
+	bit 5, [hl]
+	jr z, .setExpShare
+	res 5, [hl]
+	ld a, SFX_TURN_OFF_PC
+	ld hl,ExpShareTurnOff
+	jr .continue
+.setExpShare
+	set 5, [hl]
+	ld a, SFX_HEAL_AILMENT
+	ld hl,ExpShareTurnOn
+.continue
+	call PlaySound
+	call PrintText
+	ret
+
+ExpShareTurnOn:
+	TX_FAR _ExpShareTurnOn
+	db "@"
+
+ExpShareTurnOff:
+	TX_FAR _ExpShareTurnOff
 	db "@"
 
 ItemUseTeleporter:

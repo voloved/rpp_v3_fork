@@ -3088,6 +3088,7 @@ wExtraFlags::
 ; bit 2 = Set means traded mons obey like normal mons
 ; bit 3 = Set means you've received Eon Ticket in Celadon Mansion
 ; bit 4 = Set means you've received Mystic Ticket in Cinnabar Lab
+; bit 5 = Set means Exp Share is on
 	ds 1
 
 wObtainedHiddenItemsFlags::

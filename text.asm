@@ -2856,6 +2856,16 @@ _PokeDollTurnOff::
 	line "Poke Doll away."
 	prompt
 
+_ExpShareTurnOn::
+	text "[PLAYER] turned"
+	line "on Exp. Share."
+	prompt
+
+_ExpShareTurnOff::
+	text "[PLAYER] turned"
+	line "off Exp. Share."
+	prompt
+
 _UsedPokeVialToHealText::
 	text "[PLAYER]'s party"
 	line "has been healed."

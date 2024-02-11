@@ -7,7 +7,7 @@ _AddPartyMon:
 	ld a, [wMonDataLocation]
 	and $f
 	jr z, .next
-	call CheckStolen
+	callba CheckStolen
 	ret c
 	ld de, wEnemyPartyCount
 .next
@@ -528,90 +528,3 @@ _MoveMon:
 .done
 	and a
 	ret
-
-CheckStolen::
-; wcf91 holds the species info
-	ld a, [wTrainerClass]
-	cp SONY1
-	jr z, .isRival
-	cp SONY2
-	jr z, .isRival
-	cp SONY3
-	jr z, .isRival
-	jr .notStolen
-.isRival
-	ld a, [wRivalPokemonStolen]
-	ld b, a
-	ld a, [wcf91]
-.checkStarter
-	bit 0, b
-	jr z, .checkPidgey
-	cp BULBASAUR ; Pointless b/c you can't be under Bulbasaur, but w/e
-	jr c, .checkPidgey
-	cp BLASTOISE
-	jr z, .stolen
-	jr nc, .checkPidgey
-	jr .stolen
-.checkPidgey
-	bit 1, b
-	jr z, .checkRattata
-	cp PIDGEY
-	jr c, .checkRattata
-	cp PIDGEOT
-	jr z, .stolen
-	jr nc, .checkRattata
-	jr .stolen
-.checkRattata
-	bit 2, b
-	jr z, .checkAbra
-	cp RATTATA
-	jr z, .stolen
-	cp RATICATE
-	jr z, .stolen
-.checkAbra
-	bit 3, b
-	jr z, .checkGrowlithe
-	cp ABRA
-	jr c, .checkGrowlithe
-	cp ALAKAZAM
-	jr z, .stolen
-	jr nc, .checkGrowlithe
-	jr .stolen
-.checkGrowlithe
-	bit 4, b
-	jr z, .checkExeggcute
-	cp GROWLITHE
-	jr z, .stolen
-	cp ARCANINE
-	jr z, .stolen
-.checkExeggcute
-	bit 5, b
-	jr z, .checkGyarados
-	cp EXEGGCUTE
-	jr z, .stolen
-	cp EXEGGUTOR
-	jr z, .stolen
-.checkGyarados
-	bit 6, b
-	jr z, .checkRhyhorn
-	cp GYARADOS
-	jr z, .stolen
-.checkRhyhorn
-	bit 7, b
-	jr z, .notStolen
-	cp RHYHORN
-	jr nz, .stolen
-.notStolen
-	and a
-	ret
-.stolen
-	scf
-	ret
-; bit 0: Starter
-; bit 1: Pidgey Line
-; bit 2: Rattata Line
-; bit 3: Abra Line
-; bit 4: Growlithe Line
-; bit 5: Execute Line
-; bit 6: Gyarados
-; bit 7: Rhyhorn

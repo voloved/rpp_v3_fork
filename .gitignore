@@ -13,6 +13,7 @@
 
 # rgbds extras
 *.sym
+*.sn1
 
 # converted image data
 *.2bpp

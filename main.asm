@@ -2712,6 +2712,7 @@ INCLUDE "engine/splashscreens/players_in_intro.asm"
 INCLUDE "engine/overworld/headbutt.asm"
 INCLUDE "engine/sliding_tile_puzzle.asm"
 INCLUDE "engine/overworld/bike_shortcut.asm"
+INCLUDE "engine/steal_mon.asm"
 
 SECTION "Trainer Parties", ROMX,BANK[$3B]
 INCLUDE "engine/battle/read_trainer_party.asm"

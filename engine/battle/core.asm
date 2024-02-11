@@ -949,8 +949,8 @@ FaintEnemyPokemon:
     push af
 	callab GainExperience
 
-	ld b, EXP_SHARE
-	call IsItemInBag
+	ld a, [wExtraFlags]
+	bit 5, a
     pop bc
 	ret z
 
