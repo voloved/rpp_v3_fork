@@ -1819,6 +1819,8 @@ ItemUsePokedoll:
 	jp z,.noTrainerEnc
 	dec a
 	jp nz,ItemUseNotTime
+	call IsGhostBattle
+	jp z, ItemUseNotTime ; jump if it's a ghost battle
 	ld a,$01
 	ld [wEscapedFromBattle],a
 	ld hl,wd736 ; turn off ignoring trainers if a poke doll is used
