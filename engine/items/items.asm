@@ -212,6 +212,8 @@ BallAnyway:
 ; Poké Ball:         [0, 255]
 ; Great Ball:        [0, 200]
 ; Ultra/Safari Ball: [0, 150]
+; Thief Ball:        [0, 255] if Wild
+;                    [0, 150] if Trainer
 ; Loop until an acceptable number is found.
 
 .loop
@@ -235,6 +237,13 @@ BallAnyway:
 	cp a,POKE_BALL
 	jr z,.checkForAilments
 
+	cp a,THIEF_BALL
+	jr nz,.rand1NotThiefWild
+	ld a, [wIsInBattle]
+	dec a
+	jr z,.checkForAilments ; If wild battle
+	ld a,[hl]
+.rand1NotThiefWild
 ; If it's a Great/Ultra/Safari Ball and Rand1 is greater than 200, try again.
 	ld a,200
 	cp b
@@ -353,7 +362,7 @@ BallAnyway:
 	jr c,.failedToCapture
 
 .captured
-	jr .skipShakeCalculations
+	jp .skipShakeCalculations
 
 .failedToCapture
 	ld a,[H_QUOTIENT + 3]
@@ -370,20 +379,27 @@ BallAnyway:
 	call Multiply
 
 ; Determine BallFactor2.
-; Poké Ball:                     BallFactor2 = 255
-; Great Ball:                    BallFactor2 = 200
-; Ultra/Safari Ball/ Thief Ball: BallFactor2 = 150
-; Thief Ball:        BallFactor2 = 100
+; Used for amount of ball shakes on failed catch
+; Poké Ball:         BallFactor2 = 255
+; Great Ball:        BallFactor2 = 200
+; Ultra/Safari Ball: BallFactor2 = 150
+; Thief Ball:        BallFactor2 = 255 if Wild
+;                    BallFactor2 = 150 if Trainer
 	ld a,[wcf91]
 	ld b,255
 	cp a,POKE_BALL
 	jr z,.skip4
+	cp a,THIEF_BALL
+	jr nz,.ballFactor2NotThiefWild
+	ld a, [wIsInBattle]
+	dec a
+	jr z,.skip4 ; If wild battle
+	ld a,[wcf91]
+.ballFactor2NotThiefWild
 	ld b,200
 	cp a,GREAT_BALL
 	jr z,.skip4
-	ld b,150
-	cp a,ULTRA_BALL
-	jr z,.skip4
+	ld b,150  ; If Ultra Ball/Safari Ball/ Thief Ball and trainer battle
 
 .skip4
 ; Let Y = (CatchRate * 100) / BallFactor2. Calculate Y.
