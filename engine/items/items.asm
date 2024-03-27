@@ -1839,8 +1839,6 @@ ItemUsePokedoll:
 	jp z, ItemUseNotTime ; jump if it's a ghost battle
 	ld a,$01
 	ld [wEscapedFromBattle],a
-	ld hl,wd736 ; turn off ignoring trainers if a poke doll is used
-	res 4, [hl]
 	jp PrintItemUseTextAndRemoveItem
 .noTrainerEnc
 	ld hl,wd736
@@ -2705,7 +2703,9 @@ RemoveUsedItem:
 	ld hl,wNumBagItems
 	ld a,1 ; one item
 	ld [wItemQuantity],a
-	jp RemoveItemFromInventory
+	call RemoveItemFromInventory
+	jp RemoveCleanseTagAndPokedollEffects
+
 
 ItemUseNoEffect:
 	ld hl,ItemUseNoEffectText
@@ -3018,6 +3018,7 @@ TossItem_:
 	push hl
 	ld a,[wWhichPokemon]
 	call RemoveItemFromInventory
+	call RemoveCleanseTagAndPokedollEffects
 	ld a,[wcf91]
 	ld [wd11e],a
 	call GetItemName

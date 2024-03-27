@@ -1395,6 +1395,26 @@ RemoveItemFromInventory::
 	ld [MBC1RomBank],a
 	ret
 
+; If the item you're removing from your bag is a pokedoll or cleanse tag,
+; remove its effect if it's the last one in the bag
+; [wcf91] = item ID
+; [wMaxItemQuantity] = Quantity remaining (0 if there are none left)
+RemoveCleanseTagAndPokedollEffects::
+	ld a,[wMaxItemQuantity]
+	and a
+	ret nz
+	ld hl,wd736 
+	ld a,[wcf91]
+	cp CLEANSE_TAG
+	jr nz, .notCleanseTag
+	res 5, [hl] ; turn off ignoring wild encounters
+	ret
+.notCleanseTag
+	cp POKE_DOLL
+	ret nz
+	res 4, [hl] ; turn off ignoring trainers
+	ret
+
 ; function to add an item (in varying quantities) to the player's bag or PC box
 ; INPUT:
 ; HL = address of inventory (either wNumBagItems or wNumBoxItems)

@@ -138,4 +138,7 @@ RemoveItemByID:
 	ld a, [hItemToRemoveIndex]
 	ld [wWhichPokemon], a
 	ld hl, wNumBagItems
-	jp RemoveItemFromInventory
+	call RemoveItemFromInventory
+	ld a, [hItemToRemoveID]
+	ld [wcf91],a
+	jp RemoveCleanseTagAndPokedollEffects

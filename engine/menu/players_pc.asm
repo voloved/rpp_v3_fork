@@ -127,20 +127,9 @@ PlayerPCDeposit:
 	call PrintText
 	jp .loop
 .roomAvailable
-	ld a, [wcf91]
-	cp CLEANSE_TAG
-	jr nz, .notCleanseTag
-	ld hl,wd736
-	res 5, [hl]
-.notCleanseTag
-	ld a, [wcf91]
-	cp POKE_DOLL
-	jr nz, .notPokeDoll
-	ld hl,wd736
-	res 4, [hl]
-.notPokeDoll
 	ld hl, wNumBagItems
 	call RemoveItemFromInventory
+	call RemoveCleanseTagAndPokedollEffects
 	call WaitForSoundToFinish
 	ld a, SFX_WITHDRAW_DEPOSIT
 	call PlaySound

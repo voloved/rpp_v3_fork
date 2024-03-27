@@ -109,6 +109,7 @@ DisplayPokemartDialogue_:
 	call AddAmountSoldToMoney
 	ld hl,wNumBagItems
 	call RemoveItemFromInventory
+	call RemoveCleanseTagAndPokedollEffects
 	jp .sellMenuLoop
 .unsellableItem
 	ld hl,PokemartUnsellableItemText
