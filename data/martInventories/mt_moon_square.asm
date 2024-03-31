@@ -1,10 +1,11 @@
 FossilMartText::
 	db MART_LIST
-	db 8
+	db 9
 	db POKE_BALL
 	db POTION
 	db MAX_REPEL
 	db POKE_DOLL
+	db CLEANSE_TAG
 	db MOON_STONE
 	db OLD_AMBER
 	db DOME_FOSSIL
