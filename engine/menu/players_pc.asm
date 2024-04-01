@@ -72,6 +72,8 @@ ExitPlayerPC:
 	call WaitForSoundToFinish
 .next
 	ld hl, wFlags_0xcd60
+	res 2,[hl]
+	res 4,[hl]
 	res 5, [hl]
 	call LoadScreenTilesFromBuffer2
 	xor a
@@ -94,6 +96,9 @@ PlayerPCDeposit:
 	call PrintText
 	jp PlayerPCMenu
 .loop
+	ld hl, wFlags_0xcd60
+	set 2,[hl]
+	res 4,[hl]
 	ld hl, WhatToDepositText
 	call PrintText
 	ld hl, wNumBagItems
@@ -106,6 +111,7 @@ PlayerPCDeposit:
 	ld a, ITEMLISTMENU
 	ld [wListMenuID], a
 	call DisplayListMenuID
+	jp nz, .sortItems
 	jp c, PlayerPCMenu
 	call IsKeyItem
 	ld a, 1
@@ -120,6 +126,9 @@ PlayerPCDeposit:
 	cp $ff
 	jp z, .loop
 .next
+	ld hl, wFlags_0xcd60
+	res 2,[hl]
+	res 4,[hl]
 	ld hl, wNumBoxItems
 	call AddItemToInventory
 	jr c, .roomAvailable
@@ -137,6 +146,9 @@ PlayerPCDeposit:
 	ld hl, ItemWasStoredText
 	call PrintText
 	jp .loop
+.sortItems
+	callab SortItems
+	jp .loop
 
 PlayerPCWithdraw:
 	xor a
@@ -149,6 +161,9 @@ PlayerPCWithdraw:
 	call PrintText
 	jp PlayerPCMenu
 .loop
+	ld hl, wFlags_0xcd60
+	set 2,[hl]
+	set 4,[hl]
 	ld hl, WhatToWithdrawText
 	call PrintText
 	ld hl, wNumBoxItems
@@ -161,6 +176,7 @@ PlayerPCWithdraw:
 	ld a, ITEMLISTMENU
 	ld [wListMenuID], a
 	call DisplayListMenuID
+	jp nz, .sortItems
 	jp c, PlayerPCMenu
 	call IsKeyItem
 	ld a, 1
@@ -175,6 +191,9 @@ PlayerPCWithdraw:
 	cp $ff
 	jp z, .loop
 .next
+	ld hl, wFlags_0xcd60
+	res 2,[hl]
+	res 4,[hl]
 	ld hl, wNumBagItems
 	call AddItemToInventory
 	jr c, .roomAvailable
@@ -191,6 +210,9 @@ PlayerPCWithdraw:
 	ld hl, WithdrewItemText
 	call PrintText
 	jp .loop
+.sortItems
+	callab SortItems
+	jp .loop
 
 PlayerPCToss:
 	xor a
@@ -203,6 +225,9 @@ PlayerPCToss:
 	call PrintText
 	jp PlayerPCMenu
 .loop
+	ld hl, wFlags_0xcd60
+	set 2,[hl]
+	set 4,[hl]
 	ld hl, WhatToTossText
 	call PrintText
 	ld hl, wNumBoxItems
@@ -217,6 +242,7 @@ PlayerPCToss:
 	push hl
 	call DisplayListMenuID
 	pop hl
+	jp nz, .sortItems
 	jp c, PlayerPCMenu
 	push hl
 	call IsKeyItem
@@ -238,7 +264,13 @@ PlayerPCToss:
 	cp $ff
 	jp z, .loop
 .next
+	ld hl, wFlags_0xcd60
+	res 2,[hl]
+	res 4,[hl]
 	call TossItem ; disallows tossing key items
+	jp .loop
+.sortItems
+	callab SortItems
 	jp .loop
 
 PlayersPCMenuEntries:
