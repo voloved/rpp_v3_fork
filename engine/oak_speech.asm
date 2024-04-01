@@ -47,6 +47,7 @@ OakSpeech:
 	call SetDefaultNames
 	predef InitPlayerData2
 	ld hl,wNumBoxItems
+	SetEvent EVENT_MET_BILL
 	ld a,POTION
 	ld [wcf91],a
 	ld a,1
