@@ -616,6 +616,14 @@ LoadTownMapEntry:
 	ld l, a
 	ret
 
+GetMapName::
+	ld a, e
+	call LoadTownMapEntry
+	ld de, wcd6d
+	ld bc, $14
+	call CopyData
+	ret
+
 INCLUDE "data/town_map_entries.asm"
 
 INCLUDE "text/map_names.asm"
