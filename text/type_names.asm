@@ -6,7 +6,7 @@ TypeNames:
 	dw .Poison
 	dw .Ground
 	dw .Rock
-	dw .Bird
+	dw .Status
 	dw .Bug
 	dw .Ghost
 	dw .Steel
@@ -44,7 +44,7 @@ TypeNames:
 .Ice:      db "Ice@"
 .Ground:   db "Ground@"
 .Rock:     db "Rock@"
-.Bird:     db "Bird@"
+.Status:   db "Status@"
 .Bug:      db "Bug@"
 .Ghost:    db "Ghost@"
 .Dragon:   db "Dragon@"
