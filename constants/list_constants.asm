@@ -7,7 +7,7 @@ SPECIALLISTMENU    EQU $04 ; list of special "items" e.g. floor list in elevator
 
 MONSTER_NAME  EQU 1
 MOVE_NAME     EQU 2
-; ???_NAME    EQU 3
+TMHM_NAME     EQU 3
 ITEM_NAME     EQU 4
 PLAYEROT_NAME EQU 5
 ENEMYOT_NAME  EQU 6

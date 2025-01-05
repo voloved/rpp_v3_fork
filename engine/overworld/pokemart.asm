@@ -180,7 +180,7 @@ DisplayPokemartDialogue_:
 
 .buyItem
 	call .isThereEnoughMoney
-	jr c,.notEnoughMoney
+;	jr c,.notEnoughMoney
 	ld hl,wNumBagItems
 	call AddItemToInventory
 	jr nc,.bagFull
