@@ -3391,7 +3391,7 @@ CheckMapForMon:
 	ret
 
 PUSHS
-SECTION "TM Type Lookup Table", ROMX
+SECTION "TM Name Lookup Table", ROMX
 ;Trying to fix up TM/HMs to be less awful. Who knew simply moving the entire func would make it work better?
 
 TechnicalPrefix::
@@ -3449,11 +3449,11 @@ WriteTMPrefix::
 	sub HM_01
 	ld c, a
 	ld b, 0
-	ld hl, TMShorthandList
-	ld a, 3
+	ld hl, TMHMNameList
+	ld a, 7
 	call AddNTimes
 	inc de
-	ld bc, 3
+	ld bc, 7
 	call CopyData
 .endChar
 	ld a, "@"
@@ -3465,60 +3465,60 @@ WriteTMPrefix::
 	pop hl
 	ret
 
-TMShorthandList::
-	db "NRM" ;cut
-	db "FLY" ;fly
-	db "WTR" ;surf
-	db "NRM" ;strength
-	db "WTR" ;dive
-	db "FIG" ;dynamicpunch
-	db "DRG" ;dragon_claw
-	db "NRM" ;swords_dance
-	db "STL" ;steel_wing
-	db "NRM" ;mega_kick
-	db "PSN" ;toxic
-	db "NRM" ;horn_drill
-	db "NRM" ;body_slam
-	db "NRM" ;take_down
-	db "NRM" ;double_edge
-	db "WTR" ;water_pulse
-	db "WTR" ;muddy_water
-	db "ICE" ;ice_beam
-	db "ICE" ;blizzard
-	db "NRM" ;hyper_beam
-	db "STL" ;iron_tail
-	db "FIG" ;submission
-	db "FIG" ;counter
-	db "FIG" ;seismic_toss
-	db "STL" ;metal_claw
-	db "GRS" ;giga_drain
-	db "GRS" ;solarbeam
-	db "DRG" ;dragonbreath
-	db "ELE" ;thunderbolt
-	db "ELE" ;thunder
-	db "GND" ;earthquake
-	db "GND" ;fissure
-	db "GND" ;dig
-	db "PSY" ;psychic_m
-	db "GHO" ;shadow_ball
-	db "NRM" ;mimic
-	db "NRM" ;double_team
-	db "PSY" ;reflect
-	db "NRM" ;headbutt
-	db "RCK" ;ancientpower
-	db "RCK" ;rock_tomb
-	db "FIR" ;flamethrower
-	db "FIR" ;fire_blast
-	db "NRM" ;swift
-	db "NRM" ;skull_bash
-	db "FLY" ;aerial_ace
-	db "PSY" ;dream_eater
-	db "DRK" ;dark_pulse
-	db "PSY" ;rest
-	db "ELE" ;thunder_wave
-	db "PSY" ;psywave
-	db "NRM" ;explosion
-	db "RCK" ;rock_slide
-	db "FRY" ;dazzlingleam
-	db "NRM" ;flash
+TMHMNameList::
+	db "CUT@@@@"
+	db "FLY@@@@"
+	db "SURF@@@"
+	db "STRNGTH"
+	db "DIVE@@@"
+	db "DYNPNCH"
+	db "DGNCLAW"
+	db "SWRDANC"
+	db "STLWING"
+	db "MEGKICK"
+	db "TOXIC@@"
+	db "HRNDRIL"
+	db "BDYSLAM"
+	db "TAKEDWN"
+	db "DBLEDGE"
+	db "WTRPULS"
+	db "MUDYWTR"
+	db "ICEBEAM"
+	db "BLIZARD"
+	db "HYPBEAM"
+	db "IRNTAIL"
+	db "SUBMSSN"
+	db "COUNTER"
+	db "SMCTOSS"
+	db "MTLCLAW"
+	db "GDRAIN@"
+	db "SLRBEAM"
+	db "DRGBRTH"
+	db "THRBOLT"
+	db "THUNDER"
+	db "ERQUAKE"
+	db "FISSURE"
+	db "DIG@@@@"
+	db "PSYCHIC"
+	db "SHBALL@"
+	db "MIMIC@@"
+	db "DBLTEAM"
+	db "REFLECT"
+	db "HEADBUT"
+	db "ANCPWR@"
+	db "RCKTMB@"
+	db "FLTHRW@"
+	db "FIRBLST"
+	db "SWIFT@@"
+	db "SKLBASH"
+	db "AERACE@"
+	db "DRMEATR"
+	db "DRKPUL@"
+	db "REST@@@"
+	db "THRWAVE"
+	db "PSYWAVE"
+	db "EXPLOSN"
+	db "ROKSLID"
+	db "DZZGLM@"
+	db "FLASH@@"
 POPS
