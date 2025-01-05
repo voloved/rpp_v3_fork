@@ -1584,17 +1584,10 @@ checkIfItemListMenu:
 	ld a,[hl] ; a = item quantity
 	ld [wMaxItemQuantity],a
 .skipGettingQuantity
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;joenote need to load the proper bank for TM/HM
-	cp HM_01
+	ld a,[wcf91]
+	ld [wd0b5],a
 	ld a,BANK(ItemNames)
 	ld [wPredefBank],a
-	jr c, .go_get_name
-	;else it's a tm/hm
-	ld a, BANK(tmhmNames)
-	ld [wPredefBank], a
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-.go_get_name
 	ld a,ITEM_NAME
 	ld [wNameListType],a
 	call GetName
@@ -2041,20 +2034,21 @@ GetItemName::
 ;     starting at wcd6d
 	push hl
 	push bc
-	ld a, ITEM_NAME
-	ld [wNameListType], a
 	ld a,[wd11e]
-	ld [wd0b5], a
 	cp HM_01 ; is this a TM/HM?
 	jr nc,.Machine
+
+	ld [wd0b5],a
+	ld a,ITEM_NAME
+	ld [wNameListType],a
 	ld a,BANK(ItemNames)
+	ld [wPredefBank],a
+	call GetName
 	jr .Finish
 
 .Machine
-	ld a, BANK(tmhmNames)
+	call GetMachineName
 .Finish
-	ld [wPredefBank], a
-	call GetName
 	ld de,wcd6d ; pointer to where item name is stored in RAM
 	pop bc
 	pop hl
@@ -2062,60 +2056,8 @@ GetItemName::
 
 GetMachineName::
 ; copies the name of the TM/HM in [wd11e] to wcd6d
-	push hl
-	push de
-	push bc
-	ld a,[wd11e]
-	push af
-	cp TM_01 ; is this a TM? [not HM]
-	jr nc,.WriteTM
-; if HM, then write "HM" and add 5 to the item ID, so we can reuse the
-; TM printing code
-	add 5
-	ld [wd11e],a
-	ld hl,HiddenPrefix ; points to "HM"
-	ld bc,2
-	jr .WriteMachinePrefix
-.WriteTM
-	ld hl,TechnicalPrefix ; points to "TM"
-	ld bc,2
-.WriteMachinePrefix
-	ld de,wcd6d
-	call CopyData
-
-; now get the machine number and convert it to text
-	ld a,[wd11e]
-	sub TM_01 - 1
-	ld b, "0"
-.FirstDigit
-	sub 10
-	jr c,.SecondDigit
-	inc b
-	jr .FirstDigit
-.SecondDigit
-	add 10
-	push af
-	ld a,b
-	ld [de],a
-	inc de
-	pop af
-	ld b, "0"
-	add b
-	ld [de],a
-	inc de
-	ld a,"@"
-	ld [de],a
-	pop af
-	ld [wd11e],a
-	pop bc
-	pop de
-	pop hl
+	callba WriteTMPrefix
 	ret
-
-TechnicalPrefix::
-	db "TM"
-HiddenPrefix::
-	db "HM"
 
 ; sets carry if item is HM, clears carry if item is not HM
 ; Input: a = item ID
@@ -3398,7 +3340,7 @@ IsSongPlaying::
 NamePointers::
 	dw MonsterNames
 	dw MoveNames
-	dw tmhmNames
+	dw MoveNames ; Unused
 	dw ItemNames
 	dw wPartyMonOT ; player's OT names list
 	dw wEnemyMonOT ; enemy's OT names list
@@ -3416,26 +3358,10 @@ GetName::
 	ld a,[wd0b5]
 	ld [wd11e],a
 	jr nz, .noItem
-
-	;joenote - fixing the aforementioned bug
-	push bc
-	ld b, a
-	ld a, [wNameListType]
-	cp ITEM_NAME
-	ld a, b
-	pop bc
-	jr nz, .noItem	;if the list type is not items, then A cannot be referring to a machine
-	;At this line, definitely working with an item list. So see if it's a machine or item
+	
 	cp HM_01        ;it's TM/HM
-	;jp nc,GetMachineName	;joenote - function removed. Handle list-based tm & hm names here.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;joenote - do some stuff if the item is a machine
-	jr c, .noItem
-	sub (HM_01 - 1)	;need to shift things because tm and hm constants are offset by +$C3 from the first item constant
-	ld [wd0b5], a
-	ld a, TMHM_NAME	
-	ld [wNameListType], a
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	jp nc,GetMachineName
+	
 .noItem          ; Return here if not an item
 	ld a,[H_LOADEDROMBANK]
 	push af
