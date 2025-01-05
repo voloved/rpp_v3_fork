@@ -3394,43 +3394,6 @@ PUSHS
 SECTION "TM Type Lookup Table", ROMX
 ;Trying to fix up TM/HMs to be less awful. Who knew simply moving the entire func would make it work better?
 
-ElectricPrefix::
-	db "ELE"
-WaterPrefix::
-	db "WTR"
-FirePrefix::
-	db "FIR"
-PsychicPrefix::
-	db "PSY"
-DarkPrefix::
-	db "DRK"
-NormalPrefix::
-	db "NRM"
-DragonPrefix::
-	db "DRG"
-GhostPrefix::
-	db "GHO"
-GrassPrefix::
-	db "GRS"
-FairyPrefix::
-	db "FRY"
-GroundPrefix::
-	db "GND"
-IcePrefix::
-	db "ICE"
-BugPrefix::
-	db "BUG"
-RockPrefix::
-	db "RCK"
-PoisonPrefix::
-	db "PSN"
-FlyingPrefix::
-	db "FLY"
-SteelPrefix::
-	db "STL"
-FightingPrefix::
-	db "FIG"
-
 TechnicalPrefix::
 	db "TM"
 HiddenPrefix::
@@ -3487,98 +3450,8 @@ WriteTMPrefix::
 	ld c, a
 	ld b, 0
 	ld hl, TMShorthandList
-	add hl,bc
-	ld a, [hl]
-	ld b, a
-	cp NORMAL
-	jr nz, .checkFire
-	ld hl, NormalPrefix
-	jp .writeType
-.checkFire
-	cp FIRE
-	jr nz, .checkWater
-	ld hl, FirePrefix
-	jp .writeType
-.checkWater
-	cp WATER
-	jr nz, .checkGrass
-	ld hl, WaterPrefix
-	jp .writeType
-.checkGrass
-	cp GRASS
-	jr nz, .checkElectric
-	ld hl, GrassPrefix
-	jr .writeType
-.checkElectric
-	cp ELECTRIC
-	jr nz, .checkRock
-	ld hl, ElectricPrefix
-	jr .writeType
-.checkRock
-	cp ROCK
-	jr nz, .checkGround
-	ld hl, RockPrefix
-	jr .writeType
-.checkGround
-	cp GROUND
-	jr nz, .checkBug
-	ld hl, GroundPrefix
-	jr .writeType
-.checkBug
-	cp BUG
-	jr nz, .checkFlying
-	ld hl, BugPrefix
-	jr .writeType
-.checkFlying
-	cp FLYING
-	jr nz, .checkPoison
-	ld hl, FlyingPrefix
-	jr .writeType
-.checkPoison
-	cp POISON
-	jr nz, .checkPsychic
-	ld hl, PoisonPrefix
-	jr .writeType
-.checkPsychic
-	cp PSYCHIC
-	jr nz, .checkIce
-	ld hl, PsychicPrefix
-	jr .writeType
-.checkIce
-	cp ICE
-	jr nz, .checkDark
-	ld hl, IcePrefix
-	jr .writeType
-.checkDark
-	cp DARK
-	jr nz, .checkDragon
-	ld hl, IcePrefix
-	jr .writeType
-.checkDragon
-	cp DRAGON
-	jr nz, .checkGhost
-	ld hl, DragonPrefix
-	jr .writeType
-.checkGhost
-	cp GHOST
-	jr nz, .checkFighting
-	ld hl, GhostPrefix
-	jr .writeType
-.checkFighting
-	cp FIGHTING
-	jr nz, .checkSteel
-	ld hl, FightingPrefix
-	jr .writeType
-.checkSteel
-	cp STEEL
-	jr nz, .checkFairy
-	ld hl, SteelPrefix
-	jr .writeType
-.checkFairy
-	cp FAIRY
-	jr nz, .endChar
-	ld hl, FairyPrefix
-.writeType
+	ld a, 3
+	call AddNTimes
 	inc de
 	ld bc, 3
 	call CopyData
@@ -3593,59 +3466,59 @@ WriteTMPrefix::
 	ret
 
 TMShorthandList::
-	db NORMAL ;cut
-	db FLYING;fly
-	db WATER;surf
-	db NORMAL;strength
-	db WATER ;dive
-	db FIGHTING ;dynamicpunch
-	db DRAGON ;dragon_claw
-	db NORMAL ;swords_dance
-	db STEEL ;steel_wing
-	db NORMAL ;mega_kick
-	db POISON ;toxic
-	db NORMAL ;horn_drill
-	db NORMAL ;body_slam
-	db NORMAL ;take_down
-	db NORMAL ;double_edge
-	db WATER ;water_pulse
-	db WATER ;muddy_water
-	db ICE ;ice_beam
-	db ICE ;blizzard
-	db NORMAL ;hyper_beam
-	db STEEL ;iron_tail
-	db FIGHTING ;submission
-	db FIGHTING ;counter
-	db FIGHTING ;seismic_toss
-	db STEEL ;metal_claw
-	db GRASS ;giga_drain
-	db GRASS ;solarbeam
-	db DRAGON ;dragonbreath
-	db ELECTRIC ;thunderbolt
-	db ELECTRIC ;thunder
-	db GROUND ;earthquake
-	db GROUND ;fissure
-	db GROUND ;dig
-	db PSYCHIC ;psychic_m
-	db GHOST ;shadow_ball
-	db NORMAL ;mimic
-	db NORMAL ;double_team
-	db PSYCHIC ;reflect
-	db NORMAL ;headbutt
-	db ROCK ;ancientpower
-	db ROCK ;rock_tomb
-	db FIRE ;flamethrower
-	db FIRE ;fire_blast
-	db NORMAL ;swift
-	db NORMAL ;skull_bash
-	db FLYING ;aerial_ace
-	db PSYCHIC ;dream_eater
-	db DARK ;dark_pulse
-	db PSYCHIC ;rest
-	db ELECTRIC ;thunder_wave
-	db PSYCHIC ;psywave
-	db NORMAL ;explosion
-	db ROCK ;rock_slide
-	db FAIRY ;dazzlingleam
-	db NORMAL ;flash
+	db "NRM" ;cut
+	db "FLY" ;fly
+	db "WTR" ;surf
+	db "NRM" ;strength
+	db "WTR" ;dive
+	db "FIG" ;dynamicpunch
+	db "DRG" ;dragon_claw
+	db "NRM" ;swords_dance
+	db "STL" ;steel_wing
+	db "NRM" ;mega_kick
+	db "PSN" ;toxic
+	db "NRM" ;horn_drill
+	db "NRM" ;body_slam
+	db "NRM" ;take_down
+	db "NRM" ;double_edge
+	db "WTR" ;water_pulse
+	db "WTR" ;muddy_water
+	db "ICE" ;ice_beam
+	db "ICE" ;blizzard
+	db "NRM" ;hyper_beam
+	db "STL" ;iron_tail
+	db "FIG" ;submission
+	db "FIG" ;counter
+	db "FIG" ;seismic_toss
+	db "STL" ;metal_claw
+	db "GRS" ;giga_drain
+	db "GRS" ;solarbeam
+	db "DRG" ;dragonbreath
+	db "ELE" ;thunderbolt
+	db "ELE" ;thunder
+	db "GND" ;earthquake
+	db "GND" ;fissure
+	db "GND" ;dig
+	db "PSY" ;psychic_m
+	db "GHO" ;shadow_ball
+	db "NRM" ;mimic
+	db "NRM" ;double_team
+	db "PSY" ;reflect
+	db "NRM" ;headbutt
+	db "RCK" ;ancientpower
+	db "RCK" ;rock_tomb
+	db "FIR" ;flamethrower
+	db "FIR" ;fire_blast
+	db "NRM" ;swift
+	db "NRM" ;skull_bash
+	db "FLY" ;aerial_ace
+	db "PSY" ;dream_eater
+	db "DRK" ;dark_pulse
+	db "PSY" ;rest
+	db "ELE" ;thunder_wave
+	db "PSY" ;psywave
+	db "NRM" ;explosion
+	db "RCK" ;rock_slide
+	db "FRY" ;dazzlingleam
+	db "NRM" ;flash
 POPS
