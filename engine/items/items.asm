@@ -1972,7 +1972,7 @@ PokeVialNoMoreUsagesText:
 	db "@"
 
 IsPokeVialAllowed::
-	; Not allowed to use in the Gyms of Elite Four
+	; Not allowed to use in the Gyms or Elite Four
 	ld a,[wCurMap]
 	cp LORELEIS_ROOM
 	jr z, .notAllowed

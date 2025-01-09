@@ -1411,8 +1411,14 @@ RemoveCleanseTagAndPokedollEffects::
 	ret
 .notCleanseTag
 	cp POKE_DOLL
-	ret nz
+	jr nz, .notPokeDoll
 	res 4, [hl] ; turn off ignoring trainers
+	ret
+.notPokeDoll
+	cp EXP_ALL
+	ret nz
+	ld hl,wExtraFlags
+	res 5, [hl]
 	ret
 
 ; function to add an item (in varying quantities) to the player's bag or PC box
