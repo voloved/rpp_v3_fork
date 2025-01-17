@@ -1667,7 +1667,7 @@ ExpShareTurnOff:
 ItemUseTeleporter:
 	ld a,[wIsInBattle]
 	and a
-	jp nz,ItemUseNotTimeText
+	jp nz,ItemUseNotTime
 	jr ItemUseEscapeRopeUse
 
 ; also used for Dig out-of-battle effect
