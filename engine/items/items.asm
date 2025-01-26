@@ -90,7 +90,7 @@ ItemUsePtrTable:
 	dw UnusableItem      ; SILPH_SCOPE
 	dw ItemUsePokeflute  ; POKE_FLUTE
 	dw UnusableItem      ; LIFT_KEY
-	dw ItemUseExpShare   ; EXP_ALL
+	dw ItemUseExpShare   ; EXP_SHARE
 	dw ItemUseOldRod     ; OLD_ROD
 	dw ItemUseGoodRod    ; GOOD_ROD
 	dw ItemUseSuperRod   ; SUPER_ROD

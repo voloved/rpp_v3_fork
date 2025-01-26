@@ -7,11 +7,13 @@ Route15GateUpstairsTextPointers:
 
 Route15GateUpstairsText1:
 	TX_ASM
-	CheckEvent EVENT_GOT_EXP_ALL
+	CheckEvent EVENT_GOT_RARE_CANDY
 	jr nz, .asm_49683
 	ld a, 15 ; pokemon needed
 	ld [hOaksAideRequirement], a
-	ld a, EXP_SHARE ; oak's aide reward
+	ld a, 20
+	ld [wOaksAideRewardQaunt], a
+	ld a, RARE_CANDY ; oak's aide reward
 	ld [hOaksAideRewardItem], a
 	ld [wd11e], a
 	call GetItemName
@@ -23,9 +25,7 @@ Route15GateUpstairsText1:
 	ld a, [hOaksAideResult]
 	cp $1
 	jr nz, .asm_49689
-	SetEvent EVENT_GOT_EXP_ALL
-	ld hl,wExtraFlags ; Turn on Exp Share by default
-	set 5, [hl]
+	SetEvent EVENT_GOT_RARE_CANDY
 .asm_49683
 	ld hl, Route15GateUpstairsText_4968c
 	call PrintText

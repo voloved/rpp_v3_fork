@@ -705,12 +705,12 @@ PokemonMenuEntries:
 
 GetMonFieldMoves:
 	xor a
-	ld [wTempCoins1], a
-	; wTempCoins1 holds XXX1 if fly is already in list 
-	;                   XX1X if flash is already in list 
-	;                   X1XX if fly was already checked to be added
-	;                   1XXX if flash was already checked to be added
-	;                   0 otherwise
+	ld [wFlyFlashChecks], a
+	; wFlyFlashChecks holds XXX1 if fly is already in list 
+	;                       XX1X if flash is already in list 
+	;                       X1XX if fly was already checked to be added
+	;                       1XXX if flash was already checked to be added
+	;                       0 otherwise
 	ld a, [wWhichPokemon]
 	ld hl, wPartyMon1Moves
 	ld bc, wPartyMon2 - wPartyMon1
@@ -741,7 +741,7 @@ GetMonFieldMoves:
 	jr .fieldMoveLoop
 .foundFieldMove
 	push hl
-	ld hl, wTempCoins1
+	ld hl, wFlyFlashChecks
 	ld a, b
 	cp FLY
 	jr z, .foundFly
@@ -783,13 +783,13 @@ GetMonFieldMoves:
 	ld b, a
 	jr .loop
 .addFly
-	ld a, [wTempCoins1]
+	ld a, [wFlyFlashChecks]
 	bit 0, a
 	jr nz, .addFlash
 	bit 2, a
 	jr nz, .addFlash
 	set 2, a
-	ld [wTempCoins1], a
+	ld [wFlyFlashChecks], a
 	call CheckIfCanFly
 	jr nc, .addFlash
 	push bc
@@ -807,7 +807,7 @@ GetMonFieldMoves:
 .done
 	pop hl
 	xor a
-	ld [wTempCoins1], a 
+	ld [wFlyFlashChecks], a 
 	ret
 .hasTMFly
 	ld a, [wWhichPokemon]
@@ -826,7 +826,7 @@ GetMonFieldMoves:
 	and a
 	jp z, .nextMove
 	push hl
-	ld hl, wTempCoins1
+	ld hl, wFlyFlashChecks
 	set 0, [hl]
 	pop hl
 	ld b, FLY
@@ -839,13 +839,13 @@ GetMonFieldMoves:
 	jp z, .foundFieldMove
 	jr .addMoveFindInFieldMoveDisplayData
 .addFlash
-	ld a, [wTempCoins1]
+	ld a, [wFlyFlashChecks]
 	bit 1, a
 	jp nz, .nextMove
 	bit 3, a
 	jp nz, .nextMove
 	set 3, a
-	ld [wTempCoins1], a
+	ld [wFlyFlashChecks], a
 	ld a,[wCurMap]
 	cp ROCK_TUNNEL_1
 	jr z, .inRockTunnel
@@ -882,7 +882,7 @@ GetMonFieldMoves:
 	and a
 	jp z, .nextMove
 	push hl
-	ld hl, wTempCoins1
+	ld hl, wFlyFlashChecks
 	set 1, [hl]
 	pop hl
 	ld b, FLASH

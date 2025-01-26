@@ -127,7 +127,7 @@ RemoveAlreadyCutTrees::
 	push hl
 	ld hl, wCutTrees
 	ld a, c
-	ld [wTempCoins1], a ; temporarily store the current iteration
+	ld [wTreeCutIter], a ; temporarily store the current iteration
 .iterByte
 	cp 8
 	jr c, .checkByte
@@ -140,7 +140,7 @@ RemoveAlreadyCutTrees::
 	predef FlagActionPredef
 	ld a, c
 	and a
-	ld a, [wTempCoins1]
+	ld a, [wTreeCutIter]
 	ld c, a
 	pop hl
 	jr z, .loopincone
@@ -155,7 +155,7 @@ RemoveAlreadyCutTrees::
 	pop hl
 	ld a, [wNewTileBlockID]
 	ld [hl], a
-	ld a, [wTempCoins1]
+	ld a, [wTreeCutIter]
 	ld c, a
 	pop hl
 	jr .loopincone

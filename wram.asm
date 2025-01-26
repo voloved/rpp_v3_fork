@@ -1133,6 +1133,14 @@ wSlotMachineWheel2BottomTile:: ; cd44
 wSlotMachineWheel2MiddleTile:: ; cd45
 	ds 1
 
+wOaksAideRewardQaunt:: ; cd46
+
+wFlyFlashChecks:: ; cd46
+
+wTreeCutIter:: ; cd46
+
+wExpShareTextShown:: ; cd46
+
 wTempCoins1:: ; cd46
 ; 2 bytes
 ; temporary variable used to add payout amount to the player's coins

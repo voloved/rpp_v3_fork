@@ -1228,12 +1228,50 @@ OaksLabText27:
 	TX_FAR _OaksLabText27
 	db "@"
 
-OaksLabText11:
 OaksLabText10:
+	TX_ASM
+	CheckEvent EVENT_GOT_POKEDEX
+	jr z, .default
+	CheckEvent EVENT_GOT_EXP_SHARE
+	jr nz, .asm_49683
+	ld a, 2 ; pokemon needed
+	ld [hOaksAideRequirement], a
+	ld a, 1
+	ld [wOaksAideRewardQaunt], a
+	ld a, EXP_SHARE ; oak's aide reward
+	ld [hOaksAideRewardItem], a
+	ld [wd11e], a
+	call GetItemName
+	ld hl, wcd6d
+	ld de, wOaksAideRewardItemName
+	ld bc, ITEM_NAME_LENGTH
+	call CopyData
+	predef OaksAideScript
+	ld a, [hOaksAideResult]
+	cp $1
+	jr nz, .asm_49689
+	SetEvent EVENT_GOT_EXP_SHARE
+	ld hl,wExtraFlags ; Turn on Exp Share by default
+	set 5, [hl]
+.asm_49683
+	ld hl, OaksLabText_4968c
+	call PrintText
+.asm_49689
+	jp TextScriptEnd
+.default
+	ld hl, OaksLabText_1d405
+	call PrintText
+	jp TextScriptEnd
+
+OaksLabText11:
 	TX_ASM
 	ld hl, OaksLabText_1d405
 	call PrintText
 	jp TextScriptEnd
+
+OaksLabText_4968c:
+	TX_FAR _OaksLabText_4968c
+	db "@"
 
 OaksLabText_1d405:
 	TX_FAR _OaksLabText_1d405

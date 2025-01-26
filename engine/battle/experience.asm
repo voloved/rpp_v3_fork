@@ -6,7 +6,7 @@ GainExperience:
 	ld hl, wPartyMon1
 	xor a
 	ld [wWhichPokemon], a
-	ld [wTempCoins1], a ; Flag to see if EXp Share text was shown
+	ld [wExpShareTextShown], a ; Flag to see if EXP Share text was shown
 .partyMonLoop ; loop over each mon and add gained exp
 	inc hl
 	ld a, [hli]
@@ -162,14 +162,14 @@ GainExperience:
 	ld a, [wWhichPokemon]
 	and a ; Is this the first pokemon (the one currently out)
 	jr z, .printExpText
-	ld a, [wTempCoins1]
+	ld a, [wExpShareTextShown]
 	and a
 	jr nz, .skipExpText
 	ld a, [wGainBoostedExp]
 	and a ; Is this mon with no EXP?
 	jr nz, .skipExpText
 	ld a, 1
-	ld [wTempCoins1], a
+	ld [wExpShareTextShown], a
 	ld hl, ExpAllGainedText
 .printExpText
 	call PrintText
@@ -321,7 +321,7 @@ GainExperience:
 	ld hl, wPartyGainExpFlags
 	xor a
 	ld [hl], a ; clear gain exp flags
-	ld [wTempCoins1], a ; Clear wTempCoins1 (not necissary, but a good idea)
+	ld [wExpShareTextShown], a ; Clear wExpShareTextShown (not necissary, but a good idea)
 	ld a, [wPlayerMonNumber]
 	ld c, a
 	ld b, FLAG_SET
