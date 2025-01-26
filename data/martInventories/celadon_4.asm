@@ -1,7 +1,8 @@
 ; Celadon Dept. Store 4F
 CeladonMart4ClerkText::
 	db MART_LIST
-	db 7
+	db 8
+	db CLEANSE_TAG
 	db POKE_DOLL
 	db FIRE_STONE
 	db THUNDER_STONE
