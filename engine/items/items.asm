@@ -2703,9 +2703,7 @@ RemoveUsedItem:
 	ld hl,wNumBagItems
 	ld a,1 ; one item
 	ld [wItemQuantity],a
-	call RemoveItemFromInventory
-	jp RemoveCleanseTagAndPokedollEffects
-
+	jp RemoveItemFromInventory
 
 ItemUseNoEffect:
 	ld hl,ItemUseNoEffectText
@@ -3018,7 +3016,6 @@ TossItem_:
 	push hl
 	ld a,[wWhichPokemon]
 	call RemoveItemFromInventory
-	call RemoveCleanseTagAndPokedollEffects
 	ld a,[wcf91]
 	ld [wd11e],a
 	call GetItemName

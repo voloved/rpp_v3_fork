@@ -98,7 +98,20 @@ AddItemToInventory_:
 ; [wWhichPokemon] = index (within the inventory) of the item to remove
 ; [wItemQuantity] = quantity to remove
 RemoveItemFromInventory_:
+	push bc
 	push hl
+	ld a,[hl]
+	ld b,a  ; We temporarily store the number of items in the inventory, but set it to zero if we use the box
+	ld a, HIGH(wNumBagItems)
+	cp h
+	jr nz, .notBag
+	ld a, LOW(wNumBagItems)
+	cp l
+	jr z, .findItem
+.notBag
+	xor a
+	ld b,a
+.findItem
 	inc hl
 	ld a,[wWhichPokemon] ; index (within the inventory) of the item being removed
 	sla a
@@ -107,6 +120,7 @@ RemoveItemFromInventory_:
 	jr nc,.noCarry
 	inc h
 .noCarry
+	ld c, [hl]  ; Holds the item ID of what we're pitching
 	inc hl
 	ld a,[wItemQuantity] ; quantity being removed
 	ld e,a
@@ -118,6 +132,28 @@ RemoveItemFromInventory_:
 	jr nz,.skipMovingUpSlots
 ; if the remaining quantity is 0,
 ; remove the emptied item slot and move up all the following item slots
+	ld a,b
+	and a
+	jr z, .moveSlotsUp
+	push hl
+	ld hl,wd736 
+	ld a,c
+	cp CLEANSE_TAG
+	jr nz, .checkPokeDoll
+	res 5, [hl] ; turn off ignoring wild encounters
+	jr .itemFlagsDone
+.checkPokeDoll
+	cp POKE_DOLL
+	jr nz, .checkExpShare
+	res 4, [hl] ; turn off ignoring trainers
+	jr .itemFlagsDone
+.checkExpShare
+	cp EXP_SHARE
+	jr nz, .itemFlagsDone
+	ld hl,wExtraFlags
+	res 5, [hl]
+.itemFlagsDone
+	pop hl
 .moveSlotsUp
 	ld e,l
 	ld d,h
@@ -147,4 +183,5 @@ RemoveItemFromInventory_:
 .skipMovingUpSlots
 	pop hl
 .done
+	pop bc
 	ret

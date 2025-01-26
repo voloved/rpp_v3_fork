@@ -138,7 +138,6 @@ PlayerPCDeposit:
 .roomAvailable
 	ld hl, wNumBagItems
 	call RemoveItemFromInventory
-	call RemoveCleanseTagAndPokedollEffects
 	call WaitForSoundToFinish
 	ld a, SFX_WITHDRAW_DEPOSIT
 	call PlaySound
