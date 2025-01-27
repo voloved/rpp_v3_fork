@@ -1253,7 +1253,6 @@ wFlags_0xcd60:: ; cd60
 ; bit 1: boulder dust animation (from using Strength) pending
 ; bit 2: Allow item sorting option
 ; bit 3: using generic PC
-; bit 3: If 1, then in PC bag
 ; bit 5: don't play sound when A or B is pressed in menu
 ; bit 6: tried pushing against boulder once (you need to push twice before it will move)
 	ds 1

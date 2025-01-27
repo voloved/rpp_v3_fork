@@ -73,7 +73,6 @@ ExitPlayerPC:
 .next
 	ld hl, wFlags_0xcd60
 	res 2,[hl]
-	res 4,[hl]
 	res 5, [hl]
 	call LoadScreenTilesFromBuffer2
 	xor a
@@ -98,7 +97,6 @@ PlayerPCDeposit:
 .loop
 	ld hl, wFlags_0xcd60
 	set 2,[hl]
-	res 4,[hl]
 	ld hl, WhatToDepositText
 	call PrintText
 	ld hl, wNumBagItems
@@ -128,7 +126,6 @@ PlayerPCDeposit:
 .next
 	ld hl, wFlags_0xcd60
 	res 2,[hl]
-	res 4,[hl]
 	ld hl, wNumBoxItems
 	call AddItemToInventory
 	jr c, .roomAvailable
@@ -162,7 +159,6 @@ PlayerPCWithdraw:
 .loop
 	ld hl, wFlags_0xcd60
 	set 2,[hl]
-	set 4,[hl]
 	ld hl, WhatToWithdrawText
 	call PrintText
 	ld hl, wNumBoxItems
@@ -192,7 +188,6 @@ PlayerPCWithdraw:
 .next
 	ld hl, wFlags_0xcd60
 	res 2,[hl]
-	res 4,[hl]
 	ld hl, wNumBagItems
 	call AddItemToInventory
 	jr c, .roomAvailable
@@ -226,7 +221,6 @@ PlayerPCToss:
 .loop
 	ld hl, wFlags_0xcd60
 	set 2,[hl]
-	set 4,[hl]
 	ld hl, WhatToTossText
 	call PrintText
 	ld hl, wNumBoxItems
@@ -265,7 +259,6 @@ PlayerPCToss:
 .next
 	ld hl, wFlags_0xcd60
 	res 2,[hl]
-	res 4,[hl]
 	call TossItem ; disallows tossing key items
 	jp .loop
 .sortItems
