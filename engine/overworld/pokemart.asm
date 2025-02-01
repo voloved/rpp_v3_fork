@@ -1,4 +1,6 @@
 DisplayPokemartDialogue_:
+	ld hl,wFlags_0xcd60
+	set 1,[hl]
 	ld a,[wListScrollOffset]
 	ld [wSavedListScrollOffset],a
 	call UpdateSprites
@@ -218,6 +220,8 @@ DisplayPokemartDialogue_:
 	call PrintText
 	jr .returnToMainPokemartMenu
 .done
+	ld hl,wFlags_0xcd60
+	res 1,[hl]
 	ld hl,PokemartThankYouText
 	call PrintText
 	ld a,1

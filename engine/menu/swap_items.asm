@@ -149,15 +149,22 @@ HandleItemListSwapping:
 	jp DisplayListMenuIDLoop
 
 SortItems::
+	ld a, [wListMenuID]
+	cp ITEMLISTMENU
+	jp nz, DisplayListMenuIDLoop ; only rearrange item list menus
 	push hl
 	push bc
 	ld hl, SortItemsText ; Display the text to ask to sort
 	call PrintText
-	call YesNoChoice
+	coord hl, 14, 7
+	lb bc, 8, 15
+	ld a, TWO_OPTION_MENU
+	ld [wTextBoxID], a
+	call DisplayTextBoxID ; Used for Yes/Nop without affecting Buffer1 or 2
 	ld a, [wCurrentMenuItem]
 	and a
 	jp z, .beginSorting ; If yes
-	jr .done
+	jr .cleanWindow
 .finishedSorting
 	ld a, [$ff99]
 	cp 0
@@ -168,11 +175,62 @@ SortItems::
 	ld hl, NothingToSort
 .printResultText
 	call PrintText
+.cleanWindow
+	ld a, LIST_MENU_BOX
+	ld [wTextBoxID], a
+	ld hl, EmptyString
+	ld a, [wIsInBattle]
+	and a
+	jr nz, .done ; In battle
+	ld hl, PokemonSellingGreetingText
+	ld a, [wFlags_0xcd60]
+	bit 1, a
+	jr nz, .done ; In mart
+	bit 3, a
+	jr z, .overworld
+	ld a, [wParentMenuItem]
+	and a
+	ld hl, WhatToWithdrawText
+	jr z, .done
+	ld hl, WhatToDepositText
+	dec a
+	jr z, .done
+	ld hl, WhatToTossText
+	dec a
+	jr z, .done
+	ld hl, EmptyString
+	jr .done
+.overworld
+	call LoadScreenTilesFromBuffer2  ; Reloads the overworld
+	call DisplayTextBoxID ; draw the menu text box
+	call UpdateSprites ; disable sprites behind the text box
+	jr .displayListMenuIDPostSwap
 .done
+	call PrintText
+.displayListMenuIDPostSwap  ; Very similar to the latter-half of displayListMenuID
+							; but without the frame delay at the end.
+	ld a, ITEMLISTMENU
+	ld [wListMenuID], a
+	ld a, 1 ; max menu item ID is 1 if the list has less than 2 entries
+	ld [wMenuWatchMovingOutOfBounds], a
+	ld a, [wListCount]
+	cp 2 ; does the list have less than 2 entries?
+	jr c, .setMenuVariables
+	ld a, 2 ; max menu item ID is 2 if the list has at least 2 entries
+.setMenuVariables
+	ld [wMaxMenuItem], a
+	ld a, 4
+	ld [wTopMenuItemY], a
+	ld a, 5
+	ld [wTopMenuItemX], a
+	ld a, [wFlags_0xcd60]
+	ld b, a
+	ld a, A_BUTTON | B_BUTTON | SELECT | START
+	ld [wMenuWatchedKeys], a
 	xor a ; Zeroes a
 	pop bc
 	pop hl
-	ret
+	jp DisplayListMenuIDLoop
 .beginSorting
 	xor a
 	ld [$ff99], a ; 1 if something in the bag got sorted
@@ -207,7 +265,7 @@ SortItems::
 	inc hl ; Resets hl to start at the beginning of the bag
 	ld a, b
 	cp $ff ; Check if we got through all of the items, to the last one
-	jr z, .finishedSorting
+	jp z, .finishedSorting
 	jr .loopCurrItemInBag
 .hasItem ; c contains where to swap to relative to the start of wBagItems
 		 ; hl contains where the item to swap is absolute.
@@ -262,6 +320,7 @@ SortComplete::
 
 NothingToSort::
 	TX_FAR _NothingToSort
+EmptyString::
 	db "@"
 
 ItemSortList::
