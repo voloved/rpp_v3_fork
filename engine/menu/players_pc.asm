@@ -7,8 +7,9 @@ PlayerPC:
 	xor a
 	ld [wBagSavedMenuItem], a
 	ld [wParentMenuItem], a
-	ld a, [wFlags_0xcd60]
-	bit 3, a ; accessing player's PC through another PC?
+	ld hl, wFlags_0xcd60
+	bit 3, [hl] ; accessing player's PC through another PC?
+	set 4, [hl] ; So sorting items knows this is the PC
 	jr nz, PlayerPCMenu
 ; accessing it directly
 	ld a, SFX_TURN_ON_PC
@@ -63,8 +64,9 @@ PlayerPCMenu:
 	jp z, PlayerPCToss
 
 ExitPlayerPC:
-	ld a, [wFlags_0xcd60]
-	bit 3, a ; accessing player's PC through another PC?
+	ld hl, wFlags_0xcd60
+	bit 3, [hl] ; accessing player's PC through another PC?
+	res 4, [hl] ; So sorting items knows this is the PC
 	jr nz, .next
 ; accessing it directly
 	ld a, SFX_TURN_OFF_PC

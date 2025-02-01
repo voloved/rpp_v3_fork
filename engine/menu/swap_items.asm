@@ -184,9 +184,9 @@ SortItems::
 	jr nz, .done ; In battle
 	ld hl, PokemonSellingGreetingText
 	ld a, [wFlags_0xcd60]
-	bit 1, a
-	jr nz, .done ; In mart
-	bit 3, a
+	bit 1, a ; In Mart?
+	jr nz, .done
+	bit 4, a ; In PC?
 	jr z, .overworld
 	ld a, [wParentMenuItem]
 	and a
